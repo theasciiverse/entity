@@ -1,0 +1,276 @@
+# Entity
+
+Asciiverse platformer. Rust + Ratatui + Drawille. N++-inspired.
+
+## Premise
+
+A port/homage to N++ — minimalist precision platforming, momentum-based movement, instant death, ninja-on-a-grid aesthetic. Drawille rendering for the sub-cell resolution needed to make tight collision and movement feel crisp rather than mushy.
+
+## Why this matters technically
+
+N++ lives or dies entirely on movement feel: precise momentum, exact collision edges, satisfying death particle bursts. This is a much harder rendering/feel problem than Bob-sleigh's more forgiving arcade kart physics — it's the project that really tests how far Ratatui (cell grid) + Drawille (Braille sub-pixel, 2x4 per cell) can be pushed for genuinely tight controls, not just nice-looking effects.
+
+## Rendering approach (carried over from Bob-sleigh's split-layer idea)
+
+- **Ratatui (cell grid):** HUD, level select, death counter, menus
+- **Drawille (Braille sub-pixel):** the actual level geometry, the ninja's exact position/collision, death particle bursts, momentum trails
+
+Open question: does the ninja itself render at Braille resolution (for precision) or cell-grid (for readability/iconic silhouette)? Likely needs prototyping to feel out — N++'s appeal is partly the clean silhouette, but sub-cell precision matters more for collision-feel than visual clarity here, unlike Bob-sleigh where sprite readability mattered more.
+
+## Open questions / next steps
+
+- [ ] Prototype core movement (run/jump/wall-jump/momentum) against a single static level slab before anything else — feel comes first, content second
+- [ ] Decide ninja rendering resolution (cell vs Braille) — see note above
+- [ ] Level format: hand-authored ASCII/text levels? Or a simple tile format with a level editor later?
+- [ ] Death/respawn loop — instant respawn is core to N++ feel, needs to be near-zero latency
+- [ ] Hazard types: mines, drones, lasers, gauss turrets — which subset for v1?
+- [ ] Gold/collectible and exit-switch mechanic (core N++ loop: collect gold, hit switch, reach exit)
+- [ ] Input handling latency in terminal — crossterm polling rate, is it good enough for precision platforming?
+- [ ] Confirm crate choices: ratatui, drawille crate (or hand-rolled Braille buffer, possibly shared code with Bob-sleigh's renderer)
+
+## Status
+
+Playable prototype on all 150 N levels (2026-10-02). Confirmed as next-up after Bob-sleigh, 2026-06-30.
+
+**Display design (decided with David):** like the original, the whole level is always on ONE
+screen, no scrolling. The playfield (31x23 tiles) is divided into an n x m grid of terminal cells. By
+default (`FitMode::Fill`) the board fills the terminal with a one cell margin all round, stretching
+tiles up to 30% wider or taller than square when the terminal's shape differs from the level's (about
+20% wider in a 156x47 window); the `f` key or `ENTITY_FIT=square` switches to square tiles, where the
+board is the largest that fits and is centred. The terminal's real cell shape is read from its pixel
+size (`window_size`), falling back to 1:2. About 134x47 in a 156x47
+window, 84x30 in 100x30. Cells need not line up with tile edges: each cell samples the level
+directly. A box-drawing line frames the board (`┌──[Entity Level 0:1 cloud city]──┐`); the bottom
+edge carries score, gold and deaths. Minimum 64 x 25 cells; below that a "too small" message shows,
+and a bigger terminal gets the board centred. A default 80x24 terminal is too small (one row short).
+Objects stay ONE glyph each at every size (the field grows, targets do not). Objects centred on the
+playfield edge (cloud city has a trail of gold along the floor line) are clamped onto the nearest cell.
+
+Glyph policy: most things are ONE glyph per cell. Terrain is matched per cell against block
+elements (lower and left eighths, quadrants, and their colour-inverted forms) by comparing an 8x8
+sample of the cell with each glyph. Glyph error is checked across board sizes (see the art tests). Objects are single glyphs. Only the
+ninja and death particles are Braille (6 world units per dot, ninja about 3 dots across), and the
+terrain under the ninja is merged in as dots so slopes stay intact.
+
+Fonts: GNOME Terminal (VTE 0.84, source read at that tag) draws block elements, box drawing, the
+triangles, sextants, wedges and octants ITSELF, ignoring the font; it does not draw Braille or the
+object shapes, which come from fontconfig fallback (DejaVu Sans for David's Ubuntu Sans Mono; the
+Braille ninja was seen rendering cleanly in his terminal). So font choice there is about looks only.
+Other terminals may differ. Earlier measurements, for when a font does matter: Checked on this machine: the system font (Ubuntu Sans Mono) lacks eighths, quadrants,
+shapes and Braille; only FreeMono covers the whole palette, and nothing installed has sextants,
+legacy wedges or octants. Downloaded and measured (fc-scan): **Cascadia Mono 2407.24** and
+**JuliaMono** each cover 100% of eighths, quadrants, shades, box, shapes, Braille, sextants (60),
+legacy wedges (44) and octants (230). Both are SIL OFL 1.1. Run `entity --glyphs` to eyeball the
+palette in your own terminal. Wedge or octant glyphs would improve the steep and curved tiles but
+are not used yet, so the game does not depend on them.
+
+- `src/ninja.rs`: movement and circle-vs-polygon collision in pixel units (24 unit tile, radius 10,
+  60 Hz). Contacts are resolved deepest first; edges flush against a solid neighbour are skipped so
+  tile seams do not bump. The constants equal the original N v1.2 values (see "Original N physics"
+  below) and `n_rules` (default on) applies the original's structure: two wall kick strengths, wall
+  sliding that persists, skid friction on release and reversal, deaths only on landings, the original's
+  wall and ground detection. `ENTITY_PHYSICS=classic` turns those rules off to compare the feel.
+  Slopes use plain projection plus ground friction; N++'s own slope rules are not reproduced.
+  Wall jumping (kick of 1.0 away and 1.4 up, sliding friction when pressing into the wall) is tested as
+  a real climb: kicking between two walls climbs a 40 tile shaft for gaps of 1, 2, 3 and 4 tiles, and
+  hopping back into a single wall climbs about 20 tiles in 10 s of perfect input. Whether the original
+  allows single-wall climbing, and how fast, is unchecked.
+- `src/sprite.rs`: the ninja as 8x8 pixel art (stand, 4 run frames, jump, fall, wall slide), mirrored
+  for facing, sampled onto the board's Braille dot grid. Below about 5 dots across it falls back to a
+  disc. The collision shape is a circle of radius 10, as in N; only the drawing is a figure. Preview
+  with `cargo run --release -- --glyphs`. The art is a first draft to iterate on. On a 156x47 window the
+  ninja is about 3 cells by 2 rows at 1x, an optional enlarged drawing exists ([ and ] keys, feet anchored at the hitbox bottom), but David tried 1.5x
+  and found it HARDER to play (the figure looks like it touches walls it does not), so the default is 1.0.
+  The hitbox is always radius 10 because the levels are built for it.
+- `src/objects.rs`, `src/drones.rs`, `src/hazards.rs`: the level objects, ported from the bytecode.
+  `Objects::from_level` builds them per attempt; one-sided and moving colliders feed the ninja's
+  contact solver (`Ninja::step_in`); the rest act after the ninja has moved (`Objects::update`).
+- `src/shapes.rs`: solid polygon for each of the 34 N tile codes.
+- `src/art.rs`: polygon to single-cell glyph matching, built once per level.
+- `src/level.rs`: tile grid plus objects. `n_levels()` loads `data/n-levels.json` (embedded) into a
+  33x25 level (31x23 playfield inside a one tile solid frame).
+- `src/render.rs`: frame, glyphs, objects, Braille ninja, centring and the too-small message.
+- `src/input.rs`: three input tiers so the game works in ANY terminal. (1) Exact: real press and
+  release when the terminal speaks the kitty keyboard protocol (kitty, alacritty, foot, ghostty confirmed
+  from their own source; crossterm also reports release on Windows). (2) Timing, the default elsewhere:
+  a key counts as held while its events keep arriving, with the OS repeat delay and interval LEARNED from
+  the events (doom-cli's technique), release noticed about 60 to 160 ms after the last repeat, a fresh
+  press of one direction ending the other, and the stop key clearing at once. Unavoidable limit: before
+  the first repeat a tap and a hold look identical, so that window is capped at 220 ms; with GNOME's 500 ms
+  default delay a hold shows a short stall before it resumes, and a repeat delay under about 200 ms removes
+  it. (3) Latched (`ENTITY_INPUT=latch`): direction stays on until the opposite key or stop. The frame
+  shows `[keys: timing]` or `[keys: latched]` when input is not exact.
+  Prior art read: doom-cli (learned repeat timing, capped, one key at a time), doom-ascii `-kpsmooth`,
+  Robert Elder's write-up (privileged /dev/input, X11 and console raw mode are the only exact options on
+  Linux), and David's own mato and rusty-pinball (fixed 200 ms stale window; only the most recently
+  pressed key keeps auto-repeating, which breaks two-key holds). GNOME Terminal does not answer the
+  protocol; David's session is Wayland (no X11 key state), he is not in the `input` group, and his repeat
+  is 500 ms delay / 30 ms interval. The timing tier has NOT been felt in play yet: tune
+  `PRE_REPEAT_CAP` and the release bounds by feel. On a terminal that never answers the protocol query,
+  startup waits about 2 seconds.
+- `levels/001.txt`: the practice course, 33x25 like the N levels: a one tile step, a platform two tiles
+  above it carrying the switch (K), a 22 degree ramp, then a 3 tile wide wall-jump shaft up to a ledge with
+  the door (X). Design numbers measured from the physics (keep rises under about 2 tiles for margin):
+  tallest jump rises 3.09 tiles, a tap rises 1.77 tiles, a running jump travels about 15 tiles.
+- Goal: touch an exit's switch, the door opens, reach it to complete the level (an overlay offers n for
+  the next level or r to play again). N levels get theirs from the `exit` objects (door x,y, switch x,y).
+- Gold pickup works (gold returns after a death, as in N). Score is a reserved field with no rules yet.
+  Lives are not implemented; N itself has unlimited retries and an episode time limit.
+- Session logging per the Asciiverse convention: `RUST_LOG=debug cargo run 2>entity.log`.
+
+Run: `cargo run --release [level]` where level is an index, a name fragment (`cloudcity`) or
+`episode:slot` (`3:2`). Keys: arrows/wasd/hjkl run, up/w/k/space/z jump (hold for height), down/s/j
+stop, r restart the attempt (after game over: the episode), n/p next/previous level (after finishing a
+level, n continues with the clock carried over), f toggles fill versus square tiles, [ and ] shrink or grow the DRAWN ninja (quarter steps from 1.0 to 2.5 times the hitbox; start with `ENTITY_NINJA_SCALE`, default 1.0). Esc asks "Quit Entity?" and only y quits (a
+bare q quit was removed: it sits next to the steering keys); Ctrl-C quits immediately.
+
+Game flow (from the original): each episode of 5 levels shares a 90 s clock that starts on your first key
+press, +2 s per gold, restored to the level-start value after a death, game over at zero (r retries the
+episode); the score is the time left at the end of an episode. The practice course has no clock.
+`cargo run --release -- --glyphs` prints the glyph preview page.
+
+Objects: all 13 object types of the N levels are implemented (gold, exit and switch, mines, launch pads,
+trek/locked/trap doors, one-way platforms, bounce blocks, zap/laser/chaingun drones, gauss turrets, floor
+guards, thwomps, homing launchers); see "Objects" below. Not done yet: the episode timer and score,
+the game over and episode flow. Deaths: landings, mines and every hazard; a death restarts the attempt
+(gold, switches, doors and hazards reset, as in N).
+
+## Level data from N
+
+`data/n-levels.json` holds all 150 levels (30 episodes of 5) of Metanet's N v1.2 (Flash), extracted by
+`tools/extract_n.py` from `Nv12.swf` (kept in `references/nRef/nv-12.zip`, outside this repo):
+
+    python3 tools/extract_n.py path/to/Nv12.swf data/n-levels.json
+
+Verified against the data:
+- 31x23 tile grid stored column-major, tile codes 0..33, exactly one player and at least one exit per
+  level, object type ids read from the game's own OBJTYPE_* constants (gold 0, bounce block 1, launch
+  pad 2, turret 3, floor guard 4, player 5, drone 6, one-way platform 7, thwomp 8, door 9, homing
+  launcher 10, exit 11, mine 12).
+- Tile ids read from the game's TID_* constants. Orientation (letters are surface normal signs, y down)
+  and small/big naming were checked on all levels: slope borders line up between neighbouring tiles
+  (1249 matches, 1 mismatch), and slopes in the bottom row sit on the frame floor (505 of 524, against
+  76 for the mirrored reading).
+- 148 of 150 player starts are on empty tiles once the 24 unit implicit frame offset is applied.
+
+Not yet verified: what each object parameter means beyond position (door kind, drone movement and
+weapon, launch pad direction, exit switch position, and so on). Raw values are preserved. The 24 menu
+and help "demos" in the SWF are recorded input replays, not levels, and are not extracted. The licence
+terms of N's level data have not been checked.
+
+## Playtesting by machine (how "can the level be finished" is checked)
+
+`ninja.rs` has a playtest that searches for key schedules through the REAL `Input` code with a simulated
+keyboard (presses plus OS style repeats) and the real physics, then replays stored winning routes through
+the real `Game` as ordinary tests (`the_practice_course_can_be_finished_with_*`). Findings so far
+(2026-10-02):
+- The course is finishable in about 8.5 s with exact keys and 8.9 s with GNOME's default 500 ms repeat
+  delay (10 jump presses; the timing route is mostly "hold right, tap jump on a rhythm").
+- Bugs it found: in timing mode a second tap about one repeat delay after the first was read as a key
+  repeat, so rapid jump taps (wall hopping) were swallowed; timing mode jumps were cut to 13 frames
+  (1.77 tiles) because a tap cannot be cut short anyway, so they are now full length by default; and the
+  first practice course needed a 3.0 tile jump when the maximum is 3.09.
+- The search itself needed care: a greedy heuristic gets stuck under platforms (use breadth-first for
+  the switch leg, greedy for the door leg). A failed search proves nothing; check with simple scripted
+  schedules before believing "impossible".
+- Added forgiveness: 6 frame coyote time for ground AND wall jumps, and a 6 frame jump buffer.
+- Ignored tests to regenerate or explore: `cargo test --release print_the_winning_routes -- --ignored
+  --nocapture` (new fixtures), `can_a_person_finish_it` (exact vs timing).
+
+## Original N physics (decoded from the SWF bytecode, 2026-10-03)
+
+Read with `tools/asdec.py` (a small symbolic decompiler; `python3 tools/asdec.py Nv12.swf TAG`). The player
+lives in DoAction tags 2707 (setup, `TickNormal`, collision hooks), 2709 (`Think`, the state machine) and
+2710 (`Jump`, `Fall`, state changes). Everything below was READ from the bytecode, not remembered.
+
+- The simulation is a fixed 40 Hz step (`APP_GAMETIME_TICKLEN = 25` ms); the SWF header's 120 fps is only
+  the movie. The episode timer counts ticks. Units are pixels, tile 24, ninja radius 10 (`r = tiles.xw * 0.8333`).
+- Verlet integration: `pos += drag * (pos - oldpos) (+ g)`, then collide, then `Think()`.
+- Constants per 40 Hz tick: groundAccel 0.15, airAccel 0.1, normGrav 0.15, jumpGrav 0.025, normDrag 0.99,
+  wallFriction 0.13, skidFriction 0.92, standFriction 0.8, maxspeed 5 (r * 0.5), jumpAmt 1, jump_y_bias 2,
+  max_jump_time 30 ticks, terminal_vel 9 (r * 0.9). Converted to Entity's 60 Hz tick (velocity x 2/3,
+  acceleration x 4/9, a per-tick factor f becomes f^(2/3)) they EQUAL the values already in `ninja.rs`
+  (0.0666, 0.0444, 0.0111, 0.9933, 0.9113, 0.9459, 3.333), except standFriction 0.8 -> 0.8619.
+- `Jump(x, y)` is a position impulse: first cancel the current velocity component if it opposes the jump
+  (`if vx*x < 0: vx = 0`, same for y), then `pos += (x * 1, y * 3)`. Jump starts the low gravity phase;
+  it ends (Fall) when the jump key is released or after 30 ticks. While JUMPING the wall logic is skipped.
+- Ground jump: `Jump(floorN)` (along the surface normal, so on slopes it tilts and loses height), or
+  `Jump(0, -0.7)` when pressing toward the slope's rising side.
+- Wall jump (any airborne non-JUMPING state with a wall touching, on a fresh jump press):
+  pressing TOWARD the wall: out 1.0, up 0.5 (x3); otherwise (neutral or away): out 1.5, up 0.7 (x3).
+  In Entity's 60 Hz units that is (0.667, 1.0) against (1.0, 1.4). The second is what `ninja.rs` had.
+- Wall slide starts when falling (vy > 0) while pressing toward the wall. Once sliding, vertical speed is
+  cut by wallFriction every tick even with no key held; pressing AWAY from the wall ends it (Fall).
+- Walls are found by point queries at (x +- (r + 0.1), y) and by collision normals with ny == 0.
+  ANY floor normal with ny < 0 counts as ground, including 67 degree slopes.
+- Ground states: standing (friction 0.8), running (accel while the keys push), skidding (friction 0.92 when
+  the keys are released or reversed, until along-surface speed < 0.1, then standing).
+- Death by impact is ONLY a landing: `oldv . floorN - 2*|floorN.y| < -9` (40 Hz units), i.e. in 60 Hz
+  units a normal-direction speed above 6 - 1.333*|ny| (4.67 on flat floor, about a 6.8 tile fall). Walls and
+  ceilings never kill. Crush: a collision push longer than sqrt(0.8) * r kills.
+- Mines, drones and the other objects are in tags 2693 to 2706 (not yet decoded in detail).
+
+## Objects (decoded from the SWF bytecode, 2026-10-03)
+
+Record layouts are `type^params`; all positions are pixels in the frame-inclusive 33x25 tile grid.
+Ticks are the original's 40 Hz; Entity converts (speed x 2/3, a count of ticks x 1.5).
+
+- gold `[x,y]`: radius 6, picked up within 6 + 10 of the ninja.
+- exit `[door x, door y, switch x, switch y]`: switch radius 6 (touch within 6 + 10 opens the door), door
+  radius 12 (touch within 12 + 10 while open completes the level). Levels may have several exits.
+- mine `[x,y]`: radius 4, kills within 4 + 10 of the ninja, once.
+- launch pad `[x,y,nx,ny]`: radius 6; when the ninja is not more than a radius in front of it (along the
+  normal) the ninja's velocity is SET to normal x 5.143 (x (1 + |ny|) when the pad points up) per 40 Hz tick.
+  An upward pad lifts the ninja about 10 tiles (checked against the original's own numbers).
+- door `[trigger x, trigger y, vertical, trap, I, J, locked, dI, dJ]`: a thin barrier on the RIGHT edge of
+  tile (I+dI, J+dJ), or its BOTTOM edge when vertical is 1 (indices are frame-inclusive; 361 of 365 doors
+  sit in open space on both sides). Trek (neither flag): opens within 10 + 10 of the barrier, closes
+  5 ticks after the ninja leaves. Locked: opens for good when its separate switch (radius 5) is touched.
+  Trap: starts open, slams shut for good when its trigger is touched. Closed doors also block drones.
+- one-way platform `[x,y,dir]` (0 right, 1 down, 2 left, 3 up): a full tile that blocks only from its facing
+  side and only a ninja that was outside the face before the move.
+- bounce block `[x,y]`: 19.2 px box on a spring (stiffness 0.05, mass 0.2): the block takes 80% of an
+  overlap, the ninja 20%; it sleeps 40 ticks after the last touch (Entity snaps it to its anchor then).
+- drone `[x,y,movement,chaser,weapon,start dir]`: radius 9, speed 0.857 px/tick (zap x2, laser x0.5,
+  chaingun x0.75, chasing x2); moves cell to cell over open edges (both cells empty, no closed door) and at
+  each cell picks the first open direction from a turn priority list: surface follower cw [90,0,270,180],
+  ccw [270,0,90,180]; wanderer cw [0,90,270,180], ccw [0,270,90,180]; alternating and "random" switch
+  lists on every turn (random uses the tick parity). Weapons: zap kills on touch (chasers charge down a
+  clear row or column at double speed); laser sees the ninja, fixes a beam toward it, charges 30 ticks
+  (thin warning line), keeps the beam 80 ticks, kills when the ninja is within r of the beam, rests 40;
+  chaingun charges 35 ticks, fires 4 to 8 hitscan bullets every 6 ticks in a spread of 0.2 to 0.4, rests 60.
+- gauss turret `[x,y]`: waits for line of sight, then a crosshair drifts toward the ninja's position one
+  tick ahead (speed 0.03 far, 0.035 mid, 0.05 close), a shot timer (60) drains faster the closer the
+  crosshair is, then 10 ticks of charge and a hitscan along the line to the crosshair, 10 ticks rest.
+- floor guard `[x,y,dir]`: radius 6, speed 5.14 px/tick, patrols its platform (to the first wall or ledge),
+  rushes when the ninja is in its row, kills on touch.
+- thwomp `[x,y,dir]`: 9 px half size, waits until the ninja is aligned (within 38 px across) and
+  somewhere along its fall path, slams to the end of the empty run at 4.29 px/tick, rises at 1.71. Its front
+  face kills, the other faces are solid.
+- homing launcher `[x,y]`: line of sight, 10 ticks of charge, a rocket accelerates (0.1, x1.1 per tick) to
+  3.43 px/tick and steers 0.1 toward the ninja's next position, exploding on a wall or on the ninja.
+- Not yet checked against the original: tile edge states "interesting" (some 67 degree slopes) are
+  treated as blocked for drones; partial tiles count as non-empty for the drone grid.
+
+## Session log: 2026-10-03 (done while David was away)
+
+What changed, in the order it happened. Everything below passes the test suite (71 tests).
+- Input research: Claude Code and opencode need only key PRESSES (and modifiers), which is why they feel
+  good; they probe the terminal and enable the kitty keyboard protocol when it answers (Claude Code's
+  binary has a `kittyKeyboard` capability), the same as Entity's exact tier. Node would not help.
+- Decoded the original's player code and every object from the SWF (see the two sections above), and
+  applied what it showed: wall kick strengths, persistent wall sliding, skid friction, landing-only deaths,
+  wall and ground detection, slope assist. `ENTITY_PHYSICS=classic` turns those rules off so the feel can
+  be compared (the stored practice routes are for the original rules).
+- Implemented all 13 object types, an episode clock, score and game over. All 150 real levels load and
+  run for 15 seconds with every object active (a test).
+- Not verified: a human has not played any of this; the kitty input path; the timing input feel; the
+  ninja art; whether the original allows single wall climbing; the "interesting" edge states for drones.
+- A search for routes through real N levels does not scale (they are 30 to 60 s puzzles); only the
+  practice course is machine-verified finishable. Objects are verified by unit tests against numbers
+  read from the original (for example the launch pad rise matches to within 2 px).
+- Open question for David: what exactly felt wrong about wall jumping. The original's rules are in, so
+  differences you feel now are either tuning I did not port (for example the original's collision on
+  slopes) or Entity's own additions (the 6 frame coyote time and jump buffer).
+- Suggested next steps: play 0:0 through 0:4 and report feel; install a terminal that reports key release
+  (kitty, alacritty, foot or ghostty are all in apt) to feel the exact tier; decide what lives should do.
