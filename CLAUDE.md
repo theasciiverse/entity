@@ -2,6 +2,10 @@
 
 Asciiverse platformer. Rust + Ratatui + Drawille. N++-inspired.
 
+Repo: private, github.com/theasciiverse/entity (branch `master`; commits as David, matching the sibling
+Asciiverse repos). Not yet decided: a licence file, and whether N's extracted level data
+(`data/n-levels.json`, Metanet's content) may stay in the repo; its terms have not been checked.
+
 ## Premise
 
 A port/homage to N++ — minimalist precision platforming, momentum-based movement, instant death, ninja-on-a-grid aesthetic. Drawille rendering for the sub-cell resolution needed to make tight collision and movement feel crisp rather than mushy.
