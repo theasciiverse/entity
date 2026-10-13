@@ -139,15 +139,23 @@ are not used yet, so the game does not depend on them.
   the next level or r to play again). N levels get theirs from the `exit` objects (door x,y, switch x,y).
 - Gold pickup works (gold returns after a death, as in N). Score is a reserved field with no rules yet.
   Lives are not implemented; N itself has unlimited retries and an episode time limit.
-- `src/demo.rs`, `entity --demo`: the game plays the practice course by itself (and again every 3 s
-  after the door), replaying the machine-verified exact route as key presses and releases through the
-  real `Input`, so it shows exactly what the tests prove finishes the course. The route lives there
-  (`ROUTE`); the playtest tests read it. The catalog preview is recorded from it at the hub's fixed
-  100x30, with the ninja drawn at 2x (at 1x that board gives the figure only about 4 dots, below the
-  size where it is drawn as a figure at all):
-  `ENTITY_NINJA_SCALE=2.0 python3 ../../hub/tools/castrec.py entity.cast . "w9.6" -- target/release/entity --demo`
-  (one run ending on "Level complete", about 10.6 s; in the website mockup `thumbnail_at = 4.2`, the
-  wall kick). Build with `cargo build --release` first: `cargo test` does not rebuild the game binary.
+- `src/demo.rs`, `entity --demo [level]`: the game plays a level by itself (and again every 3 s after
+  the door), replaying a machine-found exact route as key presses and releases through the real `Input`,
+  so it shows exactly what the tests prove finishes the level (`the_demo_finishes_*`). Routes exist for
+  the practice course (the default) and 0:1 cloud city (`entity --demo 2`); other levels fall back to the
+  practice course. The practice route is found by `print_the_winning_routes`. Real N levels are too big
+  for a blind search, so `print_a_route` takes waypoints a person picks
+  (`ENTITY_ROUTE_LEVEL=cloudcity ENTITY_ROUTE_WAYPOINTS="x,y;...|x,y;..."`, px; before the bar the legs
+  to the switch, after it the legs to the door) and searches each short leg. Cloud city's switch is
+  behind a locked door, so its route first fetches the key in the cave of the upper-left ridge; it takes
+  24.7 s, collects 25 of 32 gold and never dies. To plan waypoints, `ENTITY_PEEK=cloudcity,0,1,30,23
+  ENTITY_PEEK_STEP=8 cargo test --release peek_region -- --ignored --nocapture` prints a level's solid
+  shape. The catalog preview is cloud city, recorded at the hub's fixed 100x30 with the ninja drawn at
+  2x (at 1x that board gives the figure only about 4 dots, below the size where it is drawn at all):
+  `ENTITY_NINJA_SCALE=2.0 python3 ../../hub/tools/castrec.py entity.cast . "w26.4" -- target/release/entity --demo 2`
+  (one run ending on "Level complete", about 27.5 s; in the website mockup `thumbnail_at = 9.0`, the
+  ninja on the ridge). Build with `cargo build --release` first: `cargo test` does not rebuild the game
+  binary.
 - Drawing over walls: a cell is reset before anything is drawn into it (ratatui's `set_style` adds to the
   old modifiers, so the ninja over a reverse video wall cell became a white block), and over a solid
   wall cell the ninja's dots sit on the wall's colour as background.

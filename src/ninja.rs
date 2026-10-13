@@ -1135,10 +1135,76 @@ mod playtest {
         }
     }
 
+    /// Searches leg by leg through waypoints a person picked, then to the switch, then
+    /// through more waypoints to the door. Each leg tries a strong, then a weak, then no
+    /// pull toward its target.
+    fn waypoint_route(level: &Level, spec: &str) -> (Option<Vec<(i8, bool)>>, usize) {
+        let e = level.exits[0];
+        let base = Instant::now();
+        let parse = |part: &str| -> Vec<(f32, f32)> {
+            part.split(';').filter(|p| !p.is_empty()).map(|p| {
+                let mut it = p.split(',').map(|v| v.trim().parse::<f32>().unwrap());
+                (it.next().unwrap(), it.next().unwrap())
+            }).collect()
+        };
+        let mut halves = spec.split('|');
+        let (before, after) = (parse(halves.next().unwrap_or("")), parse(halves.next().unwrap_or("")));
+        let mut state = start_state(level, true, 30);
+        let mut all = Vec::new();
+        let mut total = 0;
+        let mut legs: Vec<((f32, f32), Box<dyn Fn(&Human) -> bool>)> = Vec::new();
+        for w in before {
+            legs.push((w, Box::new(move |h: &Human| (h.n.x - w.0).powi(2) + (h.n.y - w.1).powi(2) < 14.0 * 14.0)));
+        }
+        legs.push((e.switch, Box::new(|h: &Human| h.switches[0])));
+        for w in after {
+            legs.push((w, Box::new(move |h: &Human| (h.n.x - w.0).powi(2) + (h.n.y - w.1).powi(2) < 14.0 * 14.0)));
+        }
+        legs.push((e.door, Box::new(move |h: &Human| finished(h, level))));
+        for (i, (target, goal)) in legs.iter().enumerate() {
+            let mut found = None;
+            for weight in [3.0f32, 1.0, 0.0] {
+                let (leg, n) = search_from(level, state.clone(), base, true, 1_500_000, weight, *target, goal.as_ref());
+                total += n;
+                if leg.is_some() {
+                    found = leg;
+                    break;
+                }
+            }
+            let Some((p, end)) = found else {
+                println!("leg {i} to {target:?} failed");
+                return (None, total);
+            };
+            println!("leg {i} to {target:?}: {:.1} s", p.len() as f32 / 10.0);
+            all.extend(p);
+            state = end;
+        }
+        (Some(all), total)
+    }
+
+    /// A route through any level for `entity --demo <level>`: `ENTITY_ROUTE_LEVEL=cloudcity
+    /// cargo test --release print_a_route -- --ignored --nocapture` (exact keys).
+    #[test]
+    #[ignore]
+    fn print_a_route() {
+        let want = std::env::var("ENTITY_ROUTE_LEVEL").unwrap_or_else(|_| "cloudcity".into());
+        let levels = crate::level::n_levels();
+        let level = levels.iter().find(|l| l.label.replace(' ', "").contains(&want)).expect("no such level");
+        // optional waypoints "x,y;x,y|x,y" (px): legs before the switch | legs before the door
+        let (path, nodes) = match std::env::var("ENTITY_ROUTE_WAYPOINTS") {
+            Ok(w) => waypoint_route(level, &w),
+            Err(_) => play_level(level, true, 30),
+        };
+        match path {
+            Some(p) => println!("{}: {} s, {nodes} states\nconst ROUTE: &str = \"{}\";", level.label, p.len() as f32 / 10.0, encode(&p)),
+            None => println!("{}: no route found in {nodes} states", level.label),
+        }
+    }
+
     // Routes found by `play_level` (regenerate with the ignored `print_the_winning_routes`
     // if the course or the physics is changed on purpose). The exact route lives in demo.rs,
     // which plays it for `entity --demo`.
-    const EXACT: &str = crate::demo::ROUTE;
+    const EXACT: &str = crate::demo::PRACTICE;
     const TIMING_500: &str = "R._.R._.Rj_.R._.R._.R._._.R._.R._jR._.R._.R._.R._.R._.R.L.Rj_.R._.R._jR._.R._.R._.Rj_.R._.R._jR._.R._.R._.Rj_.R._.R._._.R._.R._.R._._.Rj_.Rj_.R._.R._.R._.";
 
     #[test]
@@ -1271,5 +1337,35 @@ mod direct_check {
         }
         println!("{} of {tried} two-jump schedules end standing on the switch platform; first: {:?}", wins.len(), &wins[..wins.len().min(4)]);
         assert!(wins.len() * 10 > tried, "the switch platform should be easy to reach: only {} of {tried} schedules did", wins.len());
+    }
+}
+
+#[cfg(test)]
+mod peek {
+    use super::*;
+    /// Solid map of a level region at 4 px per character: `ENTITY_PEEK=label,c0,r0,c1,r1`
+    /// (playfield columns and printed rows, 1-based rows as in the tile dump).
+    #[test]
+    #[ignore]
+    fn peek_region() {
+        let spec = std::env::var("ENTITY_PEEK").unwrap_or_else(|_| "cloudcity,0,12,6,18".into());
+        let v: Vec<&str> = spec.split(',').collect();
+        let levels = crate::level::n_levels();
+        let level = levels.iter().find(|l| l.label.replace(' ', "").contains(v[0])).unwrap();
+        let n = |i: usize| v[i].parse::<f32>().unwrap();
+        let (x0, y0, x1, y1) = ((n(1) + 1.0) * TILE, n(2) * TILE, (n(3) + 2.0) * TILE, (n(4) + 1.0) * TILE);
+        let step: f32 = std::env::var("ENTITY_PEEK_STEP").ok().and_then(|v| v.parse().ok()).unwrap_or(4.0);
+        let mut y = y0 + 2.0;
+        while y < y1 {
+            let mut line = String::new();
+            let mut x = x0 + 2.0;
+            while x < x1 {
+                let on_grid = ((x - 2.0) % TILE) < step - 3.0 && ((y - 2.0) % TILE) < step - 3.0;
+                line.push(if level.point_solid(x, y) { '#' } else if on_grid { '+' } else { ' ' });
+                x += step;
+            }
+            println!("{line}");
+            y += step;
+        }
     }
 }
