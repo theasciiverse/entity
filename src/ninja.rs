@@ -76,8 +76,15 @@ pub struct Ninja {
     pub wall: i8,
     /// Last horizontal direction the ninja was heading or kicked: +1 right, -1 left.
     pub facing: i8,
-    /// Distance run on the ground, drives the run animation.
-    stride: f32,
+    /// What the feet are doing, for the animation (see `pose`).
+    ground: Ground,
+    /// Distance run along the floor since the run started, drives the run cycle.
+    run_dist: f32,
+    /// Ticks since the ninja came to a stand, drives the landing settle.
+    stand_ticks: u32,
+    /// The drawing's rotation in radians (clockwise on screen): the floor's slope on the
+    /// ground, easing back to upright in the air, as in the original.
+    pub tilt: f32,
     jumping: bool,
     jump_timer: u32,
     jump_buffer: u32,
@@ -150,6 +157,8 @@ fn contacts(level: &Level, extra: &[Seg], x: f32, y: f32, reach: f32, out: &mut 
             let mut best: Option<(f32, (f32, f32))> = None;
             for i in 0..poly.len() {
                 let (p, q) = (poly[i], poly[(i + 1) % poly.len()]);
+                let (pw, qw) = ((ox + p.0 * TILE, oy + p.1 * TILE), (ox + q.0 * TILE, oy + q.1 * TILE));
+                let c = closest(pw, qw, x, y);
                 if let Some(side) = edge_side(p, q) {
                     let (nx, ny, opp) = match side {
                         LEFT => (tx - 1, ty, RIGHT),
@@ -161,8 +170,26 @@ fn contacts(level: &Level, extra: &[Seg], x: f32, y: f32, reach: f32, out: &mut 
                     if nc != 0 && shape(nc).side_full[opp] {
                         continue;
                     }
+                    // The end of a full side whose surface carries straight on into the next
+                    // tile is a seam, not a corner: the next tile's own side gives the contact.
+                    // Without this a flat floor tilts the floor normal at every seam.
+                    // Only when the centre lies past the end, so a centre exactly over the seam
+                    // still touches both tiles.
+                    let beyond = match side {
+                        TOP | BOTTOM => (x < ox - 1e-3).then_some(-1).or((x > ox + TILE + 1e-3).then_some(1)),
+                        _ => (y < oy - 1e-3).then_some(-1).or((y > oy + TILE + 1e-3).then_some(1)),
+                    };
+                    if let Some(dir) = beyond {
+                        let (ax, ay) = match side {
+                            TOP | BOTTOM => (tx + dir, ty),
+                            _ => (tx, ty + dir),
+                        };
+                        let ac = level.code(ax, ay);
+                        if ac != 0 && shape(ac).side_full[side] {
+                            continue;
+                        }
+                    }
                 }
-                let c = closest((ox + p.0 * TILE, oy + p.1 * TILE), (ox + q.0 * TILE, oy + q.1 * TILE), x, y);
                 let d2 = (x - c.0) * (x - c.0) + (y - c.1) * (y - c.1);
                 if best.map_or(true, |(b, _)| d2 < b) {
                     best = Some((d2, c));
@@ -183,14 +210,34 @@ fn contacts(level: &Level, extra: &[Seg], x: f32, y: f32, reach: f32, out: &mut 
     }
 }
 
+/// The original's animation (frames of N's ninja clip, see `sprite`).
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Pose {
-    Stand,
+    /// Settling after landing or stopping, frames 0 to 10 (10 is the rest pose).
+    Stand(usize),
+    Skid,
+    /// Run cycle frame, 0 to 71.
     Run(usize),
-    Jump,
-    Fall,
+    /// In the air, 0 (rising fast) to 9 (the top) to 18 (falling fast).
+    Air(usize),
     Slide,
 }
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum Ground {
+    Air,
+    Stand,
+    Skid,
+    Run,
+}
+
+/// The original's run cycle: 72 frames, one per 0.9 px along the floor.
+const RUN_FRAMES: usize = 72;
+const RUN_FRAME_PX: f32 = 0.9;
+/// The stand settle plays at the movie's 120 fps: two frames per 60 Hz tick.
+const STAND_FRAMES_PER_TICK: u32 = 2;
+/// In the air the drawing loses 10% of its tilt per 40 Hz tick.
+const TILT_KEEP: f32 = 0.9322; // 0.9^(2/3)
 
 /// `ENTITY_PHYSICS=classic` disables the original-N rules.
 fn n_rules_default() -> bool {
@@ -200,24 +247,55 @@ fn n_rules_default() -> bool {
 }
 
 impl Ninja {
-    pub fn pose(&self) -> Pose {
-        if self.grounded {
-            if self.vx.abs() < 0.3 {
-                Pose::Stand
-            } else {
-                Pose::Run((self.stride / 6.0) as usize % 4)
-            }
-        } else if (self.sliding || (!self.n_rules && self.wall != 0)) && self.vy > 0.0 {
-            Pose::Slide
-        } else if self.vy < 0.0 {
-            Pose::Jump
+    /// The original's ground states, which pick the animation: running while a key pushes
+    /// along the motion, skidding while braking, standing once nearly stopped.
+    fn animate(&mut self, c: &Controls) {
+        let state = if !self.grounded {
+            Ground::Air
         } else {
-            Pose::Fall
+            let (nx, ny) = self.floor_n;
+            let along = (self.vx * -ny + self.vy * nx).abs();
+            if c.dir != 0 && (c.dir as f32) * self.vx >= 0.0 {
+                if self.ground != Ground::Run {
+                    self.run_dist = 0.0;
+                }
+                self.run_dist += along;
+                Ground::Run
+            } else if along >= STAND_SPEED {
+                Ground::Skid
+            } else {
+                Ground::Stand
+            }
+        };
+        self.stand_ticks = if state == Ground::Stand && self.ground == Ground::Stand { self.stand_ticks + 1 } else { 0 };
+        self.ground = state;
+        if self.grounded {
+            let (nx, ny) = self.floor_n;
+            self.tilt = ny.atan2(nx) + std::f32::consts::FRAC_PI_2;
+        } else if self.jumping || self.sliding {
+            self.tilt = 0.0;
+        } else {
+            self.tilt *= TILT_KEEP;
+        }
+    }
+
+    pub fn pose(&self) -> Pose {
+        match self.ground {
+            Ground::Stand => Pose::Stand(((self.stand_ticks * STAND_FRAMES_PER_TICK) as usize).min(10)),
+            Ground::Skid => Pose::Skid,
+            Ground::Run => Pose::Run((self.run_dist / RUN_FRAME_PX) as usize % RUN_FRAMES),
+            Ground::Air if (self.sliding || (!self.n_rules && self.wall != 0)) && self.vy > 0.0 => Pose::Slide,
+            Ground::Air => {
+                // the original's RenderInAir, with its vertical speed in px per 40 Hz tick
+                let vy = self.vy * 1.5;
+                let r = if vy < 0.0 { vy.max(-1.0) } else { (vy / 2.5).sqrt().min(1.0) };
+                Pose::Air((9 + (r * 9.0).floor() as i32).clamp(0, 18) as usize)
+            }
         }
     }
 
     pub fn new(x: f32, y: f32) -> Ninja {
-        Ninja { x, y, vx: 0.0, vy: 0.0, grounded: false, wall: 0, facing: 1, stride: 0.0, jumping: false, jump_timer: 0, jump_buffer: 0, ground_coyote: 0, wall_coyote: 0, n_rules: n_rules_default(), sliding: false, floor_n: (0.0, -1.0), wall_memory: 0 }
+        Ninja { x, y, vx: 0.0, vy: 0.0, grounded: false, wall: 0, facing: 1, ground: Ground::Air, run_dist: 0.0, stand_ticks: 0, tilt: 0.0, jumping: false, jump_timer: 0, jump_buffer: 0, ground_coyote: 0, wall_coyote: 0, n_rules: n_rules_default(), sliding: false, floor_n: (0.0, -1.0), wall_memory: 0 }
     }
 
     /// Step without level objects (used by the tests).
@@ -357,9 +435,7 @@ impl Ninja {
         if self.wall != 0 && !self.grounded && self.vy > 0.0 {
             self.facing = self.wall; // sliding down a wall, facing it
         }
-        if self.grounded {
-            self.stride += self.vx.abs();
-        }
+        self.animate(c);
 
         let dies = if self.n_rules {
             // original: only a landing from the air kills; walls and ceilings never do
@@ -734,30 +810,47 @@ mod walljump {
 
     #[test]
     fn poses_follow_what_the_ninja_is_doing() {
-        let level = shaft(3);
-        let mut n = Ninja::new(2.5 * TILE, 41.0 * TILE - RADIUS);
+        let level = Level::parse(&(0..12).map(|y| if y >= 10 { "#".repeat(40) } else { format!("#{}#", " ".repeat(38)) }).collect::<Vec<_>>().join("\n"));
+        let floor = 10.0 * TILE - RADIUS;
+        let mut n = Ninja::new(5.0 * TILE, floor);
         for _ in 0..30 {
             n.step(&level, &Controls::default());
         }
-        assert_eq!(n.pose(), Pose::Stand);
+        assert_eq!(n.pose(), Pose::Stand(10), "settled into the rest pose");
+        // the run cycle starts at its first frame and moves one frame per 0.9 px
+        n.step(&level, &Controls { dir: 1, ..Default::default() });
+        assert!(matches!(n.pose(), Pose::Run(0)), "{:?}", n.pose());
+        let x0 = n.x;
         for _ in 0..30 {
             n.step(&level, &Controls { dir: 1, ..Default::default() });
         }
-        assert!(matches!(n.pose(), Pose::Run(_)) || n.wall != 0, "{:?}", n.pose());
-        // rising, then falling
-        let mut n = Ninja::new(2.5 * TILE, 41.0 * TILE - RADIUS);
+        let Pose::Run(f) = n.pose() else { panic!("{:?}", n.pose()) };
+        assert!((f as f32 - (n.x - x0) / 0.9).abs() < 2.0, "frame {f} after {} px", n.x - x0);
+        // letting go skids, then settles from frame 0 to the rest pose
         n.step(&level, &Controls::default());
-        n.step(&level, &Controls { jump_pressed: true, jump_held: true, dir: 0 });
-        assert_eq!(n.pose(), Pose::Jump);
-        for _ in 0..80 {
+        assert_eq!(n.pose(), Pose::Skid);
+        for _ in 0..200 {
             n.step(&level, &Controls::default());
-            if n.vy > 0.5 && !n.grounded {
-                assert_eq!(n.pose(), Pose::Fall);
+            if n.pose() != Pose::Skid {
                 break;
             }
         }
+        assert!(matches!(n.pose(), Pose::Stand(0..=2)), "{:?}", n.pose());
+        assert!(n.tilt.abs() < 1e-4, "upright on a flat floor, seams included: {} {:?}", n.tilt, n.floor_n);
+        // rising, the top, then falling
+        n.step(&level, &Controls { jump_pressed: true, jump_held: true, dir: 0 });
+        let Pose::Air(rising) = n.pose() else { panic!("{:?}", n.pose()) };
+        assert!(rising < 9, "{rising}");
+        for _ in 0..200 {
+            n.step(&level, &Controls::default());
+            if n.vy > 0.5 && !n.grounded {
+                break;
+            }
+        }
+        let Pose::Air(falling) = n.pose() else { panic!("{:?}", n.pose()) };
+        assert!(falling > 9, "{falling}");
         // sliding down a wall faces the wall
-        let mut n = Ninja::new(TILE + RADIUS + 0.5, 20.0 * TILE);
+        let mut n = Ninja::new(TILE + RADIUS + 0.5, 3.0 * TILE);
         for _ in 0..30 {
             n.step(&level, &Controls { dir: -1, ..Default::default() });
         }
@@ -1044,8 +1137,8 @@ mod playtest {
 
     // Routes found by `play_level` (regenerate with the ignored `print_the_winning_routes`
     // if the course or the physics is changed on purpose).
-    const EXACT: &str = "R.R.R.R._jRjRjRjRjRjRjR.R.R.R.R.RjRjRjRjRjRjRjRjR.R.L.L.L.R.Rj_._jRjRjRjRjRjRjRj_._jRjRjRjRjRjRjRj_.RjRjRjRj_.RjRjRjRj_.Rj_j_j_jR.R.R.R.R.R.LjR.R.R.R.R.R.R.R.";
-    const TIMING_500: &str = "R._.R._.R.LjR._.R._.R._.R._._.L.R._jR._.R._.R._.R._._.L.L.Rj_.LjR._.R._.R._.R._.R._jR._.R._._j_.Rj_.R._.R._jR._.R.L.LjL.R._jR._.R._.R._.R._.R.";
+    const EXACT: &str = "R.R.R.R.R._jRjRj_jRjRjRjR.R.R.R.RjRjRjRjRjRjRjRjR.R.R.R.RjRjRjRjRj_.RjRjRjRj_.RjRjRjRj_.RjRjRjRj_.RjRjRjRj_.RjRjRjR._jRjRjRjRjRjRjRjR.R.R._._.L.RjRjR.R.R.R.R.R.R.R.";
+    const TIMING_500: &str = "R._.R._.Rj_.R._.R._.R._._.R._.R._jR._.R._.R._.R._.R._.R.L.Rj_.R._.R._jR._.R._.R._.Rj_.R._.R._jR._.R._.R._.Rj_.R._.R._._.R._.R._.R._._.Rj_.Rj_.R._.R._.R._.";
 
     #[test]
     fn the_practice_course_can_be_finished_with_exact_keys() {

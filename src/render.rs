@@ -130,7 +130,7 @@ impl Dots {
         }
     }
 
-    /// The ninja sprite, sampled onto the dot grid. Below about 5 dots across the art is
+    /// The ninja as a stick figure (see `sprite`). Below about 5 dots across a figure is
     /// too small to read, so it falls back to a disc.
     /// `scale` enlarges only the drawing (the hitbox stays radius 10); the figure is anchored so
     /// its feet stay at the bottom of the hitbox and it grows up and sideways.
@@ -139,20 +139,66 @@ impl Dots {
             self.disc(n.x, n.y, RADIUS);
             return;
         }
-        let art = crate::sprite::frame(n.pose());
-        let size = 2.0 * RADIUS * scale;
-        let (x0, y0) = (n.x - size / 2.0, n.y + RADIUS - size);
-        for dy in ((y0 - TILE) / self.dh).floor() as i32..=((y0 + size - TILE) / self.dh).ceil() as i32 {
-            for dx in ((x0 - TILE) / self.dw).floor() as i32..=((x0 + size - TILE) / self.dw).ceil() as i32 {
-                let (wx, wy) = (TILE + (dx as f32 + 0.5) * self.dw, TILE + (dy as f32 + 0.5) * self.dh);
-                let (u, v) = (((wx - x0) / size * 8.0).floor() as i32, ((wy - y0) / size * 8.0).floor() as i32);
-                if !(0..8).contains(&u) || !(0..8).contains(&v) {
-                    continue;
-                }
-                let u = if n.facing < 0 { 7 - u } else { u };
-                if art[v as usize].as_bytes()[u as usize] == b'X' {
+        self.figure(crate::sprite::figure(n.pose()), (n.x, n.y), n.facing, n.tilt, scale);
+    }
+
+    /// N's stick figure: mirrored when facing left, then turned by `tilt` (clockwise on
+    /// screen) about the hitbox centre, as the original's clip is; `scale` grows it from
+    /// the feet.
+    fn figure(&mut self, f: &crate::sprite::Figure, at: (f32, f32), facing: i8, tilt: f32, scale: f32) {
+        let flip = if facing < 0 { -1.0 } else { 1.0 };
+        let (sin, cos) = tilt.sin_cos();
+        let world = |p: crate::sprite::P| {
+            let (x, y) = (flip * spread(p.0) * scale, RADIUS + (p.1 - RADIUS) * scale);
+            (at.0 + x * cos - y * sin, at.1 + x * sin + y * cos)
+        };
+        for (a, b) in f.segments() {
+            self.thin_line(world(a), world(b));
+        }
+        // the head: the original's small triangle is about one dot here, so mark its
+        // centre and fill whatever dots it covers
+        let c = world(f.head_centre());
+        self.set_world(c.0, c.1);
+        let h = f.head.map(|q| world((q[0], q[1])));
+        let (x0, x1) = (h.iter().map(|q| q.0).fold(f32::MAX, f32::min), h.iter().map(|q| q.0).fold(f32::MIN, f32::max));
+        let (y0, y1) = (h.iter().map(|q| q.1).fold(f32::MAX, f32::min), h.iter().map(|q| q.1).fold(f32::MIN, f32::max));
+        let ((dx0, dy0), (dx1, dy1)) = (self.dot_of(x0, y0), self.dot_of(x1, y1));
+        for dy in dy0..=dy1 {
+            for dx in dx0..=dx1 {
+                let (px, py) = (TILE + (dx as f32 + 0.5) * self.dw, TILE + (dy as f32 + 0.5) * self.dh);
+                let side = |a: (f32, f32), b: (f32, f32)| (b.0 - a.0) * (py - a.1) - (b.1 - a.1) * (px - a.0);
+                let s = [side(h[0], h[1]), side(h[1], h[2]), side(h[2], h[0])];
+                if s.iter().all(|&v| v >= 0.0) || s.iter().all(|&v| v <= 0.0) {
                     self.set(dx, dy);
                 }
+            }
+        }
+    }
+
+    fn dot_of(&self, x: f32, y: f32) -> (i32, i32) {
+        (((x - TILE) / self.dw).floor() as i32, ((y - TILE) / self.dh).floor() as i32)
+    }
+
+    /// A one dot wide line between two world points (Bresenham in dot space), so limbs stay
+    /// thin where `line` would double up dots on diagonals.
+    fn thin_line(&mut self, a: (f32, f32), b: (f32, f32)) {
+        let ((mut x, mut y), (x1, y1)) = (self.dot_of(a.0, a.1), self.dot_of(b.0, b.1));
+        let (dx, dy) = ((x1 - x).abs(), -(y1 - y).abs());
+        let (sx, sy) = ((x1 - x).signum(), (y1 - y).signum());
+        let mut err = dx + dy;
+        loop {
+            self.set(x, y);
+            if (x, y) == (x1, y1) {
+                break;
+            }
+            let e2 = 2 * err;
+            if e2 >= dy {
+                err += dy;
+                x += sx;
+            }
+            if e2 <= dx {
+                err += dx;
+                y += sy;
             }
         }
     }
@@ -161,6 +207,20 @@ impl Dots {
         self.cells[(row * self.bw + lc) as usize]
     }
 }
+
+/// Pulls the figure's limbs apart sideways without moving its edges: N's ninja is about
+/// 6 px wide inside a 20 px hitbox, so at a few dots per figure its arms fuse with its body.
+/// x maps to x * |x|-dependent gain: 0 stays 0, the hitbox edge (10) stays 10, the middle
+/// is widened (gain `SPREAD` at the centre). `ENTITY_NINJA_SPREAD=1` draws the original.
+fn spread(x: f32) -> f32 {
+    use std::sync::OnceLock;
+    static K: OnceLock<f32> = OnceLock::new();
+    let k = *K.get_or_init(|| std::env::var("ENTITY_NINJA_SPREAD").ok().and_then(|v| v.parse().ok()).unwrap_or(SPREAD).max(1.0));
+    let t = (x.abs() / RADIUS).min(1.0);
+    x.signum() * RADIUS * (1.0 - (1.0 - t).powf(k)) + x.signum() * (x.abs() - RADIUS).max(0.0)
+}
+
+const SPREAD: f32 = 1.6;
 
 fn object_glyph(kind: &str) -> (char, Color) {
     match kind {
@@ -502,12 +562,13 @@ pub fn print_glyph_page(levels: &[Level]) {
     row("sextants (optional)", &range(0x1FB00, 16));
     row("wedges (optional)", &range(0x1FB3C, 16));
     row("octants (optional)", &range(0x1CD00, 16));
-    println!("\nNinja poses (8x8 art as Braille; the game scales it to the board and mirrors it when facing left):");
-    let sprites: Vec<(&str, [String; 2])> = crate::sprite::ALL.iter().map(|(n, p)| (*n, sprite_braille(crate::sprite::frame(*p)))).collect();
-    for r in 0..2 {
-        println!("  {}", sprites.iter().map(|(_, b)| format!("{:<8}", b[r])).collect::<String>());
+    println!("\nNinja poses (the stick figure at about the size of a 156x47 window, 2.8 x 3.1 world units per dot;");
+    println!("the game draws it at the board's own dot size and mirrors it when facing left):");
+    let poses: Vec<(&str, Vec<String>)> = crate::sprite::ALL.iter().map(|(n, p)| (*n, figure_braille(*p, (2.8, 3.1)))).collect();
+    for r in 0..poses[0].1.len() {
+        println!("  {}", poses.iter().map(|(_, b)| format!("{:<8}", b[r])).collect::<String>());
     }
-    println!("  {}", sprites.iter().map(|(n, _)| format!("{n:<8}")).collect::<String>());
+    println!("  {}", poses.iter().map(|(n, _)| format!("{n:<8}")).collect::<String>());
     println!("\nBoard preview (cloud city):\n");
     let idx = levels.iter().position(|l| l.label.contains("cloud city")).unwrap_or(0);
     let g = Game::new(levels_clone_one(levels, idx), 0);
@@ -518,23 +579,14 @@ pub fn print_glyph_page(levels: &[Level]) {
     print!("{}", ansi(&buf, area));
 }
 
-/// An 8x8 pixel frame as two rows of four Braille characters.
-fn sprite_braille(f: &crate::sprite::Frame) -> [String; 2] {
-    let mut out = [String::new(), String::new()];
-    for (r, line) in out.iter_mut().enumerate() {
-        for cx in 0..4 {
-            let mut mask = 0u8;
-            for a in 0..2 {
-                for b in 0..4 {
-                    if f[r * 4 + b].as_bytes()[cx * 2 + a] == b'X' {
-                        mask |= BIT[a][b];
-                    }
-                }
-            }
-            line.push(braille(mask));
-        }
-    }
-    out
+/// One pose drawn on a small dot grid with dots of `dot` world units, as rows of Braille.
+fn figure_braille(pose: crate::ninja::Pose, dot: (f32, f32)) -> Vec<String> {
+    let (bw, bh) = (6, 4);
+    let mut d = Dots::new(bw, bh, (dot.0 * 2.0, dot.1 * 4.0));
+    // the hitbox centre, placed so its bottom sits on the last dot row
+    let at = (TILE + 2.5 * 2.0 * dot.0, TILE + 3.0 * 4.0 * dot.1 - RADIUS);
+    d.figure(crate::sprite::figure(pose), at, 1, 0.0, 1.0);
+    (1..bh).map(|row| (1..bw).map(|lc| braille(d.at(lc, row))).collect()).collect()
 }
 
 fn levels_clone_one(levels: &[Level], idx: usize) -> Vec<Level> {
@@ -784,5 +836,34 @@ mod tests {
                 println!("   {}", (-4i32..=4).map(|dx| b[((ox as i32 + lc as i32 + dx) as u16, (oy as i32 + lr as i32 + dy) as u16)].symbol().to_string()).collect::<String>());
             }
         }
+    }
+}
+#[cfg(test)]
+mod figure_dump {
+    use super::*;
+
+    /// The stick figure's poses magnified, one '#' per dot. DW and DH set the dot size in
+    /// world units (2.8 x 3.1 is a 156x47 window at 1x; divide by the drawn scale for more):
+    /// `DW=1.87 DH=2.07 cargo test --release dump_figures -- --ignored --nocapture`
+    #[test]
+    #[ignore]
+    fn dump_figures_as_ascii() {
+        let dot: (f32, f32) = (std::env::var("DW").ok().and_then(|v| v.parse().ok()).unwrap_or(2.8), std::env::var("DH").ok().and_then(|v| v.parse().ok()).unwrap_or(3.1));
+        let mut rows = vec![String::new(); 12];
+        for (_, pose) in crate::sprite::ALL {
+            let mut d = Dots::new(6, 4, (dot.0 * 2.0, dot.1 * 4.0));
+            let at = (TILE + 2.5 * 2.0 * dot.0, TILE + 3.0 * 4.0 * dot.1 - RADIUS);
+            d.figure(crate::sprite::figure(pose), at, 1, 0.0, 1.0);
+            for y in 0..12 {
+                for x in 0..10 {
+                    let (lc, row) = (x / 2 + 1, y / 4 + 1);
+                    let on = d.at(lc, row) & BIT[(x % 2) as usize][(y % 4) as usize] != 0;
+                    rows[y as usize].push_str(if on { "##" } else { ". " });
+                }
+                rows[y as usize].push_str("   ");
+            }
+        }
+        println!("{}", crate::sprite::ALL.iter().map(|(n, _)| format!("{n:<23}")).collect::<String>());
+        for r in rows { println!("{r}"); }
     }
 }

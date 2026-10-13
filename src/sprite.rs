@@ -1,44 +1,69 @@
-//! The ninja as 8x8 pixel art, drawn right-facing ('X' is filled) and mirrored for
-//! left. The art is sampled onto whatever dot grid the board has, so it stays
-//! readable from about 5 dots across and up.
+//! The ninja as N's own stick figure: the frames of the original's ninja clip, extracted
+//! by `tools/extract_ninja.py` into `data/n-ninja.json`. Each frame is ten limb lines
+//! (torso, thighs, shins, upper arms, forearms) and a small triangle for the head, in
+//! world units around the hitbox centre (radius 10, feet at about y = +10), facing right
+//! with y down. The renderer draws the lines as Braille dots, mirrored for left and
+//! tilted with the floor.
 
 use crate::ninja::Pose;
+use serde::Deserialize;
+use std::sync::OnceLock;
 
-pub type Frame = [&'static str; 8];
+/// A point relative to the hitbox centre, in world units.
+pub type P = (f32, f32);
 
-const STAND: Frame = ["..XXX...", "X.XXX...", "..XXX...", "..XX....", ".XXXX...", "..XX....", "..XX....", ".XX.XX.."];
+#[derive(Deserialize)]
+pub struct Figure {
+    lines: Vec<[f32; 4]>,
+    pub head: [[f32; 2]; 3],
+}
 
-const RUN: [Frame; 4] = [
-    ["...XX...", "XX.XXX..", "...XX...", "..XXXX..", ".XXXX.X.", "..XX.X..", ".XX..XX.", "XX....X."],
-    ["...XX...", "XX.XXX..", "...XX...", "..XXX...", "..XXXX..", "..XX.X..", "..XX.X..", "..X..XX."],
-    ["...XX...", "XX.XXX..", "...XX...", "..XXXX..", ".X.XXXX.", "..XX.X..", ".XX..XX.", ".X....X."],
-    ["...XX...", "XX.XXX..", "...XX...", "..XXX...", "..XXXX..", "..XX.X..", "..XX.X..", "..X..XX."],
-];
+impl Figure {
+    pub fn segments(&self) -> impl Iterator<Item = (P, P)> + '_ {
+        self.lines.iter().map(|l| ((l[0], l[1]), (l[2], l[3])))
+    }
 
-const JUMP: Frame = ["..XXX.X.", ".XXXXXX.", "..XXX.X.", "...XX...", "..XXXX..", "..XXXX..", "..X..X..", ".XX..XX."];
-
-const FALL: Frame = ["X.XXX...", "..XXX...", ".XXXXX..", "X.XX..X.", "..XXXX..", "..XXXX..", "..X..X..", ".X....X."];
-
-const SLIDE: Frame = ["..XXX...", "X.XXXX.X", "..XXX..X", "..XX..X.", "..XXXXX.", "..XX....", "..XX....", ".XXXX..."];
-
-pub fn frame(pose: Pose) -> &'static Frame {
-    match pose {
-        Pose::Stand => &STAND,
-        Pose::Run(i) => &RUN[i % 4],
-        Pose::Jump => &JUMP,
-        Pose::Fall => &FALL,
-        Pose::Slide => &SLIDE,
+    pub fn head_centre(&self) -> P {
+        let h = &self.head;
+        ((h[0][0] + h[1][0] + h[2][0]) / 3.0, (h[0][1] + h[1][1] + h[2][1]) / 3.0)
     }
 }
 
-pub const ALL: [(&str, Pose); 8] = [
-    ("stand", Pose::Stand),
+#[derive(Deserialize)]
+struct Clip {
+    frames: Vec<Figure>,
+}
+
+fn clip() -> &'static Clip {
+    static C: OnceLock<Clip> = OnceLock::new();
+    C.get_or_init(|| serde_json::from_str(include_str!("../data/n-ninja.json")).expect("data/n-ninja.json"))
+}
+
+/// The clip frame for a pose (STAND 0..10, SKID 11, RUN 12..83, JUMP 84..102, WALLSLIDE 103).
+pub fn frame_index(pose: Pose) -> usize {
+    match pose {
+        Pose::Stand(i) => i.min(10),
+        Pose::Skid => 11,
+        Pose::Run(i) => 12 + i % 72,
+        Pose::Air(i) => 84 + i.min(18),
+        Pose::Slide => 103,
+    }
+}
+
+pub fn figure(pose: Pose) -> &'static Figure {
+    &clip().frames[frame_index(pose)]
+}
+
+pub const ALL: [(&str, Pose); 10] = [
+    ("stand", Pose::Stand(10)),
+    ("skid", Pose::Skid),
     ("run 0", Pose::Run(0)),
-    ("run 1", Pose::Run(1)),
-    ("run 2", Pose::Run(2)),
-    ("run 3", Pose::Run(3)),
-    ("jump", Pose::Jump),
-    ("fall", Pose::Fall),
+    ("run 18", Pose::Run(18)),
+    ("run 36", Pose::Run(36)),
+    ("run 54", Pose::Run(54)),
+    ("rise", Pose::Air(0)),
+    ("top", Pose::Air(9)),
+    ("fall", Pose::Air(18)),
     ("slide", Pose::Slide),
 ];
 
@@ -47,15 +72,20 @@ mod tests {
     use super::*;
 
     #[test]
-    fn every_frame_is_8_by_8_and_not_empty() {
-        for (name, pose) in ALL {
-            let f = frame(pose);
-            assert_eq!(f.len(), 8, "{name}");
-            for row in f.iter() {
-                assert_eq!(row.len(), 8, "{name}: {row}");
-                assert!(row.bytes().all(|b| b == b'X' || b == b'.'), "{name}: {row}");
+    fn the_clip_has_every_frame_and_the_figures_stand_in_the_hitbox() {
+        assert_eq!(clip().frames.len(), 104);
+        for (i, f) in clip().frames.iter().enumerate() {
+            assert_eq!(f.lines.len(), 10, "frame {i}");
+            for (a, b) in f.segments() {
+                for p in [a, b] {
+                    assert!(p.0.abs() <= 11.0 && p.1.abs() <= 11.0, "frame {i}: {p:?}");
+                }
             }
-            assert!(f.iter().map(|r| r.bytes().filter(|&b| b == b'X').count()).sum::<usize>() >= 14, "{name}");
         }
+        // the rest pose stands on the floor line with its head at the top
+        let rest = figure(Pose::Stand(10));
+        let feet = rest.segments().map(|(a, b)| a.1.max(b.1)).fold(f32::MIN, f32::max);
+        assert!((feet - 10.0).abs() < 0.5, "feet at {feet}");
+        assert!(rest.head_centre().1 < -8.0);
     }
 }

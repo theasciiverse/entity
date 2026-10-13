@@ -3,8 +3,9 @@
 Asciiverse platformer. Rust + Ratatui + Drawille. N++-inspired.
 
 Repo: private, github.com/theasciiverse/entity (branch `master`; commits as David, matching the sibling
-Asciiverse repos). Not yet decided: a licence file, and whether N's extracted level data
-(`data/n-levels.json`, Metanet's content) may stay in the repo; its terms have not been checked.
+Asciiverse repos). Not yet decided: a licence file, and whether N's extracted level data and ninja animation
+(`data/n-levels.json`, `data/n-ninja.json`, Metanet's content) may stay in the repo; their terms have not
+been checked.
 
 ## Premise
 
@@ -75,17 +76,35 @@ are not used yet, so the game does not depend on them.
   sliding that persists, skid friction on release and reversal, deaths only on landings, the original's
   wall and ground detection. `ENTITY_PHYSICS=classic` turns those rules off to compare the feel.
   Slopes use plain projection plus ground friction; N++'s own slope rules are not reproduced.
+  Tile seams: the end of a tile's full side is not a corner when the surface carries straight on into
+  the next tile, so it gives no contact (fixed 2026-10-13: before, a flat floor tilted the floor normal
+  by up to about 7 degrees near every seam, which also tilted jumps; the stored practice routes were
+  regenerated). That N's own tile collision ignores such seams is assumed, not read from its bytecode.
   Wall jumping (kick of 1.0 away and 1.4 up, sliding friction when pressing into the wall) is tested as
   a real climb: kicking between two walls climbs a 40 tile shaft for gaps of 1, 2, 3 and 4 tiles, and
   hopping back into a single wall climbs about 20 tiles in 10 s of perfect input. Whether the original
   allows single-wall climbing, and how fast, is unchecked.
-- `src/sprite.rs`: the ninja as 8x8 pixel art (stand, 4 run frames, jump, fall, wall slide), mirrored
-  for facing, sampled onto the board's Braille dot grid. Below about 5 dots across it falls back to a
-  disc. The collision shape is a circle of radius 10, as in N; only the drawing is a figure. Preview
-  with `cargo run --release -- --glyphs`. The art is a first draft to iterate on. On a 156x47 window the
-  ninja is about 3 cells by 2 rows at 1x, an optional enlarged drawing exists ([ and ] keys, feet anchored at the hitbox bottom), but David tried 1.5x
-  and found it HARDER to play (the figure looks like it touches walls it does not), so the default is 1.0.
-  The hitbox is always radius 10 because the levels are built for it.
+- `src/sprite.rs`: the ninja is N's own stick figure. `tools/extract_ninja.py` reads the original's ninja
+  clip (DefineSprite 582, `testNinjaMCm`) from the SWF into `data/n-ninja.json` (embedded): 104 frames of
+  ten limb lines plus a triangle head, in pixels around the hitbox centre. Its wedge-shaped shins and
+  forearms become lines. The clip's frames are picked as the original does (read from the bytecode,
+  2026-10-13): STAND 0 to 10 plays once at the movie's 120 fps after landing or stopping (frame 10 is the
+  rest pose), SKID 11 while braking, RUN 12 to 83 advancing one frame per 0.9 px along the floor and
+  restarting at its first frame on entering a run, JUMP 84 to 102 picked from vertical speed (rising fast,
+  the top at 93, falling fast; there is no separate fall), WALLSLIDE 103. On the ground the whole figure
+  tilts to the floor normal; in the air the tilt eases out by 10% per 40 Hz tick and a jump or wall slide
+  resets it. Not ported: the four celebration animations (frames 104 to 353) and the death ragdoll.
+  Drawing: limbs are one dot wide lines (Bresenham in dot space), the head fills the dots its triangle
+  covers. N's figure is only about 6 px wide inside the 20 px hitbox, so its middle is spread sideways
+  (`spread` in render.rs, gain 1.6 at the centre, `ENTITY_NINJA_SPREAD=1` for the original) while the
+  edges stay put, so wall-slide hands still meet the wall. On a 156x47 window the figure is only about 7
+  dots tall: running, skidding and falling read, standing and the top of a jump are close to blobs; from
+  about 10 dots (1.5x, or a bigger window) every pose reads. Below about 5 dots across it falls back to a
+  disc. Preview with `cargo run --release -- --glyphs`, or magnified (one `##` per dot) with
+  `DW=2.8 DH=3.1 cargo test --release dump_figures -- --ignored --nocapture` (dot size in world units).
+  The ninja can also be drawn bigger ([ and ] keys, feet anchored at the hitbox bottom); David tried the
+  old pixel-art ninja at 1.5x and found it HARDER to play (it looked like it touched walls it did not),
+  so the default is 1.0. The hitbox is always radius 10 because the levels are built for it.
 - `src/objects.rs`, `src/drones.rs`, `src/hazards.rs`: the level objects, ported from the bytecode.
   `Objects::from_level` builds them per attempt; one-sided and moving colliders feed the ninja's
   contact solver (`Ninja::step_in`); the rest act after the ninja has moved (`Objects::update`).
