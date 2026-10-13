@@ -139,9 +139,21 @@ are not used yet, so the game does not depend on them.
   the next level or r to play again). N levels get theirs from the `exit` objects (door x,y, switch x,y).
 - Gold pickup works (gold returns after a death, as in N). Score is a reserved field with no rules yet.
   Lives are not implemented; N itself has unlimited retries and an episode time limit.
+- `src/demo.rs`, `entity --demo`: the game plays the practice course by itself (and again every 3 s
+  after the door), replaying the machine-verified exact route as key presses and releases through the
+  real `Input`, so it shows exactly what the tests prove finishes the course. The route lives there
+  (`ROUTE`); the playtest tests read it. The catalog preview is recorded from it at the hub's fixed
+  100x30, with the ninja drawn at 2x (at 1x that board gives the figure only about 4 dots, below the
+  size where it is drawn as a figure at all):
+  `ENTITY_NINJA_SCALE=2.0 python3 ../../hub/tools/castrec.py entity.cast . "w9.6" -- target/release/entity --demo`
+  (one run ending on "Level complete", about 10.6 s; in the website mockup `thumbnail_at = 4.2`, the
+  wall kick). Build with `cargo build --release` first: `cargo test` does not rebuild the game binary.
+- Drawing over walls: a cell is reset before anything is drawn into it (ratatui's `set_style` adds to the
+  old modifiers, so the ninja over a reverse video wall cell became a white block), and over a solid
+  wall cell the ninja's dots sit on the wall's colour as background.
 - Session logging per the Asciiverse convention: `RUST_LOG=debug cargo run 2>entity.log`.
 
-Run: `cargo run --release [level]` where level is an index, a name fragment (`cloudcity`) or
+Run: `cargo run --release [level]` (or `--demo`, see above) where level is an index, a name fragment (`cloudcity`) or
 `episode:slot` (`3:2`). Keys: arrows/wasd/hjkl run, up/w/k/space/z jump (hold for height), down/s/j
 stop, r restart the attempt (after game over: the episode), n/p next/previous level (after finishing a
 level, n continues with the clock carried over), f toggles fill versus square tiles, [ and ] shrink or grow the DRAWN ninja (quarter steps from 1.0 to 2.5 times the hitbox; start with `ENTITY_NINJA_SCALE`, default 1.0). Esc asks "Quit Entity?" and only y quits (a

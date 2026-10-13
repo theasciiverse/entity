@@ -1,4 +1,5 @@
 mod art;
+mod demo;
 mod drones;
 mod game;
 mod hazards;
@@ -34,9 +35,16 @@ fn main() -> io::Result<()> {
         render::print_glyph_page(&levels);
         return Ok(());
     }
-    let start = arg.map_or(0, |a| find_level(&levels, &a));
+    // --demo: the game plays the practice course by itself, over and over
+    let demo = arg.as_deref() == Some("--demo");
+    if demo {
+        levels.truncate(1);
+    }
+    let start = if demo { 0 } else { arg.map_or(0, |a| find_level(&levels, &a)) };
     let mut terminal = ratatui::init();
-    let kitty = supports_keyboard_enhancement().unwrap_or(false);
+    // the demo plays itself, so it skips the protocol probe (about 2 s on a terminal that
+    // never answers, which would open a recording with a blank screen)
+    let kitty = !demo && supports_keyboard_enhancement().unwrap_or(false);
     if kitty {
         let flags = KeyboardEnhancementFlags::DISAMBIGUATE_ESCAPE_CODES
             | KeyboardEnhancementFlags::REPORT_EVENT_TYPES
@@ -44,7 +52,7 @@ fn main() -> io::Result<()> {
         execute!(io::stdout(), PushKeyboardEnhancementFlags(flags))?;
     }
     log::info!("start kitty_keyboard={kitty}");
-    let result = run(&mut terminal, levels, start, kitty);
+    let result = run(&mut terminal, levels, start, kitty, demo);
     if kitty {
         let _ = execute!(io::stdout(), PopKeyboardEnhancementFlags);
     }
@@ -52,9 +60,13 @@ fn main() -> io::Result<()> {
     result
 }
 
-fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: bool) -> io::Result<()> {
+fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: bool, demo: bool) -> io::Result<()> {
+    let practice = levels[0].clone_level();
     let mut game = Game::new(levels, start);
-    let mut input = Input::new(kitty);
+    // the demo needs the keyboard only for Esc and Ctrl-C, so no input-mode note
+    let mut input = if demo { Input::with_mode(input::Mode::Exact) } else { Input::new(kitty) };
+    let mut player = demo.then(demo::Demo::new);
+    let mut finished_ticks = 0u32;
     let mut next = Instant::now() + TICK;
     while !input.quit {
         let size = terminal.size()?;
@@ -88,9 +100,21 @@ fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: 
             if input.level_step != 0 {
                 game.step_level(std::mem::take(&mut input.level_step));
             }
-            let controls = input.controls(now, !game.ninja.grounded);
+            let controls = match player.as_mut() {
+                Some(p) => p.controls(!game.ninja.grounded),
+                None => input.controls(now, !game.ninja.grounded),
+            };
             if !input.confirm_quit {
                 game.update(&controls);
+            }
+            if player.is_some() && game.complete {
+                // the demo lets the "Level complete" sink in, then plays again
+                finished_ticks += 1;
+                if finished_ticks == 180 {
+                    game = Game::new(vec![practice.clone_level()], 0);
+                    player = Some(demo::Demo::new());
+                    finished_ticks = 0;
+                }
             }
             next += TICK;
             steps += 1;

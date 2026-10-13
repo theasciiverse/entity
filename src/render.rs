@@ -63,6 +63,9 @@ fn put(buf: &mut Buffer, origin: (u16, u16), lc: i32, row: i32, ch: char, style:
         return;
     }
     if let Some(cell) = buf.cell_mut((origin.0 + lc as u16, origin.1 + row as u16)) {
+        // reset first: set_style adds to the old modifiers, so a reverse video wall cell
+        // would turn whatever is drawn over it (the ninja) into a solid block
+        cell.reset();
         cell.set_char(ch).set_style(style);
     }
 }
@@ -445,9 +448,15 @@ pub fn paint(buf: &mut Buffer, origin: (u16, u16), g: &Game, keys_note: Option<&
         for lc in 1..bw - 1 {
             let (n, p) = (ninja.at(lc, row), particles.at(lc, row));
             if n != 0 {
-                // keep the wall's shape under the ninja by merging its dots
-                let mask = n | g.art.cell(lc - 1, row - 1).dots;
-                put(buf, origin, lc, row, braille(mask), Style::default().fg(NINJA));
+                let cell = g.art.cell(lc - 1, row - 1);
+                if cell.ch == '\u{2588}' && !cell.inverted {
+                    // over solid wall: the wall stays its colour behind the ninja's dots
+                    let wall = if cell.interior { INTERIOR } else { WALL };
+                    put(buf, origin, lc, row, braille(n), Style::default().fg(NINJA).bg(wall));
+                } else {
+                    // keep a partial cell's shape under the ninja by merging its dots
+                    put(buf, origin, lc, row, braille(n | cell.dots), Style::default().fg(NINJA));
+                }
             } else if live.at(lc, row) != 0 && g.art.cell(lc - 1, row - 1).ch == ' ' {
                 put(buf, origin, lc, row, braille(live.at(lc, row)), Style::default().fg(Color::Rgb(255, 60, 60)));
             } else if warn.at(lc, row) != 0 && g.art.cell(lc - 1, row - 1).ch == ' ' {

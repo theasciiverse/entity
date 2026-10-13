@@ -1136,8 +1136,9 @@ mod playtest {
     }
 
     // Routes found by `play_level` (regenerate with the ignored `print_the_winning_routes`
-    // if the course or the physics is changed on purpose).
-    const EXACT: &str = "R.R.R.R.R._jRjRj_jRjRjRjR.R.R.R.RjRjRjRjRjRjRjRjR.R.R.R.RjRjRjRjRj_.RjRjRjRj_.RjRjRjRj_.RjRjRjRj_.RjRjRjRj_.RjRjRjR._jRjRjRjRjRjRjRjR.R.R._._.L.RjRjR.R.R.R.R.R.R.R.";
+    // if the course or the physics is changed on purpose). The exact route lives in demo.rs,
+    // which plays it for `entity --demo`.
+    const EXACT: &str = crate::demo::ROUTE;
     const TIMING_500: &str = "R._.R._.Rj_.R._.R._.R._._.R._.R._jR._.R._.R._.R._.R._.R.L.Rj_.R._.R._jR._.R._.R._.Rj_.R._.R._jR._.R._.R._.Rj_.R._.R._._.R._.R._.R._._.Rj_.Rj_.R._.R._.R._.";
 
     #[test]
