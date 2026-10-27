@@ -273,7 +273,18 @@ fn object_line(line: &str) -> Option<Obj> {
 
 /// Entity's own levels in campaign order, five per episode (`levels/EE-S.txt`, episode and
 /// slot from 0). Add new files here; a test checks that none in `levels/` is left out.
-pub const CAMPAIGN: &[(&str, &str)] = &[];
+pub const CAMPAIGN: &[(&str, &str)] = &[
+    ("00-0.txt", include_str!("../levels/00-0.txt")),
+    ("00-1.txt", include_str!("../levels/00-1.txt")),
+    ("00-2.txt", include_str!("../levels/00-2.txt")),
+    ("00-3.txt", include_str!("../levels/00-3.txt")),
+    ("00-4.txt", include_str!("../levels/00-4.txt")),
+    ("01-0.txt", include_str!("../levels/01-0.txt")),
+    ("01-1.txt", include_str!("../levels/01-1.txt")),
+    ("01-2.txt", include_str!("../levels/01-2.txt")),
+    ("01-3.txt", include_str!("../levels/01-3.txt")),
+    ("01-4.txt", include_str!("../levels/01-4.txt")),
+];
 
 pub fn campaign() -> Vec<Level> {
     CAMPAIGN
@@ -408,6 +419,45 @@ mod tests {
         same(&l, &back);
         assert_eq!(back.objects[2].kind, "testdoor");
         assert_eq!(back.objects[3].kind, "onewayplatform");
+    }
+
+    /// Every campaign level carries a route that finishes it in the real game, with the switch,
+    /// without dying and collecting all of its gold; the episode totals are printed against
+    /// the 90 s clock (`cargo test --release campaign -- --nocapture`).
+    #[test]
+    fn every_campaign_level_is_finished_by_its_route() {
+        let levels = campaign();
+        let mut episode = (0.0, 0);
+        for l in &levels {
+            let route = l.route.as_deref().unwrap_or_else(|| panic!("{}: no route (run entity --prove)", l.label));
+            let g = crate::demo::replay(l, route);
+            assert!(g.complete, "{}: the route does not finish the level", l.label);
+            assert_eq!(g.deaths, 0, "{}: the route dies", l.label);
+            assert_eq!(g.gold_collected(), g.gold_total(), "{}: the route leaves gold behind", l.label);
+            let secs = g.tick as f32 / 60.0;
+            println!("{:28} {secs:5.1} s  gold {:2}", l.label, g.gold_total());
+            episode = (episode.0 + secs, episode.1 + g.gold_total());
+            if l.episode.is_some_and(|(_, s)| s == 4) {
+                let net = episode.0 - 2.0 * episode.1 as f32;
+                println!("  episode: {:.1} s, {} gold, {net:.1} s of the 90 s clock", episode.0, episode.1);
+                assert!(net < 45.0, "episode {:?} uses {net:.1} s of the clock at the bot's pace", l.episode);
+                episode = (0.0, 0);
+            }
+        }
+    }
+
+    #[test]
+    fn every_level_file_is_in_the_campaign() {
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("levels");
+        for f in std::fs::read_dir(dir).unwrap() {
+            let name = f.unwrap().file_name().into_string().unwrap();
+            if name != "001.txt" && name.ends_with(".txt") {
+                assert!(CAMPAIGN.iter().any(|(n, _)| *n == name), "levels/{name} is not in CAMPAIGN");
+            }
+        }
+        for (i, (name, _)) in CAMPAIGN.iter().enumerate() {
+            assert_eq!(*name, format!("{:02}-{}.txt", i / 5, i % 5), "campaign order");
+        }
     }
 
     #[test]

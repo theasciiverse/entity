@@ -1,0 +1,40 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#             #####             #
+# S X         #####           K #
+#######       #####       #######
+#######       #####       #######
+#######       #####       #######
+#################################
+#################################
+#################################
+
+name pocket money
+gold 372 348
+gold 396 348
+gold 420 348
+gold 276 372
+gold 516 372
+gold 228 396
+gold 564 396
+gold 228 516
+gold 252 516
+gold 540 516
+gold 564 516
+waypoints 228,396;276,372;372,348;396,348;420,348;516,372;564,396;540,516;564,516|252,516;228,516
+route R.RjRjRjRjRjRjRjR.R.R.R.R.R.R.R.R.R._._._jRjRj_jRjRjRjRjR.RjRjRjRjR._jLjLjLjLjLjR.R._.L._.L.L.L.L.R.RjRjRjRjRjRjRjRjR.R.R.R.R.R.RjRjRjRjRj_._.R.R._._.L.L.L.L.L.L.R._._._.L.RjRjRj_jRj_jR.LjLjLjLjLjRjR.R.R.R.R.R.L.R.L._.R.L.R.L.R.R.R.R.RjRjRjRj_j_jRjR.R.R.R.R.R.R.R.R.R._.R.L.L.L.L.L.L.L.L.L.L.L.L.LjLjLjL.L.L.R.L.L.L.L.L.L.L.L.L.L.R.R.R.R._.L.L.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.LjLjLjLjLjLjLjL.L.L.L.L.L.L.

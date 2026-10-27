@@ -1,0 +1,28 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# X                             #
+######                          #
+#                               #
+#         ###                   #
+#                               #
+#              ###              #
+#                               #
+#                   ###         #
+#                               #
+#                        ###    #
+#                               #
+#                            ####
+# S                          K  #
+#################################
+#################################
+#################################
+
+name stepping stones
+route R.R.R.R.R.R.R.R.R._jRjRjRjRjRjRjR.R.R.R.R.R.R.R.R.R.RjR.R.R.R.R.R.R.R._.L.L.L.L.L.L.L.L.LjLjLjL.L.L.L.L.L.L.L.L.L.LjLjLjLjLjLjLjLjL.L.L.L.L.L.L.L.L.L.L.L.RjR.LjLjLjLj_.LjLjLjLjRjL.RjRjRjRjRjRjRjRjR.R.R.R._._.LjLjLjLjLjL.L.LjLjLjLjLjLjL.L.L.L.L.L.

@@ -1,0 +1,48 @@
+#################################
+#                               #
+# S                             #
+###########              X      #
+#                       #####   #
+#                               #
+#                               #
+#       ###############         #
+#                               #
+#                               #
+#                               #
+#  #################            #
+#                               #
+#                           #####
+#                               #
+#         #################     #
+#                               #
+#                               #
+# #############   ########      #
+#                 #             #
+#                 #             #
+#                    K          #
+#################################
+#################################
+#################################
+
+name fuse box
+gold 732 108
+gold 276 132
+gold 396 132
+mine 348 156
+mine 444 156
+gold 732 156
+gold 732 204
+gold 132 252
+gold 276 252
+gold 420 252
+gold 732 252
+launchpad 732 312 0 -1
+mine 372 348
+mine 468 348
+mine 564 348
+gold 660 396
+gold 660 444
+launchpad 660 528 0 -1
+door 84 516 0 0 18 21 1 0 0
+waypoints 276,132;396,132;204,156;420,252;276,252;132,252;300,348;84,420;84,516|660,444;660,396;708,300;732,252;732,204;732,156;732,108
+route R.R.R.R.R.R.R.R.R.R.R.R.R._.L.L.R.L.L.L.L.L.L.R.R.R.R.RjRjR.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L._._.R.R.L.L.R.L.R.L.L.R.R.RjRjRjRjRjRjRjR.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.R.R._._._.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R.RjR.L.L.L.L._._.L.L._.R.L.L.R.R.R.R.R.R.R.R.R.R.R._.L._.RjLjLjLjRjRj_.RjLjLjLjRjRjRjRjR.R.R.R._.R.R.RjRjRjRj_._jLjLjRjRjRjRjRjR.R.R.R.R.R.R.RjRjRjRjL._jLjRjRjRj_jLjLjL.L.LjLjLjLjLjLjL.L.L.L.L.L.L.

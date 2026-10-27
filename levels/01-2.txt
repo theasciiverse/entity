@@ -1,0 +1,65 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                            K  #
+#        ########### #########  #
+#               #       #       #
+#               #       #       #
+#               #       #       #
+#               #     X #       #
+#               #########       #
+#                               #
+#                               #
+#                               #
+# S                             #
+#################################
+#################################
+#################################
+
+name one way up
+oneway 60 300 3
+oneway 84 300 3
+oneway 108 300 3
+oneway 132 300 3
+oneway 156 300 3
+oneway 180 300 3
+oneway 204 300 3
+oneway 60 348 3
+oneway 84 348 3
+oneway 108 348 3
+oneway 132 348 3
+oneway 156 348 3
+oneway 180 348 3
+oneway 204 348 3
+oneway 60 396 3
+oneway 84 396 3
+oneway 108 396 3
+oneway 132 396 3
+oneway 156 396 3
+oneway 180 396 3
+oneway 204 396 3
+oneway 60 444 3
+oneway 84 444 3
+oneway 108 444 3
+oneway 132 444 3
+oneway 156 444 3
+oneway 180 444 3
+oneway 204 444 3
+oneway 60 492 3
+oneway 84 492 3
+oneway 108 492 3
+oneway 132 492 3
+oneway 156 492 3
+oneway 180 492 3
+oneway 204 492 3
+door 492 396 1 1 20 12 0 0 0
+waypoints 132,276|492,276
+route RjRjRjRjR.R.R.L.L.Rj_jLjLjL.L.L.L._.RjRjRjL._._.L.R.LjRjLj_._.R.L.RjLj_jRjR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.LjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R._._.R._._.R.R.R.R.R.R.R.

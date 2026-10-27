@@ -1,0 +1,53 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# X                             #
+#######                         #
+#                               #
+#                             K #
+#                       #########
+#                       #########
+#                       #########
+#                       #########
+#                       #########
+#                       #########
+#                       #########
+#                       #########
+# S                     #########
+#################################
+#################################
+#################################
+
+name springboard
+gold 252 252
+gold 372 252
+gold 492 252
+bounceblock 252 276
+bounceblock 372 276
+bounceblock 492 276
+gold 564 372
+gold 564 420
+bounceblock 276 492
+bounceblock 348 492
+bounceblock 420 492
+bounceblock 492 492
+mine 252 524
+mine 276 524
+mine 300 524
+mine 324 524
+mine 348 524
+mine 372 524
+mine 396 524
+mine 420 524
+mine 444 524
+mine 468 524
+mine 492 524
+launchpad 564 528 0 -1
+waypoints 276,468;348,468;420,468;492,468;564,396;564,348;636,300|492,252;372,252;252,252
+route R.RjRjRjRjRjRjRjR.R.R.R.R.R.R.R.R.RjRjRjRjRjRjRjR._._.LjR.R.R.R.R.R.RjR.R.L.L.L.L.L._.L.RjRjRjL._jRjRjRjRjRjRjR._jRjRjRjRjRjR.R.RjRjRjRjR.R.R.R.R.R.R.R.R.R.R.R._j_.LjL.LjR.L.L.L.L.L.L.L.L._.R._.LjLjLjLjRjL.L.L.L.L.R.L.Rj_.R.R.R._.R.R.L.L.LjL.L.L.L.L.L.L.L.L.L.

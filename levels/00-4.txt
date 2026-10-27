@@ -1,0 +1,30 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#         #####                 #
+#                               #
+#               ###             #
+#                               #
+#          ###                  #
+#                     ###########
+#      ###            #         #
+#                     #         #
+#   ###               #         #
+# S                      K    X #
+#################################
+#################################
+#################################
+
+name under lock and key
+door 300 276 0 0 21 21 1 0 0
+waypoints 300,276
+route RjRjRjRjRjRjRjRjR.R.R._.RjRjRjRjR.RjRjRjRjRjRjRjRjR.R.RjRjRj_jR.R._jLjL.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R._._._.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.
