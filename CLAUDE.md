@@ -44,6 +44,8 @@ Open question: does the ninja itself render at Braille resolution (for precision
 ## Status
 
 Playable prototype on all 150 N levels (2026-10-02). Confirmed as next-up after Bob-sleigh, 2026-06-30.
+Since 2026-10-27 a new game starts with the campaign of our own levels (20 of the 100 so far, see
+"The campaign" below); the practice course and N's levels follow it in the level list.
 
 **Display design (decided with David):** like the original, the whole level is always on ONE
 screen, no scrolling. The playfield (31x23 tiles) is divided into an n x m grid of terminal cells. By
@@ -159,8 +161,10 @@ are not used yet, so the game does not depend on them.
 - `src/demo.rs`, `entity --demo [level]`: the game plays a level by itself (and again every 3 s after
   the door), replaying a machine-found exact route as key presses and releases through the real `Input`,
   so it shows exactly what the tests prove finishes the level (`the_demo_finishes_*`). Routes exist for
-  the practice course (the default) and 0:1 cloud city (`entity --demo 2`); other levels fall back to the
-  practice course. The practice route is found by `print_the_winning_routes`. Real N levels are too big
+  the practice course (the default), 0:1 cloud city (`entity --demo 2`) and every campaign level (the
+  route stored in its file, e.g. `entity --demo "3:4"`); other levels fall back to the practice course.
+  A NUMBER after `--demo` still counts in the old order (practice course, then N's levels), so
+  `--demo 2` stays cloud city; a name or `episode:slot` is looked up in the full list, campaign first. The practice route is found by `print_the_winning_routes`. Real N levels are too big
   for a blind search, so `print_a_route` takes waypoints a person picks
   (`ENTITY_ROUTE_LEVEL=cloudcity ENTITY_ROUTE_WAYPOINTS="x,y;...|x,y;..."`, px; before the bar the legs
   to the switch, after it the legs to the door) and searches each short leg. Cloud city's switch is
@@ -179,7 +183,9 @@ are not used yet, so the game does not depend on them.
 - Session logging per the Asciiverse convention: `RUST_LOG=debug cargo run 2>entity.log`.
 
 Run: `cargo run --release [level]` (or `--demo`, see above) where level is an index, a name fragment (`cloudcity`) or
-`episode:slot` (`3:2`). Keys: arrows/wasd/hjkl run, up/w/k/space/z jump (hold for height), down/s/j
+`episode:slot` (`3:2`, the campaign's level when both have one). The list is the campaign, then the
+practice course, then N's 150 levels; a new game starts with campaign level 0:0. Tools: `--edit`,
+`--prove` and `--render` (see "The campaign"). Keys: arrows/wasd/hjkl run, up/w/k/space/z jump (hold for height), down/s/j
 stop, r restart the attempt (after game over: the episode), n/p next/previous level (after finishing a
 level, n continues with the clock carried over), f toggles fill versus square tiles, [ and ] shrink or grow the DRAWN ninja (quarter steps from 1.0 to 2.5 times the hitbox; start with `ENTITY_NINJA_SCALE`, default 1.0). Gamepad: d-pad or left stick
 run, A, B or d-pad up jump (hold for height), Y or Back restart the attempt, LB/RB previous/next level,
@@ -197,6 +203,67 @@ trek/locked/trap doors, one-way platforms, bounce blocks, zap/laser/chaingun dro
 guards, thwomps, homing launchers); see "Objects" below. Not done yet: the episode timer and score,
 the game over and episode flow. Deaths: landings, mines and every hazard; a death restarts the attempt
 (gold, switches, doors and hazards reset, as in N).
+
+## The campaign: our own levels
+
+`levels/EE-S.txt` (episode and slot from 0), embedded through `level::CAMPAIGN`, which lists them in
+order (a test fails when a file in `levels/` is missing from it). Episodes of five share the 90 s clock
+as N's do. Each episode teaches one thing at a time, then mixes:
+
+| Level | Name | What it teaches |
+|---|---|---|
+| 0:0 | first light | running and jumping: a block, a ledge, a platform |
+| 0:1 | stepping stones | holding jump for height: a staircase of floating stones, two tiles each |
+| 0:2 | chimney | wall jumps: a 2 wide shaft up beside a block, then ledges down to the door |
+| 0:3 | rolling hills | slopes: 22 and 45 degree hills to run over |
+| 0:4 | under lock and key | a locked door: the switch is in a room behind it, the key up a staircase |
+| 1:0 | pocket money | gold: arcs of gold over two gaps, a hump and two pits |
+| 1:1 | minefield | mines: two corridors of mines, a hanging one, a drop to the door |
+| 1:2 | one way up | one-way platforms (a ladder) and a trap door that shuts you in with the door |
+| 1:3 | springboard | bounce blocks over mines, a launch pad, blocks in the air back to the door |
+| 1:4 | fuse box | a mix: zigzag down past mines and gold, a key, two launch pads back up |
+| 2:0 | sentry | a zap drone circling the block the switch sits on |
+| 2:1 | clockwork | three drones on stepping blocks over a floor of mines |
+| 2:2 | the chase | chaser drones in three stacked corridors |
+| 2:3 | laser light | a laser drone above tiers of platforms with gold |
+| 2:4 | hall of thwomps | thwomps over a corridor (keep running), a floor guard to hop over |
+| 3:0 | line of sight | a gauss turret: under the roofs and back over them past cover |
+| 3:1 | homing | a homing launcher above tiered platforms and walls that stop rockets |
+| 3:2 | chaingun | a chaingun drone circling a central block |
+| 3:3 | crossfire | a one-way ladder between two zap drones under a turret, then a descent |
+| 3:4 | the last door | everything: ramp, floor guard, bounce blocks, two pads, key, drone, thwomp, shaft |
+
+The text format (`Level::parse`, written back by `Level::to_text`): the 33x25 tile grid (`#` full,
+`2`..`Q` tile codes as `chr(48 + code)` except 27, written `k` because `K` is the switch; `S` spawn,
+`X` door, `K` switch), then after an empty line one item per line: `name`, objects in the original's
+parameter layout (`gold x y`, `mine x y`, `drone x y movement chaser weapon dir`, `door ...`, `oneway
+x y dir`, and so on, px with the frame included), `exit` and `spawn` lines when the grid letters cannot
+say it, then `waypoints` and `route` for the route bot. Every N level and the practice course survive a
+save and load unchanged (tests).
+
+- `entity --edit [file [level]]` (`src/editor.rs`): the level editor, drawn by the game's own renderer.
+  Arrows move the cursor (shift: 4 tiles), space or Enter places the brush, x/Delete erases (objects
+  first, then the tile), Tab or [ ] picks the brush (tile, spawn, exit, gold, mine, drone, turret, floor
+  guard, thwomp, homing launcher, launch pad, bounce block, one-way platform, door, locked door, trap
+  door), , and . pick its variant (the 33 tile shapes, drone kinds, directions, door edge), r turns a
+  drone's start direction, e picks up the tile under the cursor, u undoes, n names the level, s saves, p
+  test plays it through the real game loop (on an episode clock, so the time shows; Esc comes back), Esc
+  or q quits (asking when there are unsaved changes). Mouse: left places, right erases, dragging too. An
+  exit, a locked door and a trap door take two places (the door, then its switch, key or trigger). A file
+  that does not exist yet starts empty, or as a copy of the named level (`entity --edit levels/04-0.txt
+  cloudcity`). Session logging covers keys, mouse, every edit, saves and test runs.
+- `entity --prove <file>...` (`src/bot.rs`): the route bot searches the level (leg by leg through its
+  `waypoints`, tile centres in px, `|` between the legs before and after the switch; without waypoints a
+  plain search), replays what it found in the real game and writes it into the file as `route`.
+  Waypoints on the gold make the route collect it.
+- `entity --render <file or level> [cols rows [ticks]]`: the board as plain text, after `ticks` frames
+  with no keys held (to see where drones have gone).
+- Proof: `every_campaign_level_is_finished_by_its_route` replays every stored route in the real game and
+  requires the level complete, no deaths and all gold collected, and an episode to use under 45 s of its
+  clock net of gold at the bot's pace (`cargo test --release campaign -- --nocapture` prints the table).
+  At the bot's pace the episodes use 38, 28, 36 and 18 s net. A route proves a level from a fresh start:
+  the chaingun's spread and the turret's timing read the game's tick, which in play carries on from
+  earlier levels, so in play those hazards fire with other timings than in the proof.
 
 ## Level data from N
 
@@ -223,9 +290,14 @@ terms of N's level data have not been checked.
 
 ## Playtesting by machine (how "can the level be finished" is checked)
 
-`ninja.rs` has a playtest that searches for key schedules through the REAL `Input` code with a simulated
-keyboard (presses plus OS style repeats) and the real physics, then replays stored winning routes through
-the real `Game` as ordinary tests (`the_practice_course_can_be_finished_with_*`). Findings so far
+The route bot (`src/bot.rs`, used by the playtest tests in `ninja.rs` and by `entity --prove`) searches
+for key schedules through the REAL `Input` code with a simulated keyboard (presses plus OS style
+repeats) and the real physics, then replays stored winning routes through the real `Game` as ordinary
+tests (`the_practice_course_can_be_finished_with_*`). Added 2026-10-27 for the campaign: the state key
+includes a coarse clock when a level has hazards that move or keep time (so waiting for a laser to stop
+is possible), each waypoint leg keeps up to three ways to its goal and the next leg falls back on them
+(a leg can end at the switch just as a laser fires through it), and the bot's world clock starts at 0
+like a fresh game's (before, a chaingun route found by the bot died in the game). Findings so far
 (2026-10-02):
 - The course is finishable in about 8.5 s with exact keys and 8.9 s with GNOME's default 500 ms repeat
   delay (10 jump presses; the timing route is mostly "hold right, tap jump on a rhythm").
