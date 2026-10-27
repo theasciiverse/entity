@@ -312,7 +312,8 @@ pub fn paint(buf: &mut Buffer, origin: (u16, u16), g: &Game, keys_note: Option<&
     }
     for p in &g.world.pads {
         if let Some((lc, row)) = cell_of(p.x, p.y) {
-            let ch = match ((p.nx * 1.5).round() as i32, (p.ny * 1.5).round() as i32) {
+            // 1.5 rounds away from zero, so clamp: a straight pad is (0, -1), not (0, -2)
+            let ch = match ((p.nx * 1.5).round().clamp(-1.0, 1.0) as i32, (p.ny * 1.5).round().clamp(-1.0, 1.0) as i32) {
                 (0, -1) => '\u{2191}',
                 (1, -1) => '\u{2197}',
                 (1, 0) => '\u{2192}',

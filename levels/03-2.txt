@@ -1,0 +1,36 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#         ###       ###         #
+#                               #
+#                               #
+#                               #
+#    ###      #######  ###      #
+#             #######           #
+#             #######           #
+#             #######           #
+# ###                       ### #
+#                               #
+#                               #
+#                               #
+# S             K             X #
+#################################
+#################################
+#################################
+
+name chaingun
+gold 276 204
+gold 516 204
+gold 156 300
+drone 348 300 0 0 2 0
+gold 588 300
+gold 84 396
+gold 684 396
+waypoints 84,396;156,300;276,204;516,204;588,300;684,396
+route L.Lj_jLjLjL.LjLjL._.RjRjR.R.R.R.R.RjLjLj_jLjLj_jRjR.RjRjRj_jRjRjRjRjR.R.R.R.Rj_jLjLj_jLjR.RjRjRjRjR.R.R.R.R.R.R.R.LjR.R.R.R.R.R.R.R.R.R.R.R.R._.R.L._.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.L.L.R.R.RjRjRjRjRjR.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.

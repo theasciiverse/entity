@@ -1,0 +1,66 @@
+#################################
+#                               #
+#                               #
+#               K               #
+#                               #
+#                               #
+#                       ####    #
+#                               #
+#         ####                  #
+#         ####                  #
+#                            ####
+#                               #
+#                               #
+#                               #
+#                  ####  ###    #
+#                  ####         #
+#                               #
+#                               #
+#                            ####
+#                               #
+#                               #
+# S                           X #
+#################################
+#################################
+#################################
+
+name crossfire
+turret 60 60
+oneway 372 108 3
+oneway 396 108 3
+oneway 420 108 3
+gold 612 132
+oneway 372 156 3
+oneway 396 156 3
+oneway 420 156 3
+drone 324 180 0 0 0 0
+gold 396 180
+oneway 372 204 3
+oneway 396 204 3
+oneway 420 204 3
+gold 708 228
+oneway 372 252 3
+oneway 396 252 3
+oneway 420 252 3
+gold 396 276
+oneway 372 300 3
+oneway 396 300 3
+oneway 420 300 3
+drone 468 324 1 0 0 0
+gold 612 324
+oneway 372 348 3
+oneway 396 348 3
+oneway 420 348 3
+gold 396 372
+oneway 372 396 3
+oneway 396 396 3
+oneway 420 396 3
+gold 708 420
+oneway 372 444 3
+oneway 396 444 3
+oneway 420 444 3
+oneway 372 492 3
+oneway 396 492 3
+oneway 420 492 3
+waypoints 396,372;396,276;396,180|612,132;708,228;612,324;708,420
+route R.RjRjRjRjRjRjRjRjR.R.R.R.R.R.R.R.R.R.RjLjLj_jL.L._.L.L.LjLjLjLjL.L.L.L.L._jRjRjRjRjR.R.R.L.L._.L.RjRj_jR.L.L.L.LjLjRjRjR.R.L.R._.L.Lj_jRjR._.L._._j_j_j_jL.R.R.L.L.L._jRjRjR.R._.R.LjLjLjLjR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjRjRjRjRjRjR.R.R.R.R.R.R.R._._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.R.R.R.R.L.RjR.R.R.R.R.R.R._.L.L.L.L.L.L.L.L.L.L.L.L.L._._._.R.R.R.R.R.R.R.R.R.

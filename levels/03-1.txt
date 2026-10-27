@@ -1,0 +1,36 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                          #### #
+#                               #
+#                           K   #
+#                  #######      #
+#                               #
+#                         #     #
+#                               #
+#                    ####       #
+#                               #
+#          #                    #
+#          #    ####    ####    #
+#          #                    #
+#          #                    #
+#          #                    #
+#                               #
+#    ####                       #
+#                               #
+# S X     #         #           #
+#################################
+#################################
+#################################
+
+name homing
+hominglauncher 732 60
+gold 420 324
+gold 612 324
+gold 156 444
+gold 372 468
+gold 564 468
+gold 732 516
+waypoints 372,468;564,468;732,516;612,324;420,324;156,444;540,252;636,204
+route RjRjRjRjRjRjRjRjR.R.R.R.R.R.R.R.R.R._._.L.L.L.L.LjLjLjLjRjRjRjR.R.R.R.R.R.R.R.R.RjRjR.R.R.R.R.R.R.R.R.R.R.R.LjLjLj_jRjRjR._j_jRjRjRjRjRjRjR._.LjLjLjLjLjLjRj_jL.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.R.R.L.L.L.L.L.L._._._._.L.L.L.L.L.L.L.L.LjLjLjLjLjLjLjL.L.L.L.L.L.L.R.R.R.R.RjRjRjRjRjRjRjRjR.R.R.R.R._jRjRjRjRjRjRjRj_.Rj_jRjRjRjRjRjR.RjRjRjRjRjRjRjRjR.R.R.R.R.R.R.R.RjRjRjRjRjR.R.R.R.RjRjRjRjRjR.L.LjLjLj_jL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L._._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.L.L.L.L.

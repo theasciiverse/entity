@@ -145,7 +145,9 @@ pub fn start_state(level: &Level, exact: bool, delay_frames: u32) -> Human {
         n: Ninja::new(level.spawn.0, level.spawn.1),
         input: Input::with_mode(if exact { Mode::Exact } else { Mode::Timing }),
         world: Objects::from_level(level),
-        frame: 1000,
+        // the world clock matches a fresh `Game` (its tick starts at 0), so hazards that use
+        // it (chaingun spread, turret timing) behave the same in the search and in the game
+        frame: 0,
         delay_frames,
         dir_key: 0,
         dir_since: 0,
