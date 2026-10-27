@@ -589,10 +589,14 @@ pub fn print_glyph_page(levels: &[Level]) {
     print!("{}", ansi(&buf, area));
 }
 
-/// `entity --render <level> [cols rows]`: the board as plain text, the way the game draws it
-/// at the start of an attempt in a terminal of that size (cells 1:2).
-pub fn print_board(level: &Level, cols: u16, rows: u16) {
+/// `entity --render <level> [cols rows [ticks]]`: the board as plain text, the way the game
+/// draws it in a terminal of that size (cells 1:2), after `ticks` frames with no keys held
+/// (to see where drones and other hazards have gone).
+pub fn print_board(level: &Level, cols: u16, rows: u16, ticks: u32) {
     let mut g = Game::new(vec![level.clone_level()], 0);
+    for _ in 0..ticks {
+        g.update(&crate::ninja::Controls::default());
+    }
     if let Some(geo) = crate::art::fit_with(crate::art::FitMode::Fill, g.level(), cols, rows, 2.0) {
         g.set_geometry(geo);
     }

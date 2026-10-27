@@ -1,0 +1,39 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# K                         X   #
+############################    #
+#                               #
+#                              ##
+#                             ###
+#    ############################
+#                               #
+###                             #
+#                               #
+############################    #
+#                               #
+#                               #
+#                            ####
+# S                             #
+#################################
+#################################
+#################################
+
+name the chase
+gold 348 204
+drone 372 252 0 1 0 0
+gold 252 300
+gold 492 300
+drone 492 372 0 1 0 0
+gold 252 396
+gold 540 396
+drone 300 468 0 1 0 0
+gold 204 516
+gold 444 516
+waypoints 204,516;444,516;708,444;636,396;540,396;252,396;84,348;132,276;252,300;492,300;708,252;636,180;348,204
+route R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjRjRjRjRjRjR.R.R.R.R.R._jRjRjLjLjLjLjLjLjL.L.L.L.LjL.L.L.R._.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjLjLjLjLjL.L._._.RjRj_jRj_.RjRjRjRjRjRjRjR.R.R.R.R.R.R.R.R.L.R.R.R.R.R.R.R.R.R.R.R.R.RjRjRjR.R.R.R.R.R.R.R._jLjLjLjLjLjLjL.LjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.

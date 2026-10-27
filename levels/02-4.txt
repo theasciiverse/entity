@@ -1,0 +1,37 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+##########################      #
+#                               #
+#                               #
+#                               #
+# K                    X        #
+##########################      #
+#                         ##    #
+#                               #
+#                            ####
+#                               #
+# S                             #
+#################################
+#################################
+#################################
+
+name hall of thwomps
+floorguard 324 378 -1
+thwomp 180 420 1
+thwomp 300 420 1
+thwomp 420 420 1
+thwomp 540 420 1
+gold 228 516
+gold 348 516
+gold 468 516
+waypoints 228,516;348,516;468,516;708,444;636,396;588,348
+route R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R.L.RjRjRjRjRjRjR.L.L.LjL.LjL.L.L.L.L.L.L.L.L.L.L.LjLjLjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjL.L.L.L.R.R.R.L.L.L.L.L.RjR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R.L.L.L.L.L.

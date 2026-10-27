@@ -47,7 +47,7 @@ fn main() -> io::Result<()> {
             }
             std::process::exit(if ok { 0 } else { 1 });
         }
-        // --render <level or file> [cols rows]: print the board as plain text
+        // --render <level or file> [cols rows [ticks]]: print the board as plain text
         Some("--render") => {
             let levels = all_levels();
             let level = match args.get(1) {
@@ -56,7 +56,7 @@ fn main() -> io::Result<()> {
                 None => levels[0].clone_level(),
             };
             let size = |i: usize, d: u16| args.get(i).and_then(|v| v.parse().ok()).unwrap_or(d);
-            render::print_board(&level, size(2, 100), size(3, 30));
+            render::print_board(&level, size(2, 100), size(3, 30), size(4, 0) as u32);
             return Ok(());
         }
         // --edit [file]: the level editor (a new level when the file does not exist yet)

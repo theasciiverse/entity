@@ -96,7 +96,7 @@ pub fn finished(h: &Human, level: &Level) -> bool {
         .any(|(e, &on)| on && (e.door.0 - h.n.x).powi(2) + (e.door.1 - h.n.y).powi(2) <= (RADIUS + 12.0).powi(2))
 }
 
-pub type Key = ((i32, i32, i32, i32, bool, i8, bool, u32), (i8, u32, u32), u32);
+pub type Key = ((i32, i32, i32, i32, bool, i8, bool, u32), (i8, u32, u32), u32, u32);
 
 /// Merge equivalent situations: for each key only its phase matters.
 pub fn key(h: &Human, exact: bool) -> Key {
@@ -118,6 +118,11 @@ pub fn key(h: &Human, exact: bool) -> Key {
         }
     };
     let flags = h.switches.iter().fold(0u32, |a, &b| a * 2 + b as u32) * 64 + h.world.doors.iter().fold(0u32, |a, d| a * 2 + d.open as u32) % 64;
+    // with hazards that move or keep time, the same spot later is a different situation
+    // (a laser has stopped firing, a drone has gone by), so waiting has to stay possible
+    let w = &h.world;
+    let timed = !(w.drones.is_empty() && w.turrets.is_empty() && w.thwomps.is_empty() && w.launchers.is_empty() && w.guards.is_empty());
+    let clock = if timed { h.frame / 20 } else { 0 };
     (
         (
             (n.x / 4.0) as i32,
@@ -131,6 +136,7 @@ pub fn key(h: &Human, exact: bool) -> Key {
         ),
         (h.dir_key, phase(h.dir_key != 0, h.dir_since, h.last_dir_event), phase(h.jump_since > 0, h.jump_since, h.last_jump_event)),
         flags,
+        clock,
     )
 }
 
@@ -163,6 +169,26 @@ pub fn search_from(
     target: (f32, f32),
     goal: &dyn Fn(&Human) -> bool,
 ) -> (Option<(Path, Human)>, usize) {
+    let (mut found, n) = search_many(level, start, base, exact, max_nodes, weight, target, goal, 1);
+    (found.pop(), n)
+}
+
+/// As `search_from`, but keeps searching until `want` different ways to reach the goal are
+/// found (or the search runs out), so a route can fall back on another one when the next
+/// leg cannot go on from the first (a laser about to fire where it ended, say).
+#[allow(clippy::too_many_arguments)]
+pub fn search_many(
+    level: &Level,
+    start: Human,
+    base: Instant,
+    exact: bool,
+    max_nodes: usize,
+    weight: f32,
+    target: (f32, f32),
+    goal: &dyn Fn(&Human) -> bool,
+    want: usize,
+) -> (Vec<(Path, Human)>, usize) {
+    let mut found = Vec::new();
     let h = |s: &Human| ((s.n.x - target.0).abs() * 0.5 + (s.n.y - target.1).abs()) / 20.0 * weight;
     let mut states = vec![(start.clone(), 0u32)];
     let mut parents: Vec<(usize, (i8, bool))> = vec![(usize::MAX, (0, false))];
@@ -184,7 +210,11 @@ pub fn search_from(
                 i = parents[i].0;
             }
             path.reverse();
-            return (Some((path, s)), count);
+            found.push((path, s));
+            if found.len() >= want {
+                break;
+            }
+            continue;
         }
         if depth >= 420 {
             continue;
@@ -207,7 +237,7 @@ pub fn search_from(
             }
         }
     }
-    (None, count)
+    (found, count)
 }
 
 /// Whole level in two legs: breadth-first to the first exit's switch, greedy from there to
@@ -260,8 +290,7 @@ pub fn waypoint_route(level: &Level, spec: &str) -> (Option<Vec<(i8, bool)>>, us
     };
     let mut halves = spec.split('|');
     let (before, after) = (parse(halves.next().unwrap_or("")), parse(halves.next().unwrap_or("")));
-    let mut state = start_state(level, true, 30);
-    let mut all = Vec::new();
+    let state = start_state(level, true, 30);
     let mut total = 0;
     let mut legs: Vec<((f32, f32), Goal)> = Vec::new();
     for w in before {
@@ -272,25 +301,31 @@ pub fn waypoint_route(level: &Level, spec: &str) -> (Option<Vec<(i8, bool)>>, us
         legs.push((w, Box::new(move |h: &Human| (h.n.x - w.0).powi(2) + (h.n.y - w.1).powi(2) < 14.0 * 14.0)));
     }
     legs.push((e.door, Box::new(move |h: &Human| finished(h, level))));
-    for (i, (target, goal)) in legs.iter().enumerate() {
-        let mut found = None;
-        for weight in [3.0f32, 1.0, 0.0] {
-            let (leg, n) = search_from(level, state.clone(), base, true, 1_500_000, weight, *target, goal.as_ref());
-            total += n;
-            if leg.is_some() {
-                found = leg;
-                break;
+    let path = legs_from(level, &legs, 0, state, base, &mut total);
+    if path.is_none() {
+        println!("no route through the legs");
+    }
+    (path, total)
+}
+
+/// Legs `i..` from `state`: each leg keeps up to three ways to its goal and the next leg is
+/// tried from each in turn, so one dead end does not sink the route.
+fn legs_from(level: &Level, legs: &[((f32, f32), Goal)], i: usize, state: Human, base: Instant, total: &mut usize) -> Option<Path> {
+    let Some((target, goal)) = legs.get(i) else { return Some(Vec::new()) };
+    for weight in [3.0f32, 1.0, 0.0] {
+        let (ends, n) = search_many(level, state.clone(), base, true, 1_500_000, weight, *target, goal.as_ref(), 3);
+        *total += n;
+        for (k, (p, end)) in ends.into_iter().enumerate() {
+            println!("leg {i} to {target:?}: {:.1} s (way {})", p.len() as f32 / 10.0, k + 1);
+            if let Some(rest) = legs_from(level, legs, i + 1, end, base, total) {
+                let mut all = p;
+                all.extend(rest);
+                return Some(all);
             }
         }
-        let Some((p, end)) = found else {
-            println!("leg {i} to {target:?} failed");
-            return (None, total);
-        };
-        println!("leg {i} to {target:?}: {:.1} s", p.len() as f32 / 10.0);
-        all.extend(p);
-        state = end;
     }
-    (Some(all), total)
+    println!("leg {i} to {target:?} failed");
+    None
 }
 
 

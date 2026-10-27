@@ -1,0 +1,36 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#               ###             #
+#    ####       ###        #### #
+#                               #
+#                               #
+#                               #
+#          ####      ####       #
+#                               #
+#                               #
+#                               #
+#    ####               ####    #
+#                               #
+# S X        #######         K  #
+#################################
+#################################
+#################################
+
+name laser light
+drone 396 60 0 0 1 0
+gold 156 252
+gold 684 252
+gold 300 348
+gold 540 348
+gold 156 444
+gold 612 444
+waypoints 156,444;300,348;156,252;540,348;684,252;612,444
+route R.R.R.R.R.R.R.R.R.R._._._.LjLjLjLjLjLjLjL.L.L.L.L.L.L.L.R.R.R.R.RjRjRjRjRjRjRjRjR.R.R.R.R.RjRjRjRjRj_jRjRjR.R.R.R.L.L.LjLjLjLjLjLjLjLjL.L.L.L.LjLjLjLjLjLjLjLjLjL.L.L.L.L.L.L.R.R.R.R.R.R.L.L._.R.RjRjRjRjRjRjRjR.R.R.R.R.R.L.RjR.R.R.R.R.R.L.L.R.R.RjR.R.R.R.R.R.R.R.R.RjLjLjLjLjLjL.RjRjRjR.RjR.R.R.R.R.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R._._._._.L.L.R.L.R.L._.R.R.R.R.R.R.L.R._.L.R.L.L._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.
