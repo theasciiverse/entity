@@ -1,6 +1,8 @@
 mod art;
+mod bot;
 mod demo;
 mod drones;
+mod editor;
 mod game;
 mod hazards;
 mod input;
@@ -27,27 +29,79 @@ const TICK: Duration = Duration::from_micros(16_667);
 fn main() -> io::Result<()> {
     // Session logging: RUST_LOG=debug entity 2>entity.log
     env_logger::init();
-    // levels: the practice slab, then all 150 N levels. Optional arg: start index,
-    // N level name fragment, or "episode:slot" (e.g. `entity cloudcity`, `entity 3:2`).
-    let mut levels = vec![Level::parse(include_str!("../levels/001.txt"))];
-    levels.extend(level::n_levels());
-    let arg = std::env::args().nth(1);
-    if arg.as_deref() == Some("--glyphs") {
-        render::print_glyph_page(&levels);
-        return Ok(());
+    let args: Vec<String> = std::env::args().skip(1).collect();
+    let arg = args.first().cloned();
+    match arg.as_deref() {
+        Some("--glyphs") => {
+            render::print_glyph_page(&all_levels());
+            return Ok(());
+        }
+        // --prove <file>...: find each level's route with the route bot and store it in the file
+        Some("--prove") => {
+            let mut ok = true;
+            for path in &args[1..] {
+                if let Err(e) = bot::prove(path) {
+                    eprintln!("{e}");
+                    ok = false;
+                }
+            }
+            std::process::exit(if ok { 0 } else { 1 });
+        }
+        // --render <level or file> [cols rows]: print the board as plain text
+        Some("--render") => {
+            let levels = all_levels();
+            let level = match args.get(1) {
+                Some(a) if std::path::Path::new(a).is_file() => Level::parse(&std::fs::read_to_string(a)?),
+                Some(a) => levels[find_level(&levels, a)].clone_level(),
+                None => levels[0].clone_level(),
+            };
+            let size = |i: usize, d: u16| args.get(i).and_then(|v| v.parse().ok()).unwrap_or(d);
+            render::print_board(&level, size(2, 100), size(3, 30));
+            return Ok(());
+        }
+        // --edit [file]: the level editor (a new level when the file does not exist yet)
+        // --edit [file [level]]: the level editor; a file that does not exist yet starts as
+        // an empty level, or as a copy of the named level
+        Some("--edit") => {
+            let path = args.get(1).cloned().unwrap_or_else(|| "levels/new.txt".into());
+            let from = args.get(2).map(|a| {
+                let levels = all_levels();
+                levels[find_level(&levels, a)].clone_level()
+            });
+            return session(false, |terminal, kitty| editor::run(terminal, &path, from, kitty));
+        }
+        _ => {}
     }
+    // levels: our campaign (episodes of five), the practice course, then N's 150 levels.
+    // Optional arg: start index, name fragment or "episode:slot" (e.g. `entity 3:2`).
+    let mut levels = all_levels();
     // --demo [level]: the game plays a level by itself, over and over (levels with a
-    // route in demo.rs; the practice course by default)
+    // route; the practice course by default). A number counts in the order the demo
+    // always used, practice then N's levels, so `--demo 2` stays cloud city.
     let demo = arg.as_deref() == Some("--demo");
     if demo {
-        let pick = std::env::args().nth(2).map_or(0, |a| find_level(&levels, &a));
-        let pick = if demo::route_for(&levels[pick].label).is_some() { pick } else { 0 };
-        levels = vec![levels.swap_remove(pick)];
+        let pick = match args.get(1) {
+            Some(a) if a.parse::<usize>().is_ok() => {
+                let mut legacy = vec![practice()];
+                legacy.extend(level::n_levels());
+                let i = a.parse::<usize>().unwrap().min(legacy.len() - 1);
+                legacy.swap_remove(i)
+            }
+            Some(a) => levels.swap_remove(find_level(&levels, a)),
+            None => practice(),
+        };
+        let pick = if pick.route.is_some() || demo::route_for(&pick.label).is_some() { pick } else { practice() };
+        levels = vec![pick];
     }
     let start = if demo { 0 } else { arg.map_or(0, |a| find_level(&levels, &a)) };
+    session(demo, |terminal, kitty| run(terminal, levels, start, kitty, demo, false))
+}
+
+/// Runs `f` in the alternate screen, with the kitty keyboard protocol on when the terminal
+/// speaks it (the demo skips the probe: about 2 s on a terminal that never answers, which
+/// would open a recording with a blank screen).
+fn session(demo: bool, f: impl FnOnce(&mut DefaultTerminal, bool) -> io::Result<()>) -> io::Result<()> {
     let mut terminal = ratatui::init();
-    // the demo plays itself, so it skips the protocol probe (about 2 s on a terminal that
-    // never answers, which would open a recording with a blank screen)
     let kitty = !demo && supports_keyboard_enhancement().unwrap_or(false);
     if kitty {
         let flags = KeyboardEnhancementFlags::DISAMBIGUATE_ESCAPE_CODES
@@ -56,7 +110,7 @@ fn main() -> io::Result<()> {
         execute!(io::stdout(), PushKeyboardEnhancementFlags(flags))?;
     }
     log::info!("start kitty_keyboard={kitty}");
-    let result = run(&mut terminal, levels, start, kitty, demo);
+    let result = f(&mut terminal, kitty);
     if kitty {
         let _ = execute!(io::stdout(), PopKeyboardEnhancementFlags);
     }
@@ -64,13 +118,14 @@ fn main() -> io::Result<()> {
     result
 }
 
-fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: bool, demo: bool) -> io::Result<()> {
+/// The game loop. `test_play` is the editor's test run: Esc goes straight back to the editor.
+fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: bool, demo: bool, test_play: bool) -> io::Result<()> {
     let first = levels[0].clone_level();
     let mut game = Game::new(levels, start);
     // the demo needs the keyboard only for Esc and Ctrl-C, so no input-mode note
     let mut input = if demo { Input::with_mode(input::Mode::Exact) } else { Input::new(kitty) };
-    let route = demo::route_for(&first.label).unwrap_or(demo::PRACTICE);
-    let mut player = demo.then(|| demo::Demo::new(route));
+    let route = first.route.clone().unwrap_or_else(|| demo::route_for(&first.label).unwrap_or(demo::PRACTICE).to_string());
+    let mut player = demo.then(|| demo::Demo::new(&route));
     let mut pad = pad::Pad::open();
     let mut finished_ticks = 0u32;
     let mut next = Instant::now() + TICK;
@@ -89,6 +144,10 @@ fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: 
                 if !event::poll(Duration::ZERO)? {
                     break;
                 }
+            }
+            if test_play && input.confirm_quit {
+                log::debug!("test play ends");
+                return Ok(());
             }
         }
         if player.is_none() {
@@ -128,7 +187,7 @@ fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: 
                 finished_ticks += 1;
                 if finished_ticks == 180 {
                     game = Game::new(vec![first.clone_level()], 0);
-                    player = Some(demo::Demo::new(route));
+                    player = Some(demo::Demo::new(&route));
                     finished_ticks = 0;
                 }
             }
@@ -142,7 +201,19 @@ fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: 
     Ok(())
 }
 
-fn find_level(levels: &[Level], arg: &str) -> usize {
+fn practice() -> Level {
+    Level::parse(include_str!("../levels/001.txt"))
+}
+
+/// Everything the game can play: the campaign, the practice course, then N's levels.
+fn all_levels() -> Vec<Level> {
+    let mut levels = level::campaign();
+    levels.push(practice());
+    levels.extend(level::n_levels());
+    levels
+}
+
+pub fn find_level(levels: &[Level], arg: &str) -> usize {
     if let Ok(i) = arg.parse::<usize>() {
         return i;
     }
@@ -154,7 +225,7 @@ fn find_level(levels: &[Level], arg: &str) -> usize {
 }
 
 /// Cell height / width in pixels as reported by the terminal; 2.0 when it does not say.
-fn cell_aspect() -> f32 {
+pub fn cell_aspect() -> f32 {
     match ratatui::crossterm::terminal::window_size() {
         Ok(w) if w.width > 0 && w.height > 0 && w.columns > 0 && w.rows > 0 => {
             (w.height as f32 / w.rows as f32) / (w.width as f32 / w.columns as f32)

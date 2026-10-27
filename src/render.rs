@@ -589,6 +589,21 @@ pub fn print_glyph_page(levels: &[Level]) {
     print!("{}", ansi(&buf, area));
 }
 
+/// `entity --render <level> [cols rows]`: the board as plain text, the way the game draws it
+/// at the start of an attempt in a terminal of that size (cells 1:2).
+pub fn print_board(level: &Level, cols: u16, rows: u16) {
+    let mut g = Game::new(vec![level.clone_level()], 0);
+    if let Some(geo) = crate::art::fit_with(crate::art::FitMode::Fill, g.level(), cols, rows, 2.0) {
+        g.set_geometry(geo);
+    }
+    let (bw, bh) = g.art.geo.board();
+    let mut buf = Buffer::empty(Rect::new(0, 0, bw, bh));
+    paint(&mut buf, (0, 0), &g, None, false);
+    for y in 0..bh {
+        println!("{}", (0..bw).map(|x| buf[(x, y)].symbol().to_string()).collect::<String>().trim_end());
+    }
+}
+
 /// One pose drawn on a small dot grid with dots of `dot` world units, as rows of Braille.
 fn figure_braille(pose: crate::ninja::Pose, dot: (f32, f32)) -> Vec<String> {
     let (bw, bh) = (6, 4);

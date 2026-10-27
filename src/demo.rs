@@ -6,7 +6,9 @@
 //! the tests verify finishes the course. The route is one letter pair per 100 ms
 //! (6 ticks): L, _ or R for the direction held, j or . for jump held.
 
+use crate::game::Game;
 use crate::input::{Input, Mode};
+use crate::level::Level;
 use crate::ninja::Controls;
 use ratatui::crossterm::event::{KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
 use std::time::{Duration, Instant};
@@ -74,23 +76,30 @@ impl Demo {
     }
 }
 
+/// Plays a route through the real `Game` the way `--demo` does, until the level is complete
+/// or the route runs out; the game is returned to be inspected (complete, deaths, gold, tick).
+pub fn replay(level: &Level, route: &str) -> Game {
+    let mut game = Game::new(vec![level.clone_level()], 0);
+    let mut demo = Demo::new(route);
+    for _ in 0..decode(route).len() * TICKS_PER_STEP {
+        let c = demo.controls(!game.ninja.grounded);
+        game.update(&c);
+        if game.complete {
+            break;
+        }
+    }
+    game
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::game::Game;
-    use crate::level::{n_levels, Level};
+    use crate::level::n_levels;
 
     fn plays_through(level: Level, route: &str) -> Game {
-        let mut game = Game::new(vec![level], 0);
-        let mut demo = Demo::new(route);
-        for _ in 0..decode(route).len() * TICKS_PER_STEP {
-            let c = demo.controls(!game.ninja.grounded);
-            game.update(&c);
-            if game.complete {
-                return game;
-            }
-        }
-        panic!("the route did not finish {} ({} deaths)", game.level().label, game.deaths);
+        let game = replay(&level, route);
+        assert!(game.complete, "the route did not finish {} ({} deaths)", game.level().label, game.deaths);
+        game
     }
 
     #[test]
