@@ -11,6 +11,14 @@ been checked.
 
 A port/homage to N++ — minimalist precision platforming, momentum-based movement, instant death, ninja-on-a-grid aesthetic. Drawille rendering for the sub-cell resolution needed to make tight collision and movement feel crisp rather than mushy.
 
+## Levels: 100 of our own
+
+Entity gets 100 levels of its own design (20 episodes of 5), and they replace N's levels. Every level
+element stays: tiles of all shapes, mines, drones, turrets, doors, gold, switch and exit, and all of the
+physics; the ninja and its animation stay exactly as they are. N's level data stays loadable until all
+100 exist. The tools are the level editor (`entity --edit`) and the route bot (`entity --prove`), which
+proves each level finishable and stores the route in the level file.
+
 ## Why this matters technically
 
 N++ lives or dies entirely on movement feel: precise momentum, exact collision edges, satisfying death particle bursts. This is a much harder rendering/feel problem than Bob-sleigh's more forgiving arcade kart physics — it's the project that really tests how far Ratatui (cell grid) + Drawille (Braille sub-pixel, 2x4 per cell) can be pushed for genuinely tight controls, not just nice-looking effects.
