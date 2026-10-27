@@ -8,6 +8,8 @@
 //!    the first repeat a tap and a hold look identical, so that window is capped.
 //! 3. **Latched**: direction stays on until the opposite key or stop. Selected with
 //!    `ENTITY_INPUT=latch`.
+//!
+//! A gamepad (see `pad.rs`) is exact whatever the terminal, and is merged in on top.
 
 use crate::ninja::Controls;
 use ratatui::crossterm::event::{KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
@@ -20,6 +22,19 @@ const REPEAT_DELAY_DEFAULT: Duration = Duration::from_millis(500);
 const REPEAT_INTERVAL_DEFAULT: Duration = Duration::from_millis(33);
 const RELEASE_MIN: Duration = Duration::from_millis(60);
 const RELEASE_MAX: Duration = Duration::from_millis(160);
+/// Frame note while a gamepad is connected (render.rs shows pad hints with it).
+pub const PAD_NOTE: &str = "pad";
+
+/// Gamepad buttons that are commands rather than play.
+#[cfg_attr(not(feature = "gamepad"), allow(dead_code))]
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub enum PadCmd {
+    Restart,
+    PrevLevel,
+    NextLevel,
+    /// Next level after finishing one, the episode again after running out of time.
+    Start,
+}
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum Mode {
@@ -107,6 +122,10 @@ pub struct Input {
     latch: i8,
     jump_last: Instant,
     jump_edge: bool,
+    // gamepad, held state of all pads together
+    pad_connected: bool,
+    pad_dir: i8,
+    pad_jump: bool,
     /// Timing mode tuning (see the playtest in `ninja.rs`).
     pub(crate) pre_cap: Duration,
     pub(crate) air_pre_cap: Duration,
@@ -119,6 +138,8 @@ pub struct Input {
     pub fit_toggle: bool,
     pub ninja_steps: i32,
     pub level_step: i32,
+    /// The pad's Start button, which main resolves against the game's state.
+    pub pad_start: bool,
 }
 
 impl Input {
@@ -150,17 +171,24 @@ impl Input {
             jump_window: if mode == Mode::Timing { Some(Duration::from_millis(750)) } else { None },
             jump_last: Instant::now() - Duration::from_secs(10),
             jump_edge: false,
+            pad_connected: false,
+            pad_dir: 0,
+            pad_jump: false,
             quit: false,
             confirm_quit: false,
             restart: false,
             fit_toggle: false,
             ninja_steps: 0,
             level_step: 0,
+            pad_start: false,
         }
     }
 
     /// Short note for the frame when input is not exact.
     pub fn mode_note(&self) -> Option<&'static str> {
+        if self.pad_connected {
+            return Some(PAD_NOTE);
+        }
         match self.mode {
             Mode::Exact => None,
             Mode::Timing => Some("keys: timing"),
@@ -204,6 +232,46 @@ impl Input {
             KeyCode::Char('p') if press => self.level_step -= 1,
             KeyCode::Esc if press => self.confirm_quit = true,
             _ => {}
+        }
+    }
+
+    /// Held state of the pads, after every batch of pad events. `connected`: a usable pad
+    /// is plugged in.
+    #[cfg_attr(not(feature = "gamepad"), allow(dead_code))]
+    pub fn on_pad(&mut self, connected: bool, dir: i8, jump: bool) {
+        if dir != self.pad_dir || jump != self.pad_jump {
+            log::debug!("pad state dir {dir} jump {jump}");
+        }
+        // a press that answers the quit question is not also a jump
+        if jump && !self.pad_jump && !self.confirm_quit {
+            self.jump_edge = true;
+        }
+        if dir != 0 && dir != self.pad_dir {
+            // the pad takes over from a key still counted as held
+            self.left = false;
+            self.right = false;
+            self.hold_left.clear();
+            self.hold_right.clear();
+            self.latch = 0;
+        }
+        self.pad_connected = connected;
+        self.pad_dir = dir;
+        self.pad_jump = jump;
+    }
+
+    /// A pad button went down. While the quit question shows, any button keeps playing.
+    #[cfg_attr(not(feature = "gamepad"), allow(dead_code))]
+    pub fn on_pad_press(&mut self, cmd: Option<PadCmd>) {
+        if self.confirm_quit {
+            self.confirm_quit = false;
+            return;
+        }
+        match cmd {
+            Some(PadCmd::Restart) => self.restart = true,
+            Some(PadCmd::PrevLevel) => self.level_step -= 1,
+            Some(PadCmd::NextLevel) => self.level_step += 1,
+            Some(PadCmd::Start) => self.pad_start = true,
+            None => {}
         }
     }
 
@@ -285,7 +353,8 @@ impl Input {
             }
             Mode::Latched => (self.latch, now.duration_since(self.jump_last) < Duration::from_millis(150)),
         };
-        Controls { dir, jump_held, jump_pressed: std::mem::take(&mut self.jump_edge) }
+        let dir = if self.pad_dir != 0 { self.pad_dir } else { dir };
+        Controls { dir, jump_held: jump_held || self.pad_jump, jump_pressed: std::mem::take(&mut self.jump_edge) }
     }
 }
 
@@ -452,5 +521,46 @@ mod tests {
         press(&mut i, KeyCode::Esc, t0);
         press(&mut i, KeyCode::Char('y'), t0);
         assert!(i.quit);
+    }
+
+    #[test]
+    fn a_pad_holds_and_releases_exactly_in_the_timing_tier() {
+        let t0 = Instant::now();
+        let mut i = Input::with_mode(Mode::Timing);
+        i.on_pad(true, 1, true);
+        let c = i.controls(ms(t0, 900), false);
+        assert_eq!(c.dir, 1, "held with no repeats needed");
+        assert!(c.jump_pressed && c.jump_held);
+        let c = i.controls(ms(t0, 950), false);
+        assert!(!c.jump_pressed && c.jump_held, "one edge, then held");
+        i.on_pad(true, 0, false);
+        let c = i.controls(ms(t0, 951), false);
+        assert_eq!(c.dir, 0);
+        assert!(!c.jump_held, "a release cuts the jump short, unlike a key tap");
+        assert_eq!(i.mode_note(), Some(PAD_NOTE));
+    }
+
+    #[test]
+    fn the_pad_overrides_a_key_still_counted_as_held() {
+        let t0 = Instant::now();
+        let mut i = Input::with_mode(Mode::Timing);
+        press(&mut i, KeyCode::Right, t0);
+        i.on_pad(true, -1, false);
+        assert_eq!(dir(&mut i, ms(t0, 10)), -1);
+        i.on_pad(true, 0, false);
+        assert_eq!(dir(&mut i, ms(t0, 20)), 0, "the stale key does not come back");
+    }
+
+    #[test]
+    fn a_pad_button_answers_the_quit_question_without_jumping() {
+        let t0 = Instant::now();
+        let mut i = Input::with_mode(Mode::Exact);
+        press(&mut i, KeyCode::Esc, t0);
+        i.on_pad(true, 0, true);
+        i.on_pad_press(None);
+        assert!(!i.confirm_quit && !i.quit, "keeps playing");
+        assert!(!i.controls(t0, false).jump_pressed);
+        i.on_pad_press(Some(PadCmd::Restart));
+        assert!(i.restart);
     }
 }

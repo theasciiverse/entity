@@ -131,6 +131,15 @@ are not used yet, so the game does not depend on them.
   is 500 ms delay / 30 ms interval. The timing tier has NOT been felt in play yet: tune
   `PRE_REPEAT_CAP` and the release bounds by feel. On a terminal that never answers the protocol query,
   startup waits about 2 seconds.
+- `src/pad.rs`: gamepads through gilrs (cargo feature `gamepad`, on by default, the same pattern as Ceres,
+  SIGPIPE and uXo). A pad reports real press and release, so it plays like the exact keyboard tier in ANY
+  terminal (hold jump for height, release cuts it short), merged on top of the keyboard in `Input`
+  (`on_pad`, `on_pad_press`); a pad direction overrides a key still counted as held. Every connected pad
+  drives the one ninja. Only SDL-mapped devices count (`ENTITY_ANY_PAD=1` accepts everything); David's
+  8BitDo SF30 Pro (X-input mode, seen as "Xbox 360 Controller") is detected and his 3Dconnexion receiver
+  ignored (checked 2026-10-13). While a pad is connected the frame shows `[pad]` instead of the keyboard
+  tier, and the level-complete overlays name the pad buttons. Not yet felt in play: the stick threshold
+  (0.4) and the button layout below.
 - `levels/001.txt`: the practice course, 33x25 like the N levels: a one tile step, a platform two tiles
   above it carrying the switch (K), a 22 degree ramp, then a 3 tile wide wall-jump shaft up to a ledge with
   the door (X). Design numbers measured from the physics (keep rises under about 2 tiles for margin):
@@ -164,7 +173,10 @@ are not used yet, so the game does not depend on them.
 Run: `cargo run --release [level]` (or `--demo`, see above) where level is an index, a name fragment (`cloudcity`) or
 `episode:slot` (`3:2`). Keys: arrows/wasd/hjkl run, up/w/k/space/z jump (hold for height), down/s/j
 stop, r restart the attempt (after game over: the episode), n/p next/previous level (after finishing a
-level, n continues with the clock carried over), f toggles fill versus square tiles, [ and ] shrink or grow the DRAWN ninja (quarter steps from 1.0 to 2.5 times the hitbox; start with `ENTITY_NINJA_SCALE`, default 1.0). Esc asks "Quit Entity?" and only y quits (a
+level, n continues with the clock carried over), f toggles fill versus square tiles, [ and ] shrink or grow the DRAWN ninja (quarter steps from 1.0 to 2.5 times the hitbox; start with `ENTITY_NINJA_SCALE`, default 1.0). Gamepad: d-pad or left stick
+run, A, B or d-pad up jump (hold for height), Y or Back restart the attempt, LB/RB previous/next level,
+Start continues after a finished level (after game over: the episode again); any pad button answers the
+quit question with "keep playing". Esc asks "Quit Entity?" and only y quits (a
 bare q quit was removed: it sits next to the steering keys); Ctrl-C quits immediately.
 
 Game flow (from the original): each episode of 5 levels shares a 90 s clock that starts on your first key

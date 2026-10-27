@@ -7,6 +7,7 @@ mod input;
 mod level;
 mod ninja;
 mod objects;
+mod pad;
 mod render;
 mod shapes;
 mod sprite;
@@ -70,6 +71,7 @@ fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: 
     let mut input = if demo { Input::with_mode(input::Mode::Exact) } else { Input::new(kitty) };
     let route = demo::route_for(&first.label).unwrap_or(demo::PRACTICE);
     let mut player = demo.then(|| demo::Demo::new(route));
+    let mut pad = pad::Pad::open();
     let mut finished_ticks = 0u32;
     let mut next = Instant::now() + TICK;
     while !input.quit {
@@ -89,6 +91,9 @@ fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: 
                 }
             }
         }
+        if player.is_none() {
+            pad.poll(&mut input);
+        }
         let now = Instant::now();
         let mut steps = 0;
         while now >= next && steps < 5 {
@@ -100,6 +105,13 @@ fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: 
             }
             if std::mem::take(&mut input.fit_toggle) {
                 game.toggle_fit();
+            }
+            if std::mem::take(&mut input.pad_start) {
+                if game.complete {
+                    game.step_level(1);
+                } else if game.game_over {
+                    game.restart();
+                }
             }
             if input.level_step != 0 {
                 game.step_level(std::mem::take(&mut input.level_step));

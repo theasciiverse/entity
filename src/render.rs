@@ -485,14 +485,15 @@ pub fn paint(buf: &mut Buffer, origin: (u16, u16), g: &Game, keys_note: Option<&
     text(buf, origin, bw - 3 - deaths.chars().count() as i32, bh - 1, &deaths, bright);
 
     let episode_msg = format!("  Episode complete!  Score {}  ", g.score);
+    let pad = keys_note == Some(crate::input::PAD_NOTE);
     let overlay: Option<[&str; 2]> = if confirm_quit {
         Some(["  Quit Entity?  ", "  y = quit   any other key = keep playing  "])
     } else if g.game_over {
-        Some(["  Out of time!  ", "  r = try the episode again  "])
+        Some(["  Out of time!  ", if pad { "  Start or r = try the episode again  " } else { "  r = try the episode again  " }])
     } else if g.complete && g.episode_done {
-        Some([&episode_msg, "  n = next episode   r = play again  "])
+        Some([&episode_msg, if pad { "  Start = next episode   Y = play again  " } else { "  n = next episode   r = play again  " }])
     } else if g.complete {
-        Some(["  Level complete!  ", "  n = next level   r = play again  "])
+        Some(["  Level complete!  ", if pad { "  Start = next level   Y = play again  " } else { "  n = next level   r = play again  " }])
     } else {
         None
     };
