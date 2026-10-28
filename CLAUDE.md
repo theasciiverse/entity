@@ -48,7 +48,7 @@ Open question: does the ninja itself render at Braille resolution (for precision
 ## Status
 
 Playable prototype on all 150 N levels (2026-10-02). Confirmed as next-up after Bob-sleigh, 2026-06-30.
-Since 2026-10-27 a new game starts with the campaign of our own levels (55 of the 100 so far, see
+Since 2026-10-27 a new game starts with the campaign of our own levels (70 of the 100 so far, see
 "The campaign" below); the practice course follows it in the level list.
 
 **Display design (decided with David):** like the original, the whole level is always on ONE
@@ -268,9 +268,23 @@ as N's do. Each episode teaches one thing at a time, then mixes:
 | 10:2 | crossbeams | a climb between two walls with windows, a laser beyond each |
 | 10:3 | shelter | a laser sweeping the ceiling, shelves over a floor of mines |
 | 10:4 | spotlight | cover to the key, a ladder, bounce blocks over mines under a laser, a locked door |
+| 11:0 | sniper | a gauss turret high in the room; keep moving, rest behind low walls |
+| 11:1 | bunkers | low roofs under the turret, mines in the open between them |
+| 11:2 | two snipers | a turret in each top corner; climb the middle behind walls on the ledges |
+| 11:3 | from below | a turret in a pit of mines; cross high above on platforms that hide you |
+| 11:4 | outpost | crates under the turret to the key, a lift, a drone, a locked door |
+| 12:0 | incoming | a homing launcher over a long floor; posts to put between you and the rocket |
+| 12:1 | dodgeball | a launcher in each top corner over a room of platforms |
+| 12:2 | switchback | four lanes joined at alternate ends, a launcher behind you in each |
+| 12:3 | crossroads | launchers at the ends of a cross, a climb up the middle |
+| 12:4 | barrage | rockets over mines to the key, a ladder, blocks for cover, a locked door |
+| 13:0 | suppressing fire | a chaingun circling a block high up; posts to duck behind |
+| 13:1 | gun deck | a chaingun along the ceiling over crates and mines |
+| 13:2 | pillbox | a chaingun inside a box with slits; go round it on ledges |
+| 13:3 | firing range | three lanes, a chaingun at the far end of each, crates for cover |
+| 13:4 | armory | a chaingun over crates to the key, a laser and a zap drone on top, a locked door |
 
-Planned episodes (a proposal, not yet settled with David): 11 gauss turrets;
-12 homing rockets; 13 chainguns; 14 one-way platforms and doors as route puzzles; 15 to 18 mixes of
+Planned episodes (a proposal, not yet settled with David): 14 one-way platforms and doors as route puzzles; 15 to 18 mixes of
 rising difficulty; 19 the finale.
 
 Episodes 4 on are written as short Python scripts, `tools/campaign/epNN.py`, on `tools/mklevel.py`
@@ -302,10 +316,14 @@ save and load unchanged (tests).
   Waypoints on the gold make the route collect it.
 - `entity --render <file or level> [cols rows [ticks]]`: the board as plain text, after `ticks` frames
   with no keys held (to see where drones have gone).
+- `hazards_on_the_routes` (ignored test, `cargo test --release hazards_on_the_routes -- --ignored
+  --nocapture`): replays every route and counts the ticks each level's lasers, chainguns, turrets,
+  rockets and thwomps are active, so a hazard that never acts on the route shows as scenery. On
+  2026-10-29 it showed 3:1 homing's launcher never firing on its route.
 - Proof: `every_campaign_level_is_finished_by_its_route` replays every stored route in the real game and
   requires the level complete, no deaths and all gold collected, and an episode to use under 45 s of its
   clock net of gold at the bot's pace (`cargo test --release campaign -- --nocapture` prints the table).
-  At the bot's pace the episodes use 38, 28, 36, 18, 18, 22, 16, 37, 37, 33 and 22 s net. A route proves a level from a fresh start:
+  At the bot's pace the episodes use 38, 28, 36, 18, 18, 22, 16, 37, 37, 33, 22, 32, 10 and 30 s net. A route proves a level from a fresh start:
   the chaingun's spread and the turret's timing read the game's tick, which in play carries on from
   earlier levels, so in play those hazards fire with other timings than in the proof.
 

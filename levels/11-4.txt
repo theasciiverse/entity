@@ -1,0 +1,42 @@
+#################################
+#   #                           #
+#   #                           #
+#   #   ##                      #
+#   #   ##                      #
+#   #                           #
+#   #                           #
+# K                   X         #
+########  ###      #####        #
+#                               #
+#             #####             #
+#             #####       ####  #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#     ##    ##      ##   ##     #
+# S   ##    ##      ##   ##     #
+#################################
+#################################
+#################################
+
+name outpost
+turret 396 228
+launchpad 756 528 0 -1
+drone 180 60 0 0 0 0
+door 708 516 0 0 3 7 1 0 0
+gold 228 516
+gold 396 516
+gold 564 516
+gold 756 372
+gold 660 252
+gold 588 228
+gold 396 180
+gold 276 180
+gold 156 180
+waypoints 228,516;396,516;564,516;708,516;756,372;684,252;660,252;588,228;516,180;396,180;276,180;156,180;60,180|276,180;396,180;540,180
+route R.R.R.RjRjRjR.R.R.R.R.L.R.L.L._.L.L.L.RjRjRjRjR.R.R.R.R.R._.R._.L.L.L.R.RjRjRjRjR.R.R.R._.L.L.L.L.L.L.L.L.R.R.R.RjRjRjR.R.R.R.R.R._.R.L._._.L.RjRjRjLjLjRjR.RjRjRjRjR._jRjRjRjR.R.R.R._jRjRjRjRjRjRj_._jLj_jRjR.LjLjLjLjL.L.L.L.L.L.L.L.L.L.LjL.L.L.R.L.L.R.LjLjLjL.LjL.R.L.RjRjRjR.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.L._.RjRjLjLjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjL.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R._.LjR.R.R.R.R.R.R._.RjRjRjR.R.R.R.R.R.R.R.R.R.

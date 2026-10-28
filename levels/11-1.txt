@@ -1,0 +1,41 @@
+#################################
+#              ###              #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#X                              #
+###                             #
+#                               #
+#                               #
+#                               #
+#                               #
+#   ####   ####   ####   ####   #
+#                               #
+#                               #
+#    S                        K #
+#################################
+#################################
+#################################
+
+name bunkers
+mine 228 524
+mine 396 524
+mine 564 524
+turret 396 60
+oneway 84 468 3
+oneway 84 420 3
+oneway 84 372 3
+gold 156 516
+gold 324 516
+gold 492 516
+gold 660 516
+gold 84 396
+waypoints 324,516;492,516;660,516;732,516|660,516;492,516;324,516;156,516;84,492;84,396;84,348;36,300
+route R.R.R.R.R.R.R.RjR.R.L._.L.L.L.L.L.R.R.R.R.RjR.R.L.L.L.L._.L.L.R.R.R.R.RjR.R._._.L.L.L.L.L.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.Lj_._.R._.R.R.R.R.R.L.L.L.L.LjL.L._.R.R._.R.R.R.L.L.L.L.LjL._._.R.R._.R.R.R.LjL.L.L.L.L.R.R.R.R.RjRjRjRjRjRjRjRjR._jRjRjRjRjR.R.L._.L.LjRj_jLj_j_jR.LjLjLjLjL.L.L.L.L.L.

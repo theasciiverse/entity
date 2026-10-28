@@ -1,0 +1,35 @@
+#################################
+#                               #
+#                               #
+#                               #
+#             #####             #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#X                              #
+###                             #
+#                             K #
+#####                       #####
+#                               #
+#                               #
+#                               #
+#     #     #       #     #     #
+#     #     #       #     #     #
+#     #     #       #     #     #
+#     #     #   S   #     #     #
+#################################
+#################################
+#################################
+
+name sniper
+turret 396 132
+gold 564 516
+gold 708 516
+gold 84 516
+gold 396 300
+gold 204 300
+waypoints 564,516;708,516;756,420;732,324|588,324;396,300;204,300;84,324;84,516;60,420;108,324;36,276
+route R.R.R.R.RjRjRjRj_.RjRjRjR.R.R.R.R.R.R.R.R.R.L._.R.L.L.L.L.L.L.L.L.LjL._.R.RjRjRjRjRjRjR.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.RjRjRjRj_jL._jRjRjR.R.R.R.R.R.LjLjLj_.L.L.L.L.L.L.RjRjLjRjLj_jRjRjR.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L._.L.L.RjL.L._.R.R._.R.L.R._.L._.R.LjL.LjLjLjLjLjLjLjRjL._.R._.L.L.L._.R.L.L.L.L.L.L._jLjLjLj_jLj_.L.L.L.RjRjRjRjRjR.R.L.L.L.L.L.R.R.R._.L.L._jLjLjL.L.L.L._jLjLjLjLjLjLjL.LjLjLjL.L.L.L.L.L.L._jRjRjRj_j_jLj_._.R.R.L.L.L.L.L.L.L.L.L.L.L.LjLj_jRj_.LjRjRjRjRjRjR.R.R.R._.LjLjRj_jRjLjLjLjLjL.L.L.LjRjRjR.L.L.L.L.

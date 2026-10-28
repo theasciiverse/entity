@@ -328,6 +328,21 @@ pub const CAMPAIGN: &[(&str, &str)] = &[
     ("10-2.txt", include_str!("../levels/10-2.txt")),
     ("10-3.txt", include_str!("../levels/10-3.txt")),
     ("10-4.txt", include_str!("../levels/10-4.txt")),
+    ("11-0.txt", include_str!("../levels/11-0.txt")),
+    ("11-1.txt", include_str!("../levels/11-1.txt")),
+    ("11-2.txt", include_str!("../levels/11-2.txt")),
+    ("11-3.txt", include_str!("../levels/11-3.txt")),
+    ("11-4.txt", include_str!("../levels/11-4.txt")),
+    ("12-0.txt", include_str!("../levels/12-0.txt")),
+    ("12-1.txt", include_str!("../levels/12-1.txt")),
+    ("12-2.txt", include_str!("../levels/12-2.txt")),
+    ("12-3.txt", include_str!("../levels/12-3.txt")),
+    ("12-4.txt", include_str!("../levels/12-4.txt")),
+    ("13-0.txt", include_str!("../levels/13-0.txt")),
+    ("13-1.txt", include_str!("../levels/13-1.txt")),
+    ("13-2.txt", include_str!("../levels/13-2.txt")),
+    ("13-3.txt", include_str!("../levels/13-3.txt")),
+    ("13-4.txt", include_str!("../levels/13-4.txt")),
 ];
 
 pub fn campaign() -> Vec<Level> {
@@ -422,6 +437,37 @@ mod tests {
                 println!("  episode: {:.1} s, {} gold, {net:.1} s of the 90 s clock", episode.0, episode.1);
                 assert!(net < 45.0, "episode {:?} uses {net:.1} s of the clock at the bot's pace", l.episode);
                 episode = (0.0, 0);
+            }
+        }
+    }
+
+    /// How much each level's hazards act while its route plays: ticks with a laser or chaingun
+    /// charging or firing, a turret targeting, a rocket flying, a thwomp moving. A hazard that
+    /// never acts on the route is scenery (`cargo test --release hazards_on_the_routes -- --ignored --nocapture`).
+    #[test]
+    #[ignore]
+    fn hazards_on_the_routes() {
+        use crate::game::Game;
+        for l in campaign() {
+            let route = l.route.as_deref().unwrap_or("");
+            let mut game = Game::new(vec![l.clone_level()], 0);
+            let mut demo = crate::demo::Demo::new(route);
+            let (mut aim, mut fire, mut turret, mut rocket, mut thwomp) = (0, 0, 0, 0, 0);
+            for _ in 0..crate::demo::decode(route).len() * 6 {
+                let c = demo.controls(!game.ninja.grounded);
+                game.update(&c);
+                let w = &game.world;
+                aim += w.drones.iter().filter(|d| d.charging()).count();
+                fire += w.drones.iter().filter(|d| d.firing()).count();
+                turret += w.turrets.iter().filter(|t| t.targeting()).count();
+                rocket += w.launchers.iter().filter(|r| r.flying()).count();
+                thwomp += w.thwomps.iter().filter(|t| t.moving()).count();
+                if game.complete {
+                    break;
+                }
+            }
+            if aim + fire + turret + rocket + thwomp > 0 || !game.world.drones.is_empty() {
+                println!("{:26} drones {} aim {aim:4} fire {fire:4} turret {turret:4} rocket {rocket:4} thwomp {thwomp:4}", l.label, game.world.drones.len());
             }
         }
     }

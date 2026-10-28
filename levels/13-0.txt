@@ -1,0 +1,46 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#             #####             #
+#             #####             #
+#             #####             #
+#                               #
+#X                            K #
+###                           ###
+#                               #
+#                               #
+#                               #
+#                               #
+#     ##   ##       ##   ##     #
+#     ##   ##       ##   ##     #
+#                               #
+#                               #
+#                               #
+#                               #
+#               S               #
+#################################
+#################################
+#################################
+
+name suppressing fire
+drone 324 108 0 0 2 0
+oneway 84 468 3
+oneway 84 420 3
+oneway 84 372 3
+oneway 84 324 3
+oneway 84 276 3
+oneway 708 468 3
+oneway 708 420 3
+oneway 708 372 3
+oneway 708 324 3
+oneway 708 276 3
+gold 516 516
+gold 636 516
+gold 180 348
+gold 300 348
+gold 516 348
+gold 636 348
+waypoints 516,516;636,516;708,492;708,348;708,252;732,228|708,348;636,348;516,348;300,348;180,348;84,348;84,252;36,228
+route R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjR.L.L._.R.R.LjLj_jRj_j_jRj_._.R._j_jRjR.R.L.R.LjLjLj_jR._._._._.R.RjLjLjL._._._.Rj_j_j_j_j_jRjRjR.L.L.L.L.L.L._.L._.L.R.R.R.R.R.R.L.RjR.R.R.L.L._.L.L.LjL.L.L.L.L._.L.LjL.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.R.R.R.L.L.RjL._.R.R._.L.L._.R._.LjL.L.L.L.R.RjRjRjR.R.R.R.Rj_jLjLjLjLjLjL.LjLjLjLjL.L.L.L.L.

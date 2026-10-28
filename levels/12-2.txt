@@ -1,0 +1,41 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                            S  #
+##  #############################
+#                               #
+#                               #
+#                               #
+#                               #
+#############################  ##
+#                               #
+#                               #
+#                               #
+#                               #
+##  #############################
+#                               #
+#                               #
+#                               #
+#                               #
+#               X             K #
+#################################
+#################################
+#################################
+
+name switchback
+hominglauncher 732 60
+hominglauncher 60 204
+hominglauncher 732 324
+hominglauncher 60 444
+gold 492 132
+gold 492 372
+gold 252 132
+gold 252 372
+gold 300 252
+gold 300 516
+gold 540 252
+gold 540 516
+waypoints 492,132;252,132;60,228;300,252;540,252;732,324;492,372;252,372;60,492;300,516;540,516;732,516|540,516;396,516
+route L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjL.R.R.R.R.R._.R._.L._._.L.R.R.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R.L.L.R.L.L._.L.R.R._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.R.R.R.R.R._.L.L.L.L.L.LjLjL._.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R._.R.L.L.L.L.L.L.L.L.L.LjL.R.R.R.R.R.L.R.R.L.L.L.L.L.L.L.L.R.

@@ -1,0 +1,39 @@
+#################################
+#                               #
+#                               #
+####                         ####
+#                               #
+#                               #
+#                    K          #
+#            ####   ####        #
+#                               #
+#    ####                       #
+#                               #
+#                               #
+#          ####    ####         #
+#                               #
+#                               #
+#                         ####  #
+#            ####               #
+#                               #
+#     ####          ####        #
+#                               #
+#                               #
+# S                           X #
+#################################
+#################################
+#################################
+
+name dodgeball
+hominglauncher 60 60
+hominglauncher 732 60
+gold 180 420
+gold 348 372
+gold 516 420
+gold 660 348
+gold 492 276
+gold 300 276
+gold 156 204
+gold 348 156
+waypoints 180,420;348,372;516,420;660,348;492,276;300,276;156,204;348,156;516,156|636,348;732,516
+route RjRjRjRjRjRjRjRjR.R.RjRjRjRjRjR.R.R.R.R.RjRjRjRjR.R.R.R.R.L.R.R.R.R.R.R.R.R.L.RjRjRjRj_j_j_jR.R.R.R.R.L.L.L.L.LjLjLjLjLjLjLjLjL.L.L.L.L.L.L.L.L.LjL.L.R.R.R._.R._.R.LjLjLjLjLjLjLjL.L.L.L.L.L.L.L.R.R.R.R.R.RjRjRjRjRjRjRjR.R.R.R.R.R.R.R.RjR.R.R.R.R.R.R.R.R.R.R.LjR.R.R.R.L.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.L.R._.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.

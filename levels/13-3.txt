@@ -1,0 +1,50 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#       #      #      #         #
+#   X   #      #K     #         #
+#############################  ##
+#                               #
+#                               #
+#                               #
+#                               #
+#         #      #      #       #
+#         #      #      #       #
+##  #############################
+#                               #
+#                               #
+#                               #
+#                               #
+#       #      #      #         #
+#    S  #      #      #         #
+#################################
+#################################
+#################################
+
+name firing range
+drone 732 468 2 0 2 0
+drone 60 300 2 0 2 0
+drone 732 132 2 0 2 0
+oneway 708 324 3
+oneway 732 324 3
+oneway 708 276 3
+oneway 732 276 3
+oneway 708 228 3
+oneway 732 228 3
+oneway 60 492 3
+oneway 84 492 3
+oneway 60 444 3
+oneway 84 444 3
+oneway 60 396 3
+oneway 84 396 3
+gold 300 516
+gold 468 516
+gold 636 516
+gold 156 348
+gold 324 348
+gold 492 348
+waypoints 300,516;468,516;636,516;468,516;300,516;84,468;84,420;84,348;156,348;324,348;492,348;708,348;708,300;708,204;588,180;396,180|252,180;108,180
+route R.R.RjRjRjR.R.R.R.R.R.R.L.L.L.L.LjLjRjLjR.R.R.R.R.R.R.R.R.R.L.LjLjLjL.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.Lj_jLjL.L.L.L._.R.R.R.R.R.LjLjLjLjL.L.L.L.L.R.R.R.R.R.LjLjLjL.L._.LjL.L.L.L.L.L.L.RjL._._jR.R.R.R.R.R._.R.R.R.R.R.LjLjLjLjLjLjLjL.L.L.L.R.RjRjRjRjRjRjRjRjR.R.R.R.R.R.R.RjRjLj_jR.R.L.L.L.L.L.R.L.L.R.RjRjRjR.R.R.R._.R.R.L.L.L.R.RjRjRjRjR.R.R.R.R.R.R.L.L.L.Rj_._jL.L.L.L.L.R.R.R.R.R.R.R.R.RjRjRj_.L._.L.L.LjRjRjR.L.L.L.LjRjRj_jLjLjLjL.L.L.L.L.L.L.L.L.L.LjLjLjL.L.L.L.L.L.L.L.L.L.L.L.L.L.R.LjRjLjL.LjL.L.L.L.L.L.L.L.L.L.R.LjLjLjL.L.L.L.L.L.L.L.L.L.L.L.

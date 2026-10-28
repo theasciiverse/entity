@@ -1,0 +1,40 @@
+#################################
+#                               #
+#               K               #
+####                         ####
+#                    #          #
+#                 ####          #
+#          #                    #
+#          ####                 #
+#                    #          #
+#                 ####          #
+#          #                    #
+#          ####                 #
+#                    #          #
+#                 ####          #
+#          #                    #
+#          ####                 #
+#                    #          #
+#                 ####          #
+#          #                    #
+#          ####                 #
+#                               #
+#   X           S               #
+#################################
+#################################
+#################################
+
+name two snipers
+turret 60 60
+turret 732 60
+gold 324 444
+gold 468 396
+gold 324 348
+gold 468 300
+gold 324 252
+gold 468 204
+gold 324 156
+gold 468 108
+gold 228 516
+waypoints 324,444;468,396;324,348;468,300;324,252;468,204;324,156;468,108;396,60|396,252;396,492;228,516;108,516
+route LjLjLjLj_jRjRjL.L.L.L.L.R.R.R.R.RjRjRjRjRjRjRjR.R.R.R.R.R.L.L.L.L.LjLjLjLjL.L.L.L.L.L.L._.L.R.R.R.RjRjRjRjRjRjRjR.R.R.R.L.L.L.L.L.L.LjLjLjLjL.L.L.L.L.L.L.L.L.L.L.R.R.R.RjRjRjRjRjRjRjR.R.R.R.L.L.L.L.L.L.LjLjLjLjL.L.L.L.L.L.L.L.L.R.RjR.RjRjRjRjR.R.R.R.R.R.R.R.R.R.R.R.R.LjLjLjLjLjL.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.L.L._.L._.L.L._._.R.R.R.R._.R.L.RjL.L.L._.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L._.L.L.L.L.L.L.

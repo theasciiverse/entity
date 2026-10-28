@@ -1,0 +1,38 @@
+#################################
+#                               #
+#                               #
+#             #####             #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#X                              #
+###                             #
+#                               #
+#    #    #           #    #    #
+#    #    #           #    #    #
+#    #    #           #    #    #
+#                               #
+#                               #
+#                               #
+#               S             K #
+#################################
+#################################
+#################################
+
+name incoming
+hominglauncher 396 108
+oneway 84 468 3
+oneway 84 420 3
+oneway 84 372 3
+gold 204 516
+gold 324 516
+gold 468 516
+gold 588 516
+gold 84 444
+waypoints 468,516;588,516;732,516|588,516;468,516;324,516;204,516;84,492;84,444;84,348;36,300
+route R.R.R.R.R.R.R.R.R.R.R.R.R.L.R.R.R.R.R.R.R.L.R.L.L.L.L.L.L.L.L.L.L.L.L.L.R.L.L.L.L.L.L.L.L.L.L.L.L.L.R.L.L.L.L.L.L.LjLjL.L.R.R.L._.L._.RjRjRjRjLjLjLjLjL.L.L.L.L.R.R.R.L.Rj_jLjRj_j_j_jLjR.L.R._jRjRj_jRj_jR._jLjLj_jL.R.R.LjLjLjL.L.L.L.L.L.L.

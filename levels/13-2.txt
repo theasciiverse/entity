@@ -1,0 +1,35 @@
+#################################
+#                               #
+#                               #
+#                 K             #
+#                ###            #
+#                               #
+#          ###         ###      #
+#                               #
+#           #### ####           #
+#      ###  #       #     ###   #
+#           #       #           #
+#                               #
+#  ###      #       #        ####
+#           #       #           #
+#           #### ####           #
+#      ###                ###   #
+#                               #
+#                               #
+#  ###                       ####
+#                               #
+#                               #
+# S                           X #
+#################################
+#################################
+#################################
+
+name pillbox
+drone 348 300 2 0 2 0
+gold 204 348
+gold 204 204
+gold 588 132
+gold 732 276
+gold 660 348
+waypoints 108,420;204,348;108,276;204,204;300,132;444,84|588,132;660,204;732,276;660,348;732,420;732,516
+route _jLjLjLjLj_j_._jRjR.R.R.R.R.R.RjLjLjLjR.RjRjRjRjR.R.R.R.R.R.L.L.LjLjLjLjLjLjLjLjL.L.L.L.L.L.L.L.Lj_jL.L.L.RjRjRjRjRjR.R.R.R.R.R.R.R.L._jLjLjLjRjRjRjRjR.R.R.R.R.R.RjRjRjRjR.R.R.R.L.R.R.R.R.R.R.R.R._._._.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L._._._.R.R.R.R.R.R.R.R.R.R.R.R.R._.L._.L.L.L.L.L.L.L.L.L._._._.R.R.R.R.R.R.R.R.R.R.R.
