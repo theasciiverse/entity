@@ -322,14 +322,13 @@ impl Game {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::level::n_levels;
 
-    /// Every real level, with all of its objects, run through the whole game loop for several
+    /// Every campaign level, with all of its objects, run through the whole game loop for several
     /// seconds with the ninja idle and then with it running about: nothing may panic, and every
     /// position must stay finite.
     #[test]
-    fn all_150_levels_run_with_their_objects() {
-        let levels = n_levels();
+    fn every_campaign_level_runs_with_its_objects() {
+        let levels = crate::level::campaign();
         let n = levels.len();
         let mut g = Game::new(levels, 0);
         for idx in 0..n {

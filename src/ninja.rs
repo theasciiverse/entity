@@ -727,9 +727,8 @@ mod tests {
     }
 
     #[test]
-    fn every_n_level_loads_with_a_sane_spawn() {
-        let levels = crate::level::n_levels();
-        assert_eq!(levels.len(), 150);
+    fn every_campaign_level_loads_with_a_sane_spawn() {
+        let levels = crate::level::campaign();
         for l in &levels {
             let mut n = Ninja::new(l.spawn.0, l.spawn.1);
             // spawn must not be buried: first contact depth stays small
@@ -901,13 +900,13 @@ mod playtest {
         }
     }
 
-    /// A route through any level for `entity --demo <level>`: `ENTITY_ROUTE_LEVEL=cloudcity
+    /// A route through any level for `entity --demo <level>`: `ENTITY_ROUTE_LEVEL=lastdoor
     /// cargo test --release print_a_route -- --ignored --nocapture` (exact keys).
     #[test]
     #[ignore]
     fn print_a_route() {
-        let want = std::env::var("ENTITY_ROUTE_LEVEL").unwrap_or_else(|_| "cloudcity".into());
-        let levels = crate::level::n_levels();
+        let want = std::env::var("ENTITY_ROUTE_LEVEL").unwrap_or_else(|_| "lastdoor".into());
+        let levels = crate::level::campaign();
         let level = levels.iter().find(|l| l.label.replace(' ', "").contains(&want)).expect("no such level");
         // optional waypoints "x,y;x,y|x,y" (px): legs before the switch | legs before the door
         let (path, nodes) = match std::env::var("ENTITY_ROUTE_WAYPOINTS") {
@@ -949,21 +948,6 @@ mod playtest {
             match path {
                 Some(p) => println!("{name}: FINISHABLE, {} ({nodes} states)", summarise(&p)),
                 None => println!("{name}: not found ({nodes} states)"),
-            }
-        }
-    }
-
-    /// Real N levels whose objects are all implemented: can each be finished (exact keys)?
-    #[test]
-    #[ignore]
-    fn the_supported_n_levels_can_be_finished() {
-        let levels = crate::level::n_levels();
-        let want = ["the motherlode", "cloud city", "the box, the box!", "shaft..s", "step lightly", "longjump", "hold it", "don't look down", "ditched", "get down", "descent"];
-        for l in levels.iter().filter(|l| want.iter().any(|w| l.label.ends_with(w))) {
-            let (path, nodes) = play_level(l, true, 30);
-            match path {
-                Some(p) => println!("{:28} FINISHABLE  {} ({nodes} states)", l.label, summarise(&p)),
-                None => println!("{:28} not found ({nodes} states)", l.label),
             }
         }
     }
@@ -1067,9 +1051,9 @@ mod peek {
     #[test]
     #[ignore]
     fn peek_region() {
-        let spec = std::env::var("ENTITY_PEEK").unwrap_or_else(|_| "cloudcity,0,12,6,18".into());
+        let spec = std::env::var("ENTITY_PEEK").unwrap_or_else(|_| "lastdoor,0,12,6,18".into());
         let v: Vec<&str> = spec.split(',').collect();
-        let levels = crate::level::n_levels();
+        let levels = crate::level::campaign();
         let level = levels.iter().find(|l| l.label.replace(' ', "").contains(v[0])).unwrap();
         let n = |i: usize| v[i].parse::<f32>().unwrap();
         let (x0, y0, x1, y1) = ((n(1) + 1.0) * TILE, n(2) * TILE, (n(3) + 2.0) * TILE, (n(4) + 1.0) * TILE);

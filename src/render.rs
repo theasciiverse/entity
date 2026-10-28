@@ -291,7 +291,7 @@ pub fn paint(buf: &mut Buffer, origin: (u16, u16), g: &Game, keys_note: Option<&
         if got || matches!(o.kind.as_str(), "mine" | "launchpad" | "testdoor" | "onewayplatform" | "bounceblock" | "drone" | "turret" | "floorguard" | "thwomp" | "hominglauncher") {
             continue;
         }
-        // Some objects sit exactly on the edge of the playfield (cloud city has a trail of
+        // Some objects sit exactly on the edge of the playfield (N's levels had trails of
         // gold along the floor line), so clamp them onto the nearest inner cell.
         let ic = (((o.x - TILE) / cw).floor() as i32).clamp(0, geo.n - 1);
         let ir = (((o.y - TILE) / ch_).floor() as i32).clamp(0, geo.m - 1);
@@ -580,8 +580,8 @@ pub fn print_glyph_page(levels: &[Level]) {
         println!("  {}", poses.iter().map(|(_, b)| format!("{:<8}", b[r])).collect::<String>());
     }
     println!("  {}", poses.iter().map(|(n, _)| format!("{n:<8}")).collect::<String>());
-    println!("\nBoard preview (cloud city):\n");
-    let idx = levels.iter().position(|l| l.label.contains("cloud city")).unwrap_or(0);
+    println!("\nBoard preview (the last door):\n");
+    let idx = levels.iter().position(|l| l.label.contains("the last door")).unwrap_or(0);
     let g = Game::new(levels_clone_one(levels, idx), 0);
     let (bw, bh) = g.art.geo.board();
     let area = Rect::new(0, 0, bw, bh);
@@ -627,12 +627,12 @@ fn levels_clone_one(levels: &[Level], idx: usize) -> Vec<Level> {
 mod tests {
     use super::*;
     use crate::art;
-    use crate::level::n_levels;
+    use crate::level::campaign;
     use ratatui::backend::TestBackend;
     use ratatui::Terminal;
 
     fn render_with(cols: u16, rows: u16, name: &str, aspect: f32) -> (Vec<String>, (u16, u16)) {
-        let levels = n_levels();
+        let levels = campaign();
         let idx = levels.iter().position(|l| l.label.contains(name)).unwrap();
         let mut g = Game::new(levels, idx);
         if let Some(geo) = art::fit(g.level(), cols, rows, aspect) {
@@ -653,18 +653,18 @@ mod tests {
 
     #[test]
     fn small_terminal_gets_a_message() {
-        let s = render(63, 25, "cloud city").join("\n");
+        let s = render(63, 25, "the last door").join("\n");
         assert!(s.contains("Terminal too small"), "{s}");
         assert!(s.contains("64 x 25"));
         assert!(!s.contains('\u{250C}'), "no board should be drawn");
-        let s = render(80, 24, "cloud city").join("\n");
+        let s = render(80, 24, "the last door").join("\n");
         assert!(s.contains("Terminal too small"), "24 rows is one short");
     }
 
     #[test]
     fn the_board_fills_the_terminal_and_is_centred() {
         for (cols, rows) in [(64u16, 25u16), (80, 30), (100, 30), (156, 47), (200, 50)] {
-            let (lines, (bw, bh)) = render_with(cols, rows, "cloud city", 2.18);
+            let (lines, (bw, bh)) = render_with(cols, rows, "the last door", 2.18);
             assert!(bw <= cols && bh <= rows);
             // it uses all of the limiting dimension
             assert!(bw == cols || bh == rows || (cols - bw <= 2 && rows - bh <= 2), "{cols}x{rows} -> {bw}x{bh}");
@@ -672,7 +672,7 @@ mod tests {
             assert_eq!(lines[y].chars().nth(x), Some('\u{250C}'), "{cols}x{rows}: {}", lines[y]);
             assert_eq!(lines[y].chars().nth(x + bw as usize - 1), Some('\u{2510}'));
             assert_eq!(lines[y + bh as usize - 1].chars().nth(x), Some('\u{2514}'));
-            assert!(lines[y].contains("[Entity Level 0:1 cloud city]"), "{}", lines[y]);
+            assert!(lines[y].contains("[Entity Level 3:4 the last door]"), "{}", lines[y]);
             let bottom = &lines[y + bh as usize - 1];
             assert!(bottom.contains("[Score 0]") && bottom.contains("[Gold 0/") && bottom.contains("[Deaths 0]"), "{bottom}");
         }
@@ -680,25 +680,24 @@ mod tests {
 
     #[test]
     fn exact_minimum_fits() {
-        let rows = render(64, 25, "cloud city");
+        let rows = render(64, 25, "the last door");
         assert_eq!(rows[0].chars().next(), Some('\u{250C}'));
         assert_eq!(rows[24].chars().last(), Some('\u{2518}'));
     }
 
     #[test]
     fn gold_stays_one_character_at_any_size() {
-        // cloud city has 32 gold pieces; 20 of them lie on the floor line and are clamped
-        // onto the bottom row, so on a small board several can share a cell
-        for (cols, rows, at_least) in [(64u16, 25u16, 12usize), (156, 47, 28)] {
-            let (lines, _) = render_with(cols, rows, "cloud city", 2.18);
+        // the last door has 14 gold pieces; on a small board two can share a cell
+        for (cols, rows, at_least) in [(64u16, 25u16, 10usize), (156, 47, 14)] {
+            let (lines, _) = render_with(cols, rows, "the last door", 2.18);
             let gold = lines.iter().flat_map(|l| l.chars()).filter(|&c| c == '\u{25C6}').count();
-            assert!(gold >= at_least && gold <= 32, "{cols}x{rows}: {gold} gold glyphs");
+            assert!(gold >= at_least && gold <= 14, "{cols}x{rows}: {gold} gold glyphs");
         }
     }
 
     #[test]
     fn quit_asks_first() {
-        let levels = n_levels();
+        let levels = campaign();
         let g = Game::new(levels, 1);
         let mut t = Terminal::new(TestBackend::new(64, 25)).unwrap();
         let mut input = Input::new(true);
@@ -711,7 +710,7 @@ mod tests {
 
     #[test]
     fn prints_the_board() {
-        for r in render(64, 25, "cloud city") {
+        for r in render(64, 25, "the last door") {
             println!("{r}");
         }
     }
@@ -719,7 +718,7 @@ mod tests {
     #[test]
     fn prints_the_ninja_in_three_poses_on_a_big_board() {
         use crate::ninja::Controls;
-        let levels = n_levels();
+        let levels = campaign();
         let mut g = Game::new(levels, 1);
         let geo = art::fit(g.level(), 156, 47, 2.18).unwrap();
         g.set_geometry(geo);
@@ -802,8 +801,8 @@ mod tests {
 
     #[test]
     fn partly_filled_cells_use_reverse_video_not_black() {
-        let levels = n_levels();
-        let idx = levels.iter().position(|l| l.label.contains("cloud city")).unwrap();
+        let levels = campaign();
+        let idx = levels.iter().position(|l| l.label.contains("the last door")).unwrap();
         let mut g = Game::new(levels, idx);
         g.set_geometry(art::fit(g.level(), 156, 47, 2.18).unwrap());
         let (bw, bh) = g.art.geo.board();
@@ -817,7 +816,7 @@ mod tests {
 
     #[test]
     fn a_bigger_drawn_ninja_has_more_dots_but_keeps_its_feet_on_the_floor() {
-        let levels = n_levels();
+        let levels = campaign();
         let mut g = Game::new(levels, 1);
         g.set_geometry(art::fit_with(art::FitMode::Square, g.level(), 156, 47, 2.18).unwrap());
         let (bw, bh) = g.art.geo.board();
@@ -848,7 +847,7 @@ mod tests {
 
     #[test]
     fn prints_the_ninja_at_several_drawn_sizes() {
-        let levels = n_levels();
+        let levels = campaign();
         let mut g = Game::new(levels, 1);
         g.set_geometry(art::fit_with(art::FitMode::Fill, g.level(), 156, 47, 2.18).unwrap());
         let input = Input::new(true);

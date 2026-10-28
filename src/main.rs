@@ -72,22 +72,18 @@ fn main() -> io::Result<()> {
         }
         _ => {}
     }
-    // levels: our campaign (episodes of five), the practice course, then N's 150 levels.
+    // levels: our campaign (episodes of five), then the practice course.
     // Optional arg: start index, name fragment or "episode:slot" (e.g. `entity 3:2`).
     let mut levels = all_levels();
     // --demo [level]: the game plays a level by itself, over and over (levels with a
-    // route; the practice course by default). A number counts in the order the demo
-    // always used, practice then N's levels, so `--demo 2` stays cloud city.
+    // route; the practice course by default).
     let demo = arg.as_deref() == Some("--demo");
     if demo {
         let pick = match args.get(1) {
-            Some(a) if a.parse::<usize>().is_ok() => {
-                let mut legacy = vec![practice()];
-                legacy.extend(level::n_levels());
-                let i = a.parse::<usize>().unwrap().min(legacy.len() - 1);
-                legacy.swap_remove(i)
+            Some(a) => {
+                let i = find_level(&levels, a).min(levels.len() - 1);
+                levels.swap_remove(i)
             }
-            Some(a) => levels.swap_remove(find_level(&levels, a)),
             None => practice(),
         };
         let pick = if pick.route.is_some() || demo::route_for(&pick.label).is_some() { pick } else { practice() };
@@ -205,11 +201,10 @@ fn practice() -> Level {
     Level::parse(include_str!("../levels/001.txt"))
 }
 
-/// Everything the game can play: the campaign, the practice course, then N's levels.
+/// Everything the game can play: the campaign, then the practice course.
 fn all_levels() -> Vec<Level> {
     let mut levels = level::campaign();
     levels.push(practice());
-    levels.extend(level::n_levels());
     levels
 }
 

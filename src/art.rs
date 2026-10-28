@@ -236,7 +236,7 @@ pub fn build(level: &Level, geo: Geometry) -> Art {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::level::n_levels;
+    use crate::level::campaign;
 
     #[test]
     fn exact_shapes_get_exact_glyphs() {
@@ -247,7 +247,7 @@ mod tests {
 
     #[test]
     fn fit_gives_square_tiles_and_respects_the_terminal() {
-        let lv = &n_levels()[0];
+        let lv = &campaign()[0];
         let g = fit(lv, 100, 30, 2.18).unwrap();
         assert_eq!(g.board(), (84, 30), "100x30 with 2.18 cells: width is the spare, not the limit");
         let g = fit(lv, 156, 47, 2.18).unwrap();
@@ -267,7 +267,7 @@ mod tests {
 
     #[test]
     fn fill_mode_reaches_one_cell_from_every_edge_within_the_stretch_limit() {
-        let lv = &n_levels()[0];
+        let lv = &campaign()[0];
         // David's window: 156 x 47 cells of 7.9 x 17.2 px
         let g = fit_with(FitMode::Fill, lv, 156, 47, 2.18).unwrap();
         let (bw, bh) = g.board();
@@ -290,12 +290,12 @@ mod tests {
     fn glyph_error_across_all_levels_and_sizes() {
         // Sum error over every partly filled cell: how far the nearest glyph is from the
         // true coverage, in samples of 64. Reported, with a loose ceiling.
-        let levels = n_levels();
+        let levels = campaign();
         let mut worst = 0u32;
         let mut total = 0u64;
         let mut cells = 0u64;
         for geo in [Geometry { n: 62, m: 23 }, Geometry { n: 84, m: 30 }, Geometry { n: 124, m: 46 }] {
-            let l = &levels[5];
+            let l = levels.iter().find(|l| l.name == "ski jump").unwrap();
             let (cw, ch) = geo.cell_size(l);
             for ir in 0..geo.m {
                 for ic in 0..geo.n {

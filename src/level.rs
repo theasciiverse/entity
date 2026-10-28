@@ -1,5 +1,4 @@
 use crate::shapes::shape;
-use serde::Deserialize;
 
 /// World units follow N++: one tile is 24 units, the ninja radius is 10.
 pub const TILE: f32 = 24.0;
@@ -320,73 +319,9 @@ pub fn campaign() -> Vec<Level> {
         .collect()
 }
 
-// ---- N levels, extracted by tools/extract_n.py ----
-
-#[derive(Deserialize)]
-struct NFile {
-    levels: Vec<NLevel>,
-}
-
-#[derive(Deserialize)]
-struct NLevel {
-    name: String,
-    episode: u32,
-    slot: u32,
-    tiles: Vec<String>,
-    objects: Vec<NObj>,
-}
-
-#[derive(Deserialize)]
-struct NObj {
-    name: String,
-    params: Vec<f64>,
-}
-
-/// N playfield: 31 x 23 tiles inside a one tile solid frame.
+/// The playfield: 31 x 23 tiles inside a one tile solid frame, as in N.
 const N_COLS: usize = 31;
 const N_ROWS: usize = 23;
-
-pub fn n_levels() -> Vec<Level> {
-    let file: NFile = serde_json::from_str(include_str!("../data/n-levels.json")).expect("data/n-levels.json");
-    file.levels
-        .into_iter()
-        .map(|l| {
-            let (w, h) = (N_COLS + 2, N_ROWS + 2);
-            let mut tiles = vec![FULL; w * h];
-            for (r, row) in l.tiles.iter().enumerate() {
-                for (c, ch) in row.chars().enumerate() {
-                    tiles[(r + 1) * w + c + 1] = (ch as u8).saturating_sub(b'0');
-                }
-            }
-            let mut spawn = (TILE * 2.0, TILE * 2.0);
-            let mut objects = Vec::new();
-            let mut exits = Vec::new();
-            for o in l.objects {
-                let p: Vec<f32> = o.params.iter().map(|&v| v as f32).collect();
-                if o.name == "player" {
-                    spawn = (p[0], p[1]);
-                } else if o.name == "exit" && p.len() >= 4 {
-                    exits.push(Exit { door: (p[0], p[1]), switch: (p[2], p[3]) });
-                } else {
-                    objects.push(Obj { kind: o.name, x: p[0], y: p[1], params: p });
-                }
-            }
-            Level {
-                label: format!("{}:{} {}", l.episode, l.slot, l.name),
-                name: l.name,
-                w: w as i32,
-                h: h as i32,
-                tiles,
-                spawn,
-                objects,
-                exits,
-                episode: Some((l.episode, l.slot)),
-                waypoints: None,
-                route: None,
-            }
-        })
-        .collect()
-}
 
 #[cfg(test)]
 mod tests {
@@ -417,8 +352,8 @@ mod tests {
     }
 
     #[test]
-    fn every_n_level_survives_a_save_and_load() {
-        for l in n_levels() {
+    fn every_campaign_level_survives_a_save_and_load() {
+        for l in campaign() {
             let text = l.to_text();
             same(&l, &Level::parse(&text));
             assert_eq!(Level::parse(&text).to_text(), text, "{}: saving twice changes nothing", l.label);

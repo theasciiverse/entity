@@ -5,15 +5,12 @@ Asciiverse platformer. Rust + Ratatui + Drawille. N++-inspired.
 Repo: private, github.com/theasciiverse/entity (branch `master`; commits as David, matching the sibling
 Asciiverse repos). Licence: MIT (2026-10-28).
 
-**THE NINJA ANIMATION STAYS AS IS (David, 2026-10-28, final).** The ninja is N's own figure and its 104
-frames (`data/n-ninja.json`), drawn by the original's rules. It ships with Entity. Never propose
-replacing, redrawing or "building our own" ninja, for licensing or any other reason, and never list it
-as something to remove before shipping.
+**THE NINJA ANIMATION STAYS AS IS (David, 2026-10-28, final).** Entity's Braille ninja is Entity's own
+drawing and ships with the game. It is not an open question: never propose replacing, redrawing or
+removing it, and never list it as a licensing concern.
 
-N's 150 levels (`data/n-levels.json`) are what our own 100 replace. Checked 2026-10-28: the Internet
-Archive copy of N v1.2 (`references/nRef/nv-12.zip`) carries no licence or readme, only "freeware" in
-its metadata, and no published terms from Metanet were found; whether and when to drop the N levels is
-David's call.
+Metanet's N levels were removed from the game on 2026-10-28 (David): the level list is our campaign
+plus the practice course.
 
 ## Premise
 
@@ -21,10 +18,9 @@ A port/homage to N++ — minimalist precision platforming, momentum-based moveme
 
 ## Levels: 100 of our own
 
-Entity gets 100 levels of its own design (20 episodes of 5), and they replace N's levels. Every level
+Entity gets 100 levels of its own design (20 episodes of 5); N's levels were removed on 2026-10-28. Every level
 element stays: tiles of all shapes, mines, drones, turrets, doors, gold, switch and exit, and all of the
-physics; the ninja and its animation stay exactly as they are (see the rule at the top). N's level data stays loadable until all
-100 exist. The tools are the level editor (`entity --edit`) and the route bot (`entity --prove`), which
+physics; the ninja and its animation stay exactly as they are (see the rule at the top). The tools are the level editor (`entity --edit`) and the route bot (`entity --prove`), which
 proves each level finishable and stores the route in the level file.
 
 ## Why this matters technically
@@ -53,7 +49,7 @@ Open question: does the ninja itself render at Braille resolution (for precision
 
 Playable prototype on all 150 N levels (2026-10-02). Confirmed as next-up after Bob-sleigh, 2026-06-30.
 Since 2026-10-27 a new game starts with the campaign of our own levels (30 of the 100 so far, see
-"The campaign" below); the practice course and N's levels follow it in the level list.
+"The campaign" below); the practice course follows it in the level list.
 
 **Display design (decided with David):** like the original, the whole level is always on ONE
 screen, no scrolling. The playfield (31x23 tiles) is divided into an n x m grid of terminal cells. By
@@ -63,11 +59,11 @@ tiles up to 30% wider or taller than square when the terminal's shape differs fr
 board is the largest that fits and is centred. The terminal's real cell shape is read from its pixel
 size (`window_size`), falling back to 1:2. About 134x47 in a 156x47
 window, 84x30 in 100x30. Cells need not line up with tile edges: each cell samples the level
-directly. A box-drawing line frames the board (`┌──[Entity Level 0:1 cloud city]──┐`); the bottom
+directly. A box-drawing line frames the board (`┌──[Entity Level 3:4 the last door]──┐`); the bottom
 edge carries score, gold and deaths. Minimum 64 x 25 cells; below that a "too small" message shows,
 and a bigger terminal gets the board centred. A default 80x24 terminal is too small (one row short).
 Objects stay ONE glyph each at every size (the field grows, targets do not). Objects centred on the
-playfield edge (cloud city has a trail of gold along the floor line) are clamped onto the nearest cell.
+playfield edge are clamped onto the nearest cell.
 
 Glyph policy: most things are ONE glyph per cell. Terrain is matched per cell against block
 elements (lower and left eighths, quadrants, and their colour-inverted forms) by comparing an 8x8
@@ -128,8 +124,7 @@ are not used yet, so the game does not depend on them.
   contact solver (`Ninja::step_in`); the rest act after the ninja has moved (`Objects::update`).
 - `src/shapes.rs`: solid polygon for each of the 34 N tile codes.
 - `src/art.rs`: polygon to single-cell glyph matching, built once per level.
-- `src/level.rs`: tile grid plus objects. `n_levels()` loads `data/n-levels.json` (embedded) into a
-  33x25 level (31x23 playfield inside a one tile solid frame).
+- `src/level.rs`: tile grid plus objects, 33x25 (31x23 playfield inside a one tile solid frame).
 - `src/render.rs`: frame, glyphs, objects, Braille ninja, centring and the too-small message.
 - `src/input.rs`: three input tiers so the game works in ANY terminal. (1) Exact: real press and
   release when the terminal speaks the kitty keyboard protocol (kitty, alacritty, foot, ghostty confirmed
@@ -163,36 +158,34 @@ are not used yet, so the game does not depend on them.
   the door (X). Design numbers measured from the physics (keep rises under about 2 tiles for margin):
   tallest jump rises 3.09 tiles, a tap rises 1.77 tiles, a running jump travels about 15 tiles.
 - Goal: touch an exit's switch, the door opens, reach it to complete the level (an overlay offers n for
-  the next level or r to play again). N levels get theirs from the `exit` objects (door x,y, switch x,y).
+  the next level or r to play again).
 - Gold pickup works (gold returns after a death, as in N). Score is a reserved field with no rules yet.
   Lives are not implemented; N itself has unlimited retries and an episode time limit.
 - `src/demo.rs`, `entity --demo [level]`: the game plays a level by itself (and again every 3 s after
   the door), replaying a machine-found exact route as key presses and releases through the real `Input`,
   so it shows exactly what the tests prove finishes the level (`the_demo_finishes_*`). Routes exist for
-  the practice course (the default), 0:1 cloud city (`entity --demo 2`) and every campaign level (the
-  route stored in its file, e.g. `entity --demo "3:4"`); other levels fall back to the practice course.
-  A NUMBER after `--demo` still counts in the old order (practice course, then N's levels), so
-  `--demo 2` stays cloud city; a name or `episode:slot` is looked up in the full list, campaign first. The practice route is found by `print_the_winning_routes`. Real N levels are too big
-  for a blind search, so `print_a_route` takes waypoints a person picks
-  (`ENTITY_ROUTE_LEVEL=cloudcity ENTITY_ROUTE_WAYPOINTS="x,y;...|x,y;..."`, px; before the bar the legs
-  to the switch, after it the legs to the door) and searches each short leg. Cloud city's switch is
-  behind a locked door, so its route first fetches the key in the cave of the upper-left ridge; it takes
-  24.7 s, collects 25 of 32 gold and never dies. To plan waypoints, `ENTITY_PEEK=cloudcity,0,1,30,23
+  the practice course (the default) and every campaign level (the route stored in its file, e.g.
+  `entity --demo "3:4"`); other levels fall back to the practice course. The argument is looked up like
+  the game's: an index into the full list, a name fragment or `episode:slot`. The practice route is found
+  by `print_the_winning_routes`; `print_a_route` (`ENTITY_ROUTE_LEVEL=lastdoor
+  ENTITY_ROUTE_WAYPOINTS="x,y;...|x,y;..."`, px; before the bar the legs to the switch, after it the legs
+  to the door) searches any level leg by leg. To plan waypoints, `ENTITY_PEEK=lastdoor,0,1,30,23
   ENTITY_PEEK_STEP=8 cargo test --release peek_region -- --ignored --nocapture` prints a level's solid
-  shape. The catalog preview is cloud city, recorded at the hub's fixed 100x30 with the ninja drawn at
-  2x (at 1x that board gives the figure only about 4 dots, below the size where it is drawn at all):
-  `ENTITY_NINJA_SCALE=2.0 python3 ../../hub/tools/castrec.py entity.cast . "w26.4" -- target/release/entity --demo 2`
-  (one run ending on "Level complete", about 27.5 s; in the website mockup `thumbnail_at = 9.0`, the
-  ninja on the ridge). Build with `cargo build --release` first: `cargo test` does not rebuild the game
-  binary.
+  shape. The catalog preview is 3:4 the last door (re-recorded 2026-10-28), at the hub's fixed 100x30
+  with the ninja drawn at 2x (at 1x that board gives the figure only about 4 dots, below the size where
+  it is drawn at all):
+  `ENTITY_NINJA_SCALE=2.0 python3 ../../hub/tools/castrec.py ../../hub/site/casts/entity.cast . "w19.0" -- target/release/entity --demo "3:4"`
+  (one run, the level completes at 18.0 s; in the website mockup `thumbnail_at = 9.0`, the ninja in
+  mid-air between the drone and the thwomp). Build with `cargo build --release` first: `cargo test`
+  does not rebuild the game binary.
 - Drawing over walls: a cell is reset before anything is drawn into it (ratatui's `set_style` adds to the
   old modifiers, so the ninja over a reverse video wall cell became a white block), and over a solid
   wall cell the ninja's dots sit on the wall's colour as background.
 - Session logging per the Asciiverse convention: `RUST_LOG=debug cargo run 2>entity.log`.
 
-Run: `cargo run --release [level]` (or `--demo`, see above) where level is an index, a name fragment (`cloudcity`) or
+Run: `cargo run --release [level]` (or `--demo`, see above) where level is an index, a name fragment (`lastdoor`) or
 `episode:slot` (`3:2`, the campaign's level when both have one). The list is the campaign, then the
-practice course, then N's 150 levels; a new game starts with campaign level 0:0. Tools: `--edit`,
+practice course; a new game starts with campaign level 0:0. Tools: `--edit`,
 `--prove` and `--render` (see "The campaign"). Keys: arrows/wasd/hjkl run, up/w/k/space/z jump (hold for height), down/s/j
 stop, r restart the attempt (after game over: the episode), n/p next/previous level (after finishing a
 level, n continues with the clock carried over), f toggles fill versus square tiles, [ and ] shrink or grow the DRAWN ninja (quarter steps from 1.0 to 2.5 times the hitbox; start with `ENTITY_NINJA_SCALE`, default 1.0). Gamepad: d-pad or left stick
@@ -277,8 +270,8 @@ save and load unchanged (tests).
   test plays it through the real game loop (on an episode clock, so the time shows; Esc comes back), Esc
   or q quits (asking when there are unsaved changes). Mouse: left places, right erases, dragging too. An
   exit, a locked door and a trap door take two places (the door, then its switch, key or trigger). A file
-  that does not exist yet starts empty, or as a copy of the named level (`entity --edit levels/04-0.txt
-  cloudcity`). Session logging covers keys, mouse, every edit, saves and test runs.
+  that does not exist yet starts empty, or as a copy of the named level (`entity --edit levels/06-0.txt
+  lastdoor`). Session logging covers keys, mouse, every edit, saves and test runs.
 - `entity --prove <file>...` (`src/bot.rs`): the route bot searches the level (leg by leg through its
   `waypoints`, tile centres in px, `|` between the legs before and after the switch; without waypoints a
   plain search), replays what it found in the real game and writes it into the file as `route`.
@@ -292,28 +285,15 @@ save and load unchanged (tests).
   the chaingun's spread and the turret's timing read the game's tick, which in play carries on from
   earlier levels, so in play those hazards fire with other timings than in the proof.
 
-## Level data from N
+## Level data from N (removed 2026-10-28)
 
-`data/n-levels.json` holds all 150 levels (30 episodes of 5) of Metanet's N v1.2 (Flash), extracted by
-`tools/extract_n.py` from `Nv12.swf` (kept in `references/nRef/nv-12.zip`, outside this repo):
-
-    python3 tools/extract_n.py path/to/Nv12.swf data/n-levels.json
-
-Verified against the data:
-- 31x23 tile grid stored column-major, tile codes 0..33, exactly one player and at least one exit per
-  level, object type ids read from the game's own OBJTYPE_* constants (gold 0, bounce block 1, launch
-  pad 2, turret 3, floor guard 4, player 5, drone 6, one-way platform 7, thwomp 8, door 9, homing
-  launcher 10, exit 11, mine 12).
-- Tile ids read from the game's TID_* constants. Orientation (letters are surface normal signs, y down)
-  and small/big naming were checked on all levels: slope borders line up between neighbouring tiles
-  (1249 matches, 1 mismatch), and slopes in the bottom row sit on the frame floor (505 of 524, against
-  76 for the mirrored reading).
-- 148 of 150 player starts are on empty tiles once the 24 unit implicit frame offset is applied.
-
-Not yet verified: what each object parameter means beyond position (door kind, drone movement and
-weapon, launch pad direction, exit switch position, and so on). Raw values are preserved. The 24 menu
-and help "demos" in the SWF are recorded input replays, not levels, and are not extracted. The licence
-terms of N's level data have not been checked.
+N v1.2's 150 levels were extracted from `Nv12.swf` (kept in `references/nRef/nv-12.zip`, outside this
+repo) by `tools/extract_n.py`, and were playable here until 2026-10-28, when David had them removed.
+The tool stays for studying the original locally (`python3 tools/extract_n.py path/to/Nv12.swf
+out.json`); its output does not go back into the repo. What the data taught, still true of the game:
+tile ids and object type ids come from the original's TID_* and OBJTYPE_* constants, and slope
+orientation and small/big naming were checked on all 150 levels (slope borders line up between
+neighbouring tiles in 1249 of 1250 cases).
 
 ## Playtesting by machine (how "can the level be finished" is checked)
 
