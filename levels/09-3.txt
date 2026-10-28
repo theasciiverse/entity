@@ -1,0 +1,60 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# S X                        K  #
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#################################
+#################################
+#################################
+
+name stepping on heads
+mine 132 524
+mine 156 524
+mine 180 524
+mine 204 524
+mine 228 524
+mine 252 524
+mine 276 524
+mine 300 524
+mine 324 524
+mine 348 524
+mine 372 524
+mine 396 524
+mine 420 524
+mine 444 524
+mine 468 524
+mine 492 524
+mine 516 524
+mine 540 524
+mine 564 524
+mine 588 524
+mine 612 524
+mine 636 524
+thwomp 204 252 1
+thwomp 324 252 1
+thwomp 444 252 1
+thwomp 564 252 1
+gold 204 180
+gold 324 180
+gold 444 180
+gold 564 180
+gold 708 132
+waypoints 204,228;204,180;324,228;324,180;444,228;444,180;564,228;564,180;708,252|708,132;564,228;444,228;324,228;204,228;108,252
+route R.R.R.RjRjR.R.R.R.R.R.R.R.L.L.LjLjLjLjLjL.L.L.L.R.R.R.R.R.R.R.R.L.R.RjRjRjR.R.R.L.L.L.LjLjLjLjLjLjLjL.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.RjRjRjRjRj_j_jLjL._jRjRjRjRjRjRjRjR.R.L.L.L.L.L.L.R.R.R.L.L.L.L.R.RjRjLj_j_j_j_jR.L._.RjLj_j_jRjLj_j_._.R.Lj_j_jRjLj_j_._.R.Lj_jRjLj_jR.R._.L.L._.R.R.R.R.RjR.R.R.R.R._.L.L.LjLjLjLjLjLjLjLjL.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.RjRjRjRjRjRj_._jRjRjRjRjRjRjRj_.RjRjRjR.R.R.R.R.R.R.R.LjLjLjLjLj_jL.LjLjLjLjRjL.L.L.L.L.L.R.R.R.R.R._._.L.LjL.L.L.L.L.L.L.L.L.L.L._._jLjLjLjLjLjLjLjLjL.L.L.L.L.L.L.L.L._.L.L.L.L.RjLjLjLjLjLjLjLjL.LjLjLjLjL.LjLjLjLjR._jLjLjLjLjLjLj_j_._jRjRjRjR.R._.L.L.L.L.L.L.L.L._jLjLjLjLjL.L.L.L.L.LjL.L.L.L.L.L.L.

@@ -1,0 +1,52 @@
+#################################
+#                               #
+#                               #
+#                               #
+#               K          X    #
+##  #############################
+#                               #
+#                               #
+#                               #
+#############################  ##
+#                               #
+#                               #
+#                               #
+##  #############################
+#                               #
+#                               #
+#                               #
+#############################  ##
+#                               #
+#                               #
+#                               #
+# S                             #
+#################################
+#################################
+#################################
+
+name guard duty
+oneway 708 468 3
+oneway 732 468 3
+floorguard 396 402 -1
+oneway 60 372 3
+oneway 84 372 3
+floorguard 396 306 1
+oneway 708 276 3
+oneway 732 276 3
+floorguard 396 210 -1
+oneway 60 180 3
+oneway 84 180 3
+floorguard 396 114 1
+floorguard 300 522 1
+gold 228 492
+gold 564 492
+gold 228 396
+gold 564 396
+gold 228 300
+gold 564 300
+gold 228 204
+gold 564 204
+gold 228 108
+gold 564 108
+waypoints 228,492;564,492;708,468;708,396;564,396;228,396;84,372;84,300;228,300;564,300;708,276;708,204;564,204;228,204;84,180;84,108;228,108;396,108|564,108;660,108
+route R.R.R.RjR.R.R.R.R.R.R.R.R.RjLjR.R.R.R.R.R.R.R.R.RjRjR.R.R.R.R.L.R.R.R.RjRjRjLjLjRjR._jL.L.LjLjLjRj_jL.L.L.L.L.LjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjLjL.L.L.L.R.R.L.L.RjRjRjRjLjL.L._jLjRjRjRjR.RjR.R.R.RjR.R.R._.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjRjR.R.R.R.R.L._.R._jLjLj_jRjR.R.L.LjRjLjLjLjL.L.L.L.L.LjL.L.R._.R.L.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjLjL.L.L.L.L.R.L.L._jRjRj_jLj_jLj_jL._jRjRjRjRjR.R.R._.R.RjR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.R.R.R.R.R.R.R.R.R.R.R.R.R._.

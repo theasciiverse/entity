@@ -1,0 +1,60 @@
+#################################
+#    #                          #
+#    #                          #
+#    #                          #
+#    #                          #
+#    #                          #
+#    #                          #
+# K                       X     #
+############################    #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#        ###############        #
+#     ##                        #
+#                               #
+#   #############################
+#                               #
+#                               #
+#                               #
+#                             S #
+#################################
+#################################
+#################################
+
+name foundry
+thwomp 252 444 1
+thwomp 396 444 1
+thwomp 540 444 1
+oneway 36 468 3
+oneway 60 468 3
+oneway 84 468 3
+oneway 36 420 3
+oneway 60 420 3
+oneway 84 420 3
+thwomp 132 324 0
+thwomp 660 324 2
+oneway 708 348 3
+oneway 732 348 3
+oneway 756 348 3
+oneway 708 300 3
+oneway 732 300 3
+oneway 756 300 3
+oneway 708 252 3
+oneway 732 252 3
+oneway 756 252 3
+floorguard 396 186 1
+door 396 324 0 0 4 7 1 0 0
+gold 468 492
+gold 324 492
+gold 180 492
+gold 60 396
+gold 300 300
+gold 492 300
+gold 732 228
+gold 516 156
+gold 276 156
+waypoints 468,492;324,492;180,492;60,444;60,396;156,348;300,300;396,324;492,300;636,396;708,396;732,324;732,228;636,180;516,156;276,156;60,180|276,156;516,156;636,180
+route L.L.L.LjLjL.L.L.L.L.L.L.L.L.L.L.LjLjL.L.R.R._.R.L.L.L.RjL.L.L.L.L.L.L.LjLjLjLjLjLjLjLj_.RjRjLjLjLjLjRjR.R.R.RjRjRjRjR.R._.R.R.Rj_jRjR.RjR.L._._.R.R.R.R.R.R.RjR.R.L._.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.RjLj_._jLjLj_jRjRjRjR.R.R.R.R.RjLjLjLjLjRjRjRjR._.LjLjLjL.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.L.LjLjL.L.L.L.L.L.L.L.L.L.L.L.L.LjL.L.L.L.R.RjR.R.R.R.R.R.R.R.R.RjR.RjRjR.R.R.R.R.R.R.R.R.RjRjR.R.R.R.R.R.R.R.R.R.R.R.

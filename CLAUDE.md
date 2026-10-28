@@ -48,7 +48,7 @@ Open question: does the ninja itself render at Braille resolution (for precision
 ## Status
 
 Playable prototype on all 150 N levels (2026-10-02). Confirmed as next-up after Bob-sleigh, 2026-06-30.
-Since 2026-10-27 a new game starts with the campaign of our own levels (45 of the 100 so far, see
+Since 2026-10-27 a new game starts with the campaign of our own levels (50 of the 100 so far, see
 "The campaign" below); the practice course follows it in the level list.
 
 **Display design (decided with David):** like the original, the whole level is always on ONE
@@ -258,8 +258,13 @@ as N's do. Each episode teaches one thing at a time, then mixes:
 | 8:2 | hunted | chasers round six pillars, charging down any clear line; use the cover |
 | 8:3 | carousel | two drones run round the walls while you climb the tower in the middle |
 | 8:4 | swarm | wanderers, chasers and followers, the switch behind a locked door |
+| 9:0 | crush hour | thwomps over a lane of mines, a guard on the roof on the way back |
+| 9:1 | piston | a shaft of ledges, each with a side thwomp waiting to slam across |
+| 9:2 | guard duty | four floors, a floor guard on each, ladders at alternate ends |
+| 9:3 | stepping on heads | across a pit of mines on the tops of hanging thwomps, and back |
+| 9:4 | foundry | under thwomps, between side thwomps to the key, past a guard to the switch |
 
-Planned episodes (a proposal, not yet settled with David): 9 thwomps and floor guards; 10 lasers; 11 gauss turrets;
+Planned episodes (a proposal, not yet settled with David): 10 lasers; 11 gauss turrets;
 12 homing rockets; 13 chainguns; 14 one-way platforms and doors as route puzzles; 15 to 18 mixes of
 rising difficulty; 19 the finale.
 
@@ -295,7 +300,7 @@ save and load unchanged (tests).
 - Proof: `every_campaign_level_is_finished_by_its_route` replays every stored route in the real game and
   requires the level complete, no deaths and all gold collected, and an episode to use under 45 s of its
   clock net of gold at the bot's pace (`cargo test --release campaign -- --nocapture` prints the table).
-  At the bot's pace the episodes use 38, 28, 36, 18, 18, 22, 16, 37 and 37 s net. A route proves a level from a fresh start:
+  At the bot's pace the episodes use 38, 28, 36, 18, 18, 22, 16, 37, 37 and 33 s net. A route proves a level from a fresh start:
   the chaingun's spread and the turret's timing read the game's tick, which in play carries on from
   earlier levels, so in play those hazards fire with other timings than in the proof.
 

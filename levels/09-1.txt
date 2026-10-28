@@ -1,0 +1,46 @@
+#################################
+#              K                #
+#                               #
+#           #     ###############
+#           #     ###############
+#           ###   ###############
+#           #     ###############
+#           #   #################
+#           #     ###############
+#           ###   ###############
+#           #     ###############
+#           #   #################
+#           #     ###############
+#           ###   ###############
+#           #     ###############
+#           #   #################
+#           #     ###############
+#           ###   ###############
+#           #     ###############
+#           #   #################
+#           #     ###############
+# X         #                 S #
+#################################
+#################################
+#################################
+
+name piston
+thwomp 324 444 0
+thwomp 420 396 2
+thwomp 324 348 0
+thwomp 420 300 2
+thwomp 324 252 0
+thwomp 420 204 2
+thwomp 324 156 0
+thwomp 420 108 2
+gold 420 444
+gold 324 396
+gold 420 348
+gold 324 300
+gold 420 252
+gold 324 204
+gold 420 156
+gold 324 108
+gold 156 36
+waypoints 396,516;420,444;324,396;420,348;324,300;420,252;324,204;420,156;324,108;372,36|156,36;252,60;276,300;60,516
+route L.L.L.L.L.L.L.L.LjL.LjL.LjL.LjL.LjL.LjL.L.LjL.L.RjRj_jRjRj_jRjRjRjRj_jLjR.L.L.L.L.L.R.L.RjLj_jLjLjLjL.L.L.L.L.RjR.RjR.R._.L.RjR._.R.R.L.L._.L.L.L.L._._.R._jRjLj_jLjL.L.L.L.L.L.LjR.RjR.R._._.Rj_.Rj_j_j_.R.L.LjLjLjL.L.Lj_._.L.L.L.R._.L.L.RjR.R._.L.L.LjRjRjRj_.R.R.R.RjL.L.L.LjLjL.L.L.L.L.L.R.RjRjLjLj_jLjLjLjL.R._.L.R._._.LjLjLjLjLjLjL.L.L.L.LjL.L.L.L.L.L.L.L.L.L.L.L.L.L.LjLjLjLjLjR.RjRjRjRjRjRjRjRjR.R.R.R.R.R._.LjLjRjRjRjRjR.R.R.R.R.R.L.L.R.R.R.L.L._.R._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.
