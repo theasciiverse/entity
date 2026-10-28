@@ -1,0 +1,73 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+######                          #
+#    #                          #
+#    #                          #
+#    #                          #
+# K                     X       #
+############################    #
+############################    #
+############################    #
+############################    #
+############################    #
+#                               #
+#                               #
+#                               #
+# S                             #
+#################################
+#################################
+#################################
+
+name minesweeper
+mine 156 524
+mine 180 524
+mine 252 524
+mine 276 524
+mine 348 524
+mine 372 524
+mine 444 524
+mine 468 524
+mine 540 524
+mine 564 524
+mine 132 436
+mine 228 436
+mine 324 436
+mine 420 436
+mine 516 436
+mine 612 436
+oneway 684 468 3
+oneway 708 468 3
+oneway 684 420 3
+oneway 708 420 3
+oneway 684 372 3
+oneway 708 372 3
+oneway 684 324 3
+oneway 708 324 3
+mine 756 468
+mine 756 396
+mine 756 372
+door 636 516 0 0 4 12 1 0 0
+mine 252 252
+mine 348 276
+mine 444 228
+mine 516 276
+mine 324 156
+mine 420 132
+gold 108 492
+gold 204 492
+gold 300 492
+gold 396 492
+gold 492 492
+gold 588 492
+gold 732 348
+gold 396 252
+gold 204 300
+gold 300 204
+waypoints 108,492;204,492;300,492;396,492;492,492;588,492;636,516;684,444;708,348;732,348;660,300;396,252;300,204;204,300;60,300|204,300;396,300;588,300
+route RjR.R.R.R.R.R.R.R.R.RjRjR.RjR.R.R.R._.L.L.RjRj_.R.R.R.R.R.R.L.L.LjRjR.R._.L.L.L.L.L.L.RjRjRjRjLjLjLjLjR.R._.LjLjLjLjLjLjLjL.LjRjRjRjR.R.R._.R._jLjLjLjLjLjLjLjLjL.L.LjLjLjLjL.L.L.L.L.L.L.L.L.L.L._.R.RjRjRjRjL.L.L.L.L.L.L.L.L.L.LjLjLjLjLj_jLj_.RjRjRjRjRjR.R.R.R.R.R.R.L.L._._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.L.L.L.LjL.L.L._.L.R.R.R.R.R.R.R.R.R.RjR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.

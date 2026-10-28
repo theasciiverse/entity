@@ -303,6 +303,11 @@ pub const CAMPAIGN: &[(&str, &str)] = &[
     ("05-2.txt", include_str!("../levels/05-2.txt")),
     ("05-3.txt", include_str!("../levels/05-3.txt")),
     ("05-4.txt", include_str!("../levels/05-4.txt")),
+    ("06-0.txt", include_str!("../levels/06-0.txt")),
+    ("06-1.txt", include_str!("../levels/06-1.txt")),
+    ("06-2.txt", include_str!("../levels/06-2.txt")),
+    ("06-3.txt", include_str!("../levels/06-3.txt")),
+    ("06-4.txt", include_str!("../levels/06-4.txt")),
 ];
 
 pub fn campaign() -> Vec<Level> {

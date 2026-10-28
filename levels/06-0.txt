@@ -1,0 +1,47 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                             K #
+#X                           ####
+###                          ####
+#                            ####
+#  S                         ####
+#################################
+#################################
+#################################
+
+name eggshells
+mine 132 524
+mine 156 524
+mine 228 524
+mine 252 524
+mine 324 524
+mine 348 524
+mine 420 524
+mine 444 524
+mine 516 524
+mine 540 524
+mine 612 524
+mine 636 524
+gold 180 468
+gold 276 468
+gold 372 468
+gold 468 468
+gold 564 468
+gold 660 468
+waypoints 180,468;204,516;276,468;300,516;372,468;396,516;468,468;492,516;564,468;588,516;660,468;732,420|588,516;492,516;396,516;300,516;204,516;84,516;36,444
+route RjRjRjRjRjR.R.R.R.R.R.L.L.L.L.RjRjRjRjRjR._._.R.L.L.L.R.L.L._.L.L.L.LjL.L.L.L._.R.R.R.R.RjRjRjRjRjR.R.R.R.R.R.R.L.L.L.RjRjRjRjRjR.R.R.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.L.L.R.R.R.RjRjRjRjRjR.R.R.R.R._.L.L.L.L.RjRjRjRjRjR.R._.L._jRjRjRjRjRjRjR.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L._._.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.LjL.L.L.L._.R.R.R.R.LjL.L.L.L.L.L.L.R.L.LjR.L.R.R.R._.R.R.L.LjL.L.L.L.L.L.L.R.L.L.LjL.L.L.L.L.R.R.R.R.LjRjRjLjLjLjLjL.L.L.L.L.

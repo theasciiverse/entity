@@ -1,0 +1,78 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# X                             #
+##############################  #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# S                          K  #
+#################################
+#################################
+#################################
+
+name fuse
+mine 108 524
+mine 132 284
+mine 180 524
+mine 204 284
+mine 252 524
+mine 276 284
+mine 324 524
+mine 348 284
+mine 396 524
+mine 420 284
+mine 468 524
+mine 492 284
+mine 540 524
+mine 564 284
+mine 612 524
+mine 636 284
+mine 684 524
+mine 156 420
+mine 132 180
+mine 228 444
+mine 204 204
+mine 300 396
+mine 276 156
+mine 372 444
+mine 348 204
+mine 444 420
+mine 420 180
+mine 516 396
+mine 492 156
+mine 588 444
+mine 564 204
+mine 660 420
+mine 636 180
+oneway 732 468 3
+oneway 756 468 3
+oneway 732 420 3
+oneway 756 420 3
+oneway 732 372 3
+oneway 756 372 3
+oneway 732 324 3
+oneway 756 324 3
+gold 204 492
+gold 180 252
+gold 348 492
+gold 324 252
+gold 492 492
+gold 468 252
+gold 636 492
+gold 612 252
+waypoints 204,492;348,492;492,492;636,492;708,516|732,348;708,276;612,252;468,252;324,252;180,252;60,276
+route R.R.R.RjRjR.R.R.R.R.R.R.R.R.L.RjR.R.R.R._.R.R.R.R.RjRjLjR.R.R.R.R.L._._.L.L.LjL.L._.L._.L.L.L.R.RjRjRjRjRjRj_jR.LjRjRjRj_._._._.RjLjRjRjLjRjRjRjRjR.LjLjLjLjLjLjLjLjLjL.L.LjLjL.L.L.L.L.L.L.L.L.LjLjR.R.L.L.L.L.L.R.R.R.R.RjRjL.L.L.L.L.L.L.L._.R.LjLjL.L.L.L.L.R.L._.R.

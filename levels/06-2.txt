@@ -1,0 +1,55 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                           K   #
+#                        ####   #
+#                               #
+#                  ####         #
+#                               #
+#            ####               #
+#                               #
+#      ####                     #
+#S  X                           #
+#####                           #
+#                               #
+#                               #
+#                               #
+#################################
+#################################
+#################################
+
+name constellation
+mine 156 348
+mine 132 492
+mine 300 300
+mine 276 444
+mine 444 252
+mine 420 396
+mine 588 204
+mine 564 348
+mine 108 524
+mine 156 524
+mine 204 524
+mine 252 524
+mine 300 524
+mine 348 524
+mine 396 524
+mine 444 524
+mine 492 524
+mine 540 524
+mine 588 524
+mine 636 524
+mine 684 524
+mine 732 524
+gold 156 396
+gold 300 348
+gold 444 300
+gold 588 252
+waypoints 156,396;300,348;444,300;588,252;684,228|540,228;444,276;396,324;252,372;108,420
+route R.R.RjRjR.R.R.R.R.R.R.R.RjRjRjRjRjRjRjR.RjRjRjR.R.R.R.R.R.R.RjRjRjRj_.RjRjRjRjRjRjRjR.R.R.R.R.R.RjRjRjRjRjRjRjRjR.RjRjRjR.R.R.R.R.R._.L._._.R._._.L._.R._.L._.Rj_jRjRjRj_._j_jRjRjRjRjRjRjR.R.RjRjRjRj_.RjRjRjRjL._jLjLj_jRj_jLjRjL.LjLjLjLjL.L.L.L.L._.L.L.L.L.L.L.L.L.L.L.L.L.R._._.R.R.R.L.L.L.L.L._.L.R._.L.R.L.L.L.L._.L.R._.R._.R.
