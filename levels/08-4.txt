@@ -1,0 +1,63 @@
+#################################
+#                           #   #
+#                           #   #
+#                           #   #
+#          ####    ####     #   #
+#          ####    ####     #   #
+#                           #   #
+#     X                       K #
+#   #############################
+#                               #
+#                               #
+#                               #
+#       ###         ###         #
+#       ###         ###         #
+#                               #
+#                               #
+#                               #
+############################    #
+#                               #
+#                               #
+#                               #
+# S                             #
+#################################
+#################################
+#################################
+
+name swarm
+oneway 708 468 3
+oneway 732 468 3
+oneway 756 468 3
+oneway 708 372 3
+oneway 732 372 3
+oneway 756 372 3
+drone 252 516 2 0 0 0
+drone 492 516 2 0 0 2
+drone 180 276 0 1 0 0
+drone 468 276 0 1 0 0
+oneway 36 372 3
+oneway 60 372 3
+oneway 84 372 3
+oneway 36 324 3
+oneway 60 324 3
+oneway 84 324 3
+oneway 36 276 3
+oneway 60 276 3
+oneway 84 276 3
+oneway 36 228 3
+oneway 60 228 3
+oneway 84 228 3
+drone 252 156 1 0 0 0
+drone 444 156 1 0 0 0
+door 372 396 0 0 27 7 1 0 0
+gold 156 492
+gold 372 492
+gold 588 492
+gold 732 324
+gold 588 396
+gold 156 396
+gold 324 84
+gold 516 84
+gold 612 180
+waypoints 156,492;372,492;588,492;708,444;732,324;588,396;372,396;156,396;60,348;60,252;108,180;324,84;420,180;516,84;612,180;732,180|612,180;420,180;156,180
+route R.R.RjR.R.R.R.R.R._.R.R.R.R.R.R.R.R.R.RjR.R.R.R.R.R.R.R.R.RjRjR.R.R.R.L.L.L.L._._jLjLjLjLjLjLjLjLjL.L.R.LjLjLj_.LjRjRjRjRjR.R.R.R.R.R.R.R._.L.L.L.L.L.L.L.L.L.L.L.L.R.L.L.L.L.L.L.L.L.L.L._.L.L.L.L.L.L.L.L.L.L.L.LjLjLjLjRjL._jRj_j_jLjLjLjLjL.L.L.L._.L.L.RjRjRjLj_.L.L.LjLjLjRjRj_j_jR.R.R.RjRjRjRjRjRjRjRjR.R.RjRjRjRjR.R.R.R.R.R.R.R.R.R._.L._._.L.L.RjL.L._.R.R.R.R.R.L.L.L.L.Rj_jLj_j_jLj_._jRjR.RjR.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.RjR.R._._.R.L.L.L.L.L.L.L.L.LjL.L.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.

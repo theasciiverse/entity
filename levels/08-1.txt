@@ -1,0 +1,57 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                          X    #
+#  ##########################   #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#############################   #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# S                          K  #
+#################################
+#################################
+#################################
+
+name rush hour
+oneway 36 300 3
+oneway 60 300 3
+oneway 36 252 3
+oneway 60 252 3
+oneway 36 204 3
+oneway 60 204 3
+oneway 732 468 3
+oneway 756 468 3
+oneway 732 396 3
+oneway 756 396 3
+oneway 732 300 3
+oneway 756 300 3
+oneway 732 228 3
+oneway 756 228 3
+drone 300 516 2 0 0 2
+drone 540 516 2 0 0 0
+drone 204 324 3 0 0 0
+drone 444 324 3 0 0 2
+drone 348 156 2 0 0 0
+gold 204 468
+gold 156 276
+gold 228 108
+gold 396 468
+gold 348 276
+gold 420 108
+gold 588 468
+gold 540 276
+gold 612 108
+waypoints 204,468;396,468;588,468;708,516|732,372;708,324;540,276;348,276;156,276;84,324;60,276;36,180;108,156;228,108;420,108;612,108;660,156
+route RjRjRjRjRjRjRjR.R.R.R.R.R.R.R.R.R.RjRjRjRjRjR.R.R.R.R.R.R.L._._.LjLjRjLjR.R.R.R.R._.L.L.L.L.RjLjLjLjLj_jRjR._jLj_j_jRjRjRjRjR.R._.R.R.R.R._jLjRj_jRjLjR.L.R.LjRjRjRjLjL.L.L.L.L.LjLjLjLjL.L.L.L.L.L.L.L.L.L.LjLjLjLjLjL.L.L.L.L.L.L.R.R.R.RjRjRjRjRjL.L.L.L.L.R._._.R.R.LjLjRjRjRjLjLjLjR._jLjLjLjLjLjLjLjR.RjRjR.R.R.R._.R.RjRjRjRjRjR.R.R.R.R.R.R.L.L.L.LjLjLjLjLjRjR.R.R.R.R.R.R.R.R.R.RjLj_jLjLj_.L.L.L._._.L.L.L.L.

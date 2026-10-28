@@ -1,0 +1,39 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                             K #
+#                          ######
+#                               #
+#                               #
+#                    ####       #
+#                    ####       #
+#                    ####       #
+#                               #
+#            ####               #
+#            ####               #
+#            ####               #
+#                               #
+#    ####                       #
+#    ####                       #
+#    ####                       #
+#                               #
+#                               #
+# S               X             #
+#################################
+#################################
+#################################
+
+name patrol
+drone 108 444 0 0 0 0
+gold 156 372
+drone 300 348 1 0 0 0
+gold 348 276
+drone 492 252 0 0 0 0
+gold 540 180
+gold 276 492
+gold 636 156
+gold 468 228
+gold 492 372
+waypoints 156,372;276,492;348,276;468,228;540,180;636,156;732,108|636,180;492,372;444,516
+route _jLjLjLjLj_j_._jRjRjRjRjRj_jRjR.R.R.R.R.R.R.R.R.R.L._.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.R.R.RjRj_jLj_j_jLj_.LjLjLjLj_.RjRjRjRjRjRjRj_._jRjRjRjRjRjR.R.R.R.R.R.R.RjRjRjRjR.R.R.R._jRjRjRjRjRjRjR.R.R.R.R.R.RjR.R.R.R.R.R.R.R.R.R.R.R.R._jRjRj_jRjRjRjRjR._jRjRj_jRjRjRjRjR.LjLjLjLjLjLjLjLjLjL.L.L._jRjRjRjRj_.RjR.RjR.R.R.R.R.R.R.R.R._._j_.LjLjL.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R._.R.R.R._.R._._j_j_.RjRj_jRjRj_.LjLjLjLjLjLjLjLjL.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.

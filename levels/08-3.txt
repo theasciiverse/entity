@@ -1,0 +1,38 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#             K                 #
+#           ####                #
+#                               #
+#                               #
+#                ####           #
+#                               #
+#                               #
+#           ####                #
+#                               #
+#                               #
+#                ####           #
+#                               #
+#                               #
+#           ####                #
+#                               #
+#                               #
+# X             S               #
+#################################
+#################################
+#################################
+
+name carousel
+drone 36 516 1 0 0 0
+drone 756 36 1 0 0 2
+gold 348 420
+gold 468 348
+gold 348 276
+gold 468 204
+gold 228 516
+gold 588 516
+gold 252 420
+waypoints 588,516;348,420;468,348;348,276;468,204;348,132|252,420;228,516;60,516
+route R.R.R.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.R._j_jRjRjRj_jRjLjL.LjLjLjLjLjL.L.L.L.R.R.RjRjRjRjRjRjRjRjR.R.R.R.R.R.R.L.L.L.L.LjLjLjLjLjLjLjLjL.L.L.L.L.L.L.L.L.L.R.R.RjRjRjRjRjRjRjRjR.R.R.R.R.R.L.L.L.LjLjLjLjLjLjLjLjL.L.L.L._.LjL.L.L.L.L._jL.L.L.L.L.L.L._.R.R.R.L.L._.L.L.L.L.L.L.L.L.L.L.LjLjLjLjR.RjRjRjRjRjRjRjRjR.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.

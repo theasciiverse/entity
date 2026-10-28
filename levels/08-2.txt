@@ -1,0 +1,38 @@
+#################################
+#                               #
+#                               #
+#                             K #
+#                           #####
+#                               #
+#     ###     ###     ###       #
+#     ###     ###     ###       #
+#     ###     ###     ###       #
+#                               #
+#                               #
+#                               #
+#                               #
+#     ###     ###     ###       #
+#     ###     ###     ###       #
+#     ###     ###     ###       #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# X            S                #
+#################################
+#################################
+#################################
+
+name hunted
+drone 132 132 0 1 0 0
+drone 612 300 1 1 0 0
+drone 324 396 0 1 0 0
+gold 180 132
+gold 180 300
+gold 372 132
+gold 372 300
+gold 564 132
+gold 564 300
+waypoints 468,516;564,300;564,132;660,84;732,84|564,132;372,132;372,300;180,300;180,132;84,252;60,516
+route R.R.R.R.R.R.R.R.R.R.R.R.R.R.R._jRjRjRjRjRjRjR.RjRjRjRj_.RjRjRjRjR.RjRjRjRjR.Lj_jLjLjLjLjLjL.L.L.L.L.L.L.R.L._._.R._.R._.RjR.R.R.Rj_._jLjLjLjLjRjRjRjR.RjRjRjR.R.R.R.R.R.R.RjRjRjRjRjR.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.LjL.R.L.L.L.L.L.L.R.L.R.R.R.R.R.R.R.R._._.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.LjL.L.L.R._.R.R.R.R.L.L.LjLjLjLj_jL._._jRjRjRjRjRjRjRjRj_.RjRjRjRj_.RjRjRjRjRjR.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.R._.R.R.R.R._._.R.RjR.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.R.Rj
