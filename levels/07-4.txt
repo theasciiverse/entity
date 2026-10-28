@@ -1,0 +1,59 @@
+#################################
+#     #                         #
+#     #                         #
+#     #                         #
+#     #                         #
+# K                             #
+######                          #
+#                               #
+#      ###                      #
+#                               #
+#                               #
+#                        X      #
+#                    ######     #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# S                             #
+#################################
+#################################
+#################################
+
+name fairground
+mine 108 524
+mine 132 524
+mine 156 524
+mine 180 524
+mine 204 524
+mine 228 524
+mine 252 524
+mine 276 524
+mine 300 524
+mine 324 524
+mine 396 524
+mine 420 524
+mine 444 524
+mine 468 524
+bounceblock 156 444
+bounceblock 252 444
+launchpad 348 528 0.7071 -0.7071
+launchpad 684 528 0 -1
+bounceblock 444 300
+bounceblock 348 276
+bounceblock 252 252
+door 588 516 0 0 5 5 1 0 0
+gold 204 396
+gold 300 396
+gold 444 420
+gold 684 348
+gold 540 252
+gold 396 228
+gold 300 204
+gold 204 156
+waypoints 156,420;204,396;252,420;300,396;348,516;444,420;588,516;684,516;684,348;588,276;540,252;444,276;396,228;348,252;300,204;252,228;204,180;204,156;60,132|204,180;252,228;348,252;444,276;612,276
+route RjRjRjRjRjRjRjRjR.R.R.R._jRjRjR.R.R.R.R.RjR.R.R.R.R.R.R.R._._._.R._.L.L.L.L.LjLjLjLjLjLjLjLjL.L.L.L.L.Rj_jLjLjLj_jLj_jR.R.R.R.R.R.R._.L.L.L.L.L.L.L._.L.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R._.R.R.R.R._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjLjR._._.R.R.R.R.R.R.L.LjLjLj_jRj_.L._._.R.R.R.L.LjLjLjLjLjL.L.L.L.R.R.L.L.LjRjLjLjLjL.L.L.L.L.L.R.R.RjRjLjL.L.L.L.L.LjL.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R._._.R.R.L.L.L.R.R.L._._.L.L.L.R.R.R.R.RjR.R.R.R.R.L.R.R.R.R.R.R.RjRjR.RjR.R.R.R.R.R.R.RjR.R.R.R.R.R.R.R.R.

@@ -1,0 +1,57 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                           K   #
+#                         ####  #
+#                               #
+#                               #
+#                               #
+#                   ####        #
+#                               #
+#                               #
+#X                              #
+####        #####               #
+#                               #
+#                               #
+#                               #
+#     ####                      #
+#                               #
+#                               #
+#                               #
+#S                              #
+#################################
+#################################
+#################################
+
+name updraft
+launchpad 84 528 0 -1
+launchpad 204 408 0 -1
+launchpad 372 312 0 -1
+launchpad 540 216 0 -1
+mine 84 204
+mine 204 108
+mine 372 36
+mine 564 36
+mine 204 524
+mine 252 524
+mine 300 524
+mine 348 524
+mine 396 524
+mine 444 524
+mine 492 524
+mine 540 524
+mine 588 524
+mine 636 524
+mine 684 524
+mine 732 524
+gold 84 348
+gold 180 300
+gold 300 204
+gold 444 132
+gold 588 60
+gold 204 396
+gold 372 300
+gold 540 204
+waypoints 84,516;84,348;180,396;204,396;180,300;300,300;372,300;300,204;444,204;540,204;444,132;588,108;588,60;684,108|492,204;348,300;204,396;60,300
+route R.R.R.R._.R.R.R.R._.L.R.R.R.R.R.R.R.R.R._.R.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R._.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R._.RjRjRjRj_jRjR.LjLjLjLjLjL.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjRjRjRjRjR.R.R.R.R.R.L.L.L.L.L.L.L.L.L._._.R.R.R.R.R.R.L.L.L.L._._._j_j_jLj_jLjLjRjR.RjRjRjRjRjRjR.RjRjRjRjRjRjRjRjL.L.L.L.L.L.LjLjLjL.L.L.L.L.R.R.R.R.R.R.L._.R.R._jLjLj_jLjLjLjRjR.RjRjRjRjRjR.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R._.R.R.R._.L.L.L.L.L.L.R.R.R.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.L.R.L.L.L.L.L.L.L.L.L.L.L.R.R._.R._.R.R.R.R.R.R.R.R._.L.L.L.L.

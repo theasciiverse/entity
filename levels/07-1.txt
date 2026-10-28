@@ -1,0 +1,68 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# X                             #
+#####               ########    #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                             K #
+#                         #######
+#                         #######
+# S                       #######
+#################################
+#################################
+#################################
+
+name trampoline
+mine 108 524
+mine 132 524
+mine 156 524
+mine 180 524
+mine 204 524
+mine 228 524
+mine 252 524
+mine 276 524
+mine 300 524
+mine 324 524
+mine 348 524
+mine 372 524
+mine 396 524
+mine 420 524
+mine 444 524
+mine 468 524
+mine 492 524
+mine 516 524
+mine 540 524
+mine 564 524
+mine 588 524
+mine 612 524
+bounceblock 156 444
+bounceblock 252 444
+bounceblock 348 444
+bounceblock 444 444
+bounceblock 540 444
+launchpad 708 456 0 -1
+bounceblock 396 300
+bounceblock 300 300
+bounceblock 204 300
+gold 204 396
+gold 300 396
+gold 396 396
+gold 492 396
+gold 588 396
+gold 348 252
+gold 252 252
+gold 156 252
+waypoints 156,420;204,396;252,420;300,396;348,420;396,396;444,420;492,396;540,420;588,396;732,444|708,420;684,252;588,276;396,276;348,252;300,276;252,252;204,276;156,252;60,276
+route RjRjRjRjRjRjRjRjR.R.R.R._jRjRjR.R.R.R.R.RjR.R.R.R.R.R.R.R.R.R.R.R._jLjLjLjLjL.RjRjRjRjR._.L.L._.L.L.R.RjRjR.RjR.R.L._.L.L.L.R.RjRjR.R.R._._.L.L.L.L.R.RjRjR.R.R.R.R.R.R.R.R.R.R.L.R.LjL.L.L.L.L.L.L.R._.R.L.L.L.L._jL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.RjR.R._._.R.R._.R.R._._._.R._.R.R.L.Rj_jL.RjRjLjLjRjRjRjRjR.R._.LjLjLjL.L._.R.R.R.R.R.LjLjL.L.L.L.L.L.L._.R.LjLj_jL.L._._.R.R.L.R.R.

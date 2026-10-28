@@ -48,7 +48,7 @@ Open question: does the ninja itself render at Braille resolution (for precision
 ## Status
 
 Playable prototype on all 150 N levels (2026-10-02). Confirmed as next-up after Bob-sleigh, 2026-06-30.
-Since 2026-10-27 a new game starts with the campaign of our own levels (35 of the 100 so far, see
+Since 2026-10-27 a new game starts with the campaign of our own levels (40 of the 100 so far, see
 "The campaign" below); the practice course follows it in the level list.
 
 **Display design (decided with David):** like the original, the whole level is always on ONE
@@ -248,9 +248,13 @@ as N's do. Each episode teaches one thing at a time, then mixes:
 | 6:2 | constellation | rising platforms with mines hanging over and under every gap |
 | 6:3 | fuse | two corridors of mines rising and falling, each jump its own height |
 | 6:4 | minesweeper | islands under a mined ceiling to a key, a ladder past mined walls, floating mines |
+| 7:0 | liftoff | up pads lifting you past ledges you steer onto, steps back down to the door |
+| 7:1 | trampoline | bounce blocks over a floor of mines, a lift, floating blocks back over the top |
+| 7:2 | cannon | diagonal pads on islands, each throwing you about 7 tiles to the next |
+| 7:3 | updraft | up pads from ledge to ledge with mines overhead to steer around |
+| 7:4 | fairground | bounce blocks, a cannon, the key, a lift, floating blocks to the switch room |
 
-Planned episodes (a proposal, not yet settled with David): 7 launch pads and
-bounce blocks; 8 zap drones and chasers; 9 thwomps and floor guards; 10 lasers; 11 gauss turrets;
+Planned episodes (a proposal, not yet settled with David): 8 zap drones and chasers; 9 thwomps and floor guards; 10 lasers; 11 gauss turrets;
 12 homing rockets; 13 chainguns; 14 one-way platforms and doors as route puzzles; 15 to 18 mixes of
 rising difficulty; 19 the finale.
 
@@ -286,7 +290,7 @@ save and load unchanged (tests).
 - Proof: `every_campaign_level_is_finished_by_its_route` replays every stored route in the real game and
   requires the level complete, no deaths and all gold collected, and an episode to use under 45 s of its
   clock net of gold at the bot's pace (`cargo test --release campaign -- --nocapture` prints the table).
-  At the bot's pace the episodes use 38, 28, 36, 18, 18, 22 and 20 s net. A route proves a level from a fresh start:
+  At the bot's pace the episodes use 38, 28, 36, 18, 18, 22, 16 and 37 s net. A route proves a level from a fresh start:
   the chaingun's spread and the turret's timing read the game's tick, which in play carries on from
   earlier levels, so in play those hazards fire with other timings than in the proof.
 

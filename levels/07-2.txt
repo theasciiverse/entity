@@ -1,0 +1,56 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                 #########     #
+# X                             #
+#############                   #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                           K   #
+#                          ######
+#                          ######
+#                          ######
+#S                         ######
+#################################
+#################################
+#################################
+
+name cannon
+mine 132 524
+mine 156 524
+mine 180 524
+mine 204 524
+mine 228 524
+mine 324 524
+mine 348 524
+mine 372 524
+mine 396 524
+mine 420 524
+mine 516 524
+mine 540 524
+mine 564 524
+mine 588 524
+mine 612 524
+mine 636 524
+launchpad 84 528 0.7071 -0.7071
+launchpad 276 528 0.7071 -0.7071
+launchpad 468 528 0.7071 -0.7071
+launchpad 732 432 0 -1
+gold 180 420
+gold 372 420
+gold 564 420
+gold 708 228
+gold 540 132
+gold 372 180
+gold 204 180
+waypoints 84,516;180,420;276,516;372,420;468,516;564,420;684,420|732,420;708,228;612,156;540,132;444,156;372,180;276,204;204,180;60,204
+route R.R.R.R._.R.R.R.R.R.R.R.R.L.L._.L.L._.L.L.L.L._.L.L.L.L.L.L.R.R.R.R.R.L.R.L.R._.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.L.R.R.R.R.R.R.L.R.R.L.L.L.L.R.R.R.L.L.L.L.L.L.L.LjLjLjLjLjL.L.L.L.L.LjL.L.L.L.L.L.L.R.R.R.R.R.R.R._.L._.L.L.L.L.L.L._.L.R.R.R.L._.L.L.L.R.L._._.L.R.L.R.R._.L.R.R.R._.R.R.R.R.R.R._.RjRjRjLjLjRjRjRjR.Rj_j_jRjRjRjRjR.LjLjLjLjLjLjLjLjR.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjLjL.L.L.L.L.L.L.L.R.
