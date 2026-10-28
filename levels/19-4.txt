@@ -1,0 +1,95 @@
+#################################
+#              ###         #    #
+#                          #    #
+#                          #    #
+#        ##          ##    #    #
+#        ##          ##    #    #
+#               X             K #
+##  #############################
+#                               #
+#                        ##     #
+#                        ##     #
+#                               #
+#                               #
+#                               #
+#############################  ##
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# S                             #
+#################################
+#################################
+#################################
+
+name entity
+oneway 708 468 3
+oneway 732 468 3
+oneway 708 420 3
+oneway 732 420 3
+oneway 708 372 3
+oneway 732 372 3
+oneway 60 300 3
+oneway 84 300 3
+oneway 60 252 3
+oneway 84 252 3
+oneway 60 204 3
+oneway 84 204 3
+mine 156 524
+mine 180 524
+mine 276 524
+mine 300 524
+mine 396 524
+mine 420 524
+mine 516 524
+mine 540 524
+drone 204 372 2 1 0 0
+thwomp 492 372 1
+mine 228 332
+mine 252 332
+mine 276 332
+mine 300 332
+mine 324 332
+mine 348 332
+mine 372 332
+mine 396 332
+mine 420 332
+mine 444 332
+mine 468 332
+mine 492 332
+mine 516 332
+bounceblock 276 276
+bounceblock 372 276
+bounceblock 468 276
+drone 588 204 0 0 1 0
+oneway 156 204 2
+oneway 156 228 2
+oneway 156 252 2
+oneway 156 276 2
+oneway 156 300 2
+oneway 156 324 2
+oneway 300 204 2
+oneway 300 228 2
+oneway 300 252 2
+oneway 300 276 2
+oneway 300 300 2
+oneway 300 324 2
+turret 396 60
+hominglauncher 732 36
+door 636 516 0 0 26 6 1 0 0
+gold 108 516
+gold 228 516
+gold 348 516
+gold 468 516
+gold 588 516
+gold 708 396
+gold 564 324
+gold 372 228
+gold 204 324
+gold 84 228
+gold 204 156
+gold 540 156
+waypoints 108,516;228,516;348,516;468,516;588,516;636,516;708,492;708,396;660,324;564,324;468,252;372,228;276,252;204,324;108,324;84,300;84,228;132,156;204,156;396,156;540,156;732,156|540,156;396,156
+route R.R.R.R.R.R.R.RjR.L.L.L._.L.L.L.L.RjR.R.R.R.R.R.R.R.R.RjR.R.L._.L.L._._.R.RjR.R.R.L.L.L.L.L.R.R.R.R.RjR.R.R.R.R.R.LjLjLj_jRjRjRjRj_.L.RjRjRjLjR.R.R.L.L.L.L._j_jRjLjLjLjLjL.L.L.L.L.L.L.L.L.L.L.LjLjLjLjLjR.RjL.L.L.L.L.L.L.L.L.LjLjL.LjL.L.L.R.L.L.L.L.L.L._jL.Rj_j_jR.L.R.R.RjR._.R.L.R.R.R.RjLjLjLjLjLjLjRjR.R.R.R.R._._.R._.L._.L.L.L.L.L.L.L.L.L.RjRj_jL._jRjRjRjRjRjRjR.R._jL._.L._._.RjRjRjRjRjRj_jR.R.R.R.R.R.R.R.R.R.RjR.R.R.R.R.R.R._.R.R.R.R.R.R.RjR.R.R.R.R.R.RjR.R.R.R.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.LjL.L.L.L.L.L.

@@ -1,0 +1,42 @@
+#################################
+#                               #
+# X                           K #
+####                         ####
+#    ###     ###     ###        #
+#                               #
+#        ###     ###     ###    #
+#                               #
+#    ###     ###     ###        #
+#                               #
+#        ###     ###     ###    #
+#                               #
+#    ###     ###     ###        #
+#                               #
+#        ###     ###     ###    #
+#                               #
+#    ###     ###     ###        #
+#                               #
+#        ###     ###     ###    #
+#                               #
+#    ###     ###     ###        #
+# S                             #
+#################################
+#################################
+#################################
+
+name hive
+drone 204 396 0 0 0 0
+drone 492 300 1 0 0 0
+drone 396 156 0 0 0 0
+drone 684 492 0 1 0 0
+gold 156 468
+gold 252 420
+gold 348 372
+gold 444 324
+gold 540 276
+gold 636 228
+gold 540 180
+gold 444 132
+gold 252 132
+waypoints 156,468;252,420;348,372;444,324;540,276;636,228;540,180;636,132;540,84;732,60|540,84;444,132;348,84;252,132;156,84;60,60
+route RjRjRjRjR.R.R.R.R.R.R.RjRjRjR.R.R.R.R.R.R.RjRj_j_jRjR.R.R.L._.R.R.R.R.RjRjRj_.RjLj_jLjLjL.L.L.L.L.R.R.R.R.R.R.R.R.R._._._jRjRj_jRjR.R.R.R.R.RjRjRj_jRjR.R.R.R.R.R.R._.LjLjLjLjLjLjL.L.L.L.L._.RjRjLjLjL.L.L.L.L.L.R.R.R.R.RjRjRjR.R.R.R.R.R.R.R.R.L.L.LjLjLjLjLjL.L.L.L.L.L.L.L.R.R.R.R.R.R.R.RjRjRjR.R.R.R.R.R.R.R.R._.R.L.L.L.L.L.L.L.L.L.L.L.L.L.LjLjLjLjL.L.L.L.L.L.L.L.L.R.R.R.R.R.R.LjLjLjRjR.L.L.L.L.L.L.L.R.R._.R.R.R.LjLjLjRjR.L.L.L.L.LjL.L.L.L.L.R.

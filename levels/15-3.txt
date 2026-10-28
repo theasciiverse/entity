@@ -1,0 +1,69 @@
+#################################
+#              ###              #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# S X                         K #
+#######  ######  ######  ########
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#################################
+#################################
+#################################
+
+name bridge
+mine 36 524
+mine 60 524
+mine 84 524
+mine 108 524
+mine 132 524
+mine 156 524
+mine 180 524
+mine 204 524
+mine 228 524
+mine 252 524
+mine 276 524
+mine 300 524
+mine 324 524
+mine 348 524
+mine 372 524
+mine 396 524
+mine 420 524
+mine 444 524
+mine 468 524
+mine 492 524
+mine 516 524
+mine 540 524
+mine 564 524
+mine 588 524
+mine 612 524
+mine 636 524
+mine 660 524
+mine 684 524
+mine 708 524
+mine 732 524
+mine 756 524
+floorguard 300 282 1
+floorguard 468 282 -1
+hominglauncher 396 60
+gold 204 228
+gold 396 228
+gold 588 228
+gold 276 276
+gold 492 276
+gold 684 276
+waypoints 204,228;276,276;396,228;492,276;588,228;684,276;732,276|588,252;492,276;396,252;276,276;204,252;108,276
+route RjRjRjRjRjRjRjR.R.R.R.R.R.R.R.R.R.RjRjRjRjRjR.R.R.L._.L.L.L._.L.RjRjRjRjRjR._.R.R.R.L.L.L.L.L.R.R.R.R.R.L.L.L.LjL.L.L.L.L.L.L.L.L.LjRjL._.R.R.R.R._.R.R.L.L.LjL.L.L.L.L.L.L.L.L.L.L.L.LjLjL.L.R.R._.R._.R.R.

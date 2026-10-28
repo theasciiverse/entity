@@ -1,0 +1,47 @@
+#################################
+#                               #
+#                         ###   #
+# S                       ###   #
+##########                      #
+#                               #
+#                               #
+#                               #
+#             ##########        #
+#                               #
+#                               #
+#                               #
+#     ##########                #
+#                               #
+#                               #
+#                               #
+#                 ##########    #
+#                               #
+#                               #
+#                               #
+#                               #
+#   K                        X  #
+#################################
+#################################
+#################################
+
+name cascade
+thwomp 444 132 1
+mine 276 284
+mine 492 188
+drone 612 36 0 0 1 0
+drone 252 372 2 1 0 0
+mine 108 524
+mine 204 524
+mine 300 524
+mine 396 524
+gold 156 84
+gold 396 180
+gold 540 180
+gold 204 276
+gold 324 276
+gold 492 372
+gold 612 372
+gold 252 516
+gold 540 516
+waypoints 156,84;276,156;396,180;540,180;324,252;204,276;324,276;396,276;492,372;612,372;540,516;252,516;108,516|252,516;540,516;708,516
+route L.L.L.LjL.R.LjLjL.L.L.L.L._.L.R.RjRjRjRjRjR.L._._.L.L.L._.R.R.R.R.R._._.R.L.L.L.L.L.L.R.R.R.R.R._.LjLjLj_jLjLjR.RjRjRjR.R.R.R.R.R.R.R.R.RjR.R.R.R.R.R._.L.L._._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjLjLjLjLjLjLjL.LjLjLjLjLjLjLjLjL.L.L.L.L.L.LjL._.R.R._.R.R.R.R.R.R.R.R.R.R.R.RjR._._.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R._.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.L._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.L.L.L.L.LjL.L.L.L.L.L.L.L.L._.RjLj_jLj_.R._.R._.R.R.R.R.R.R.R.RjRjR.R.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.

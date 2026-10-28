@@ -1,0 +1,39 @@
+#################################
+#                               #
+#                  K            #
+#           ###  ###            #
+#             #  #              #
+#             #  #              #
+#             #  #              #
+#             #  #              #
+#                #              #
+#                #              #
+#          ####  #              #
+#             #                 #
+#####         #                 #
+#             #  #              #
+#                #          #####
+#                #              #
+#          ####  #              #
+#             #                 #
+#             #                 #
+#             #  #              #
+#             #  #              #
+# X           #S #              #
+#################################
+#################################
+#################################
+
+name tower
+hominglauncher 84 276
+hominglauncher 708 324
+gold 372 444
+gold 396 396
+gold 372 324
+gold 396 276
+gold 372 204
+gold 396 156
+gold 300 60
+gold 204 516
+waypoints 372,444;396,396;372,324;396,276;372,204;396,156;396,60;468,60|300,60;300,228;300,372;204,516;60,516
+route _j_j_j_j_j_j_jL._jRjRjLjLjLjLjLjL.L.LjRjRjRjRjRjRjRj_._jRjRjRjRjRjRjR._jLjLjL.Lj_jL._._.R.R.R.R.R.R.RjRjRjRjRjL._jRjRjRjRjRjRjRjR._jRjRjRjRjR.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R._._.L._.L.R.L.L._._._._.L.L.LjL.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.

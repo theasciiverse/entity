@@ -48,7 +48,7 @@ Open question: does the ninja itself render at Braille resolution (for precision
 ## Status
 
 Playable prototype on all 150 N levels (2026-10-02). Confirmed as next-up after Bob-sleigh, 2026-06-30.
-Since 2026-10-27 a new game starts with the campaign of our own levels (70 of the 100 so far, see
+Since 2026-10-27 a new game starts with the campaign of our own levels (all 100, see
 "The campaign" below); the practice course follows it in the level list.
 
 **Display design (decided with David):** like the original, the whole level is always on ONE
@@ -283,9 +283,39 @@ as N's do. Each episode teaches one thing at a time, then mixes:
 | 13:2 | pillbox | a chaingun inside a box with slits; go round it on ledges |
 | 13:3 | firing range | three lanes, a chaingun at the far end of each, crates for cover |
 | 13:4 | armory | a chaingun over crates to the key, a laser and a zap drone on top, a locked door |
+| 14:0 | one way street | two lanes of one-way gates: right along the bottom, left along the top |
+| 14:1 | valves | four floors with one-way gaps: each only lets you up, or only down |
+| 14:2 | chain of keys | four rooms in a row; each locked door's key is high in the room before it |
+| 14:3 | wrong order | the way to the locked switch room trips the trap that shuts the key's room |
+| 14:4 | switchyard | gates both ways, two ladders, the switch behind a locked door on top |
+| 15:0 | gauntlet | three lanes: mines, a thwomp, a guard, a chaingun, a launcher |
+| 15:1 | the well | slide down a mined shaft past a laser's window, climb a ladder out |
+| 15:2 | orbit | two drones round a central block; a pad and bounce blocks over them |
+| 15:3 | bridge | a broken bridge over mines, guards on it, a launcher above |
+| 15:4 | citadel | a drone behind trek doors, the key, a lift, a turret over the roof, a locked door |
+| 16:0 | staircase | down a long slope under hanging mines with drones running along it |
+| 16:1 | pendulum | three lanes; thwomps lying on their floors slam along them |
+| 16:2 | elevator | pads up a shaft, lasers looking in through windows, a wall slide down |
+| 16:3 | hive | a honeycomb of short blocks to climb, drones round them, a chaser |
+| 16:4 | keep | chasers behind trek doors, a turret and a launcher, mines, a locked door |
+| 17:0 | valleys | two deep Vs of slopes with mines in their bottoms, a laser overhead |
+| 17:1 | rat run | three lanes cut into rooms by trek doors, a chaser in each room |
+| 17:2 | sky bridge | a cannon and bounce blocks over mines under a turret, a lift back |
+| 17:3 | tower | wall jumps up a chimney between windows, a launcher outside each wall |
+| 17:4 | stronghold | two keys, two locked doors, a thwomp, a laser and a launcher |
+| 18:0 | minefield run | islands between mines under drones, a turret over the roof |
+| 18:1 | freefall | a 20 tile wall slide down a mined shaft, lasers at windows, two pads back up |
+| 18:2 | clockwork heads | across the thwomps' heads while a drone runs the row above them |
+| 18:3 | lockdown | three lanes; a trap door shuts behind you in each, a rocket chases you on |
+| 18:4 | everything | islands, a chaser, a thwomp, bounce blocks over mines, a laser, a launcher, a locked door |
+| 19:0 | ascent | five tiers, a different danger on each, the switch at the top |
+| 19:1 | cascade | down ledge by ledge past a thwomp, mines, a laser and a chaser |
+| 19:2 | labyrinth | four rooms, two locked doors, a one-way ladder, a laser and a chaingun |
+| 19:3 | siege | two turrets and two launchers over bunkers, a walkway back over the top |
+| 19:4 | entity | the whole game in one level |
 
-Planned episodes (a proposal, not yet settled with David): 14 one-way platforms and doors as route puzzles; 15 to 18 mixes of
-rising difficulty; 19 the finale.
+All 100 levels exist as of 2026-10-29 (episodes 4 to 19 built in one night). The episode themes after
+3 were my proposal and are not settled with David; none of episodes 4 to 19 has been played by a person.
 
 Episodes 4 on are written as short Python scripts, `tools/campaign/epNN.py`, on `tools/mklevel.py`
 (tile coordinates in, the text format out). Re-running a script keeps a level's stored route when the
@@ -319,11 +349,13 @@ save and load unchanged (tests).
 - `hazards_on_the_routes` (ignored test, `cargo test --release hazards_on_the_routes -- --ignored
   --nocapture`): replays every route and counts the ticks each level's lasers, chainguns, turrets,
   rockets and thwomps are active, so a hazard that never acts on the route shows as scenery. On
-  2026-10-29 it showed 3:1 homing's launcher never firing on its route.
+  2026-10-29 it showed 3:1 homing's launcher never firing on its route, and caught two turrets
+  buried in the block they hung from (fixed).
 - Proof: `every_campaign_level_is_finished_by_its_route` replays every stored route in the real game and
   requires the level complete, no deaths and all gold collected, and an episode to use under 45 s of its
   clock net of gold at the bot's pace (`cargo test --release campaign -- --nocapture` prints the table).
-  At the bot's pace the episodes use 38, 28, 36, 18, 18, 22, 16, 37, 37, 33, 22, 32, 10 and 30 s net. A route proves a level from a fresh start:
+  At the bot's pace the episodes use 38, 28, 36, 18, 18, 22, 16, 37, 37, 33, 22, 32, 10, 30, 33, -13, 9,
+  24, 20 and 39 s net (episode 15 gains more from gold than its routes take). A route proves a level from a fresh start:
   the chaingun's spread and the turret's timing read the game's tick, which in play carries on from
   earlier levels, so in play those hazards fire with other timings than in the proof.
 

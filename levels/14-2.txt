@@ -1,0 +1,48 @@
+#################################
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #  ##   #       #       #
+#       #       #       #       #
+#   ##  #    ## #       #       #
+#       #       #       #       #
+# ##    # ##    #  ##   #       #
+#       #       #       #       #
+#    ## #    ## #    ## #       #
+#       #       #       #       #
+# ##    # ##    # ##    #       #
+#       #       #       #       #
+#    ## #    ## #    ## #       #
+#       #       #       #       #
+# ##    # ##    # ##    #       #
+#    ## #    ## #    ## #       #
+# S X                        K  #
+#################################
+#################################
+#################################
+
+name chain of keys
+door 108 204 0 0 8 21 1 0 0
+door 300 156 0 0 16 21 1 0 0
+door 492 252 0 0 24 21 1 0 0
+gold 84 444
+gold 156 396
+gold 84 348
+gold 156 300
+gold 84 252
+gold 276 444
+gold 348 396
+gold 276 348
+gold 348 300
+gold 276 252
+gold 348 204
+gold 468 444
+gold 540 396
+gold 468 348
+gold 540 300
+gold 660 516
+waypoints 132,468;84,444;156,396;84,348;156,300;84,252;108,204;180,492;324,468;276,444;348,396;276,348;348,300;276,252;348,204;300,156;372,492;516,468;468,444;540,396;468,348;540,300;492,252;564,492;660,516;708,516|444,516;252,516;108,516
+route R.R.R.RjR._._.LjRjRjRjL.L.L.L.L.LjLjLjLjL.LjR.R._.L.L.L.RjRjRjR.R.R.R.R.R.R.R.L.L.L.LjLjLjLjLjL.L._.LjL.L.R.R.R.R.R.RjRj_jLjR.RjR.R.R.L.L.L.LjLjLjLjLjL.L._.LjR.R.R.RjRjRjR.R.R.R.R.R.R.R.R.R.L.L.R.R.R.L.L._.R._.L.R._.L._.L.R.R.R.R.R.R.RjR.RjRjR.R.RjRjRjRjRjRjLjL.L.L.L.LjL.L.L.L.Lj_jL.L.L.L.RjRjRjRjR.R.R.R.R.R.R.LjLjL.LjL.L.L.L.L.L.L.RjRj_.R.R.R.R.R.LjL.L.L.L.L.LjL.L.L.L.L.LjLjL.R._jRjR.R.R.R._.L.RjR.R.R.R.LjR.LjL.L.L.L.L.L._._.L.R.R._._.R.R._.R.R.R.R.R.R.R.R.R.R.R.L.L.R.R._.L.R.L.R._.R.R.R.R.R.RjRjRjR.L.LjL.Rj_jRjR.R.L.L.L.L.LjL.L.L.L.L.R.R.RjRjRjR.R.R.R.R.R.R.R.R.R._._.LjL._jLjL.LjL.L.L.L.L.L.R.R.R.RjRjRjR.R.R.R._.Rj_jR.R.RjR.RjL.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.L.L._.R.R.L.L.R.R.L.L._.L.R.R.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjL.L.LjL.L.L.L.L.L.LjL.LjL.LjL.L._.L.L.LjL.LjL.LjR.

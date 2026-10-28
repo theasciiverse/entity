@@ -1,0 +1,46 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#               K               #
+#             #####             #
+#                               #
+#                               #
+#            #######            #
+#            #######            #
+#            #######            #
+####         #######       ######
+#            #######            #
+#                               #
+#                               #
+#                           #####
+#                               #
+#                               #
+#                               #
+#                               #
+# S                           X #
+#################################
+#################################
+#################################
+
+name orbit
+drone 300 204 0 0 0 0
+drone 492 348 1 0 0 0
+launchpad 132 528 0 -1
+bounceblock 204 252
+bounceblock 276 204
+bounceblock 516 204
+bounceblock 588 252
+gold 132 372
+gold 60 276
+gold 204 204
+gold 276 156
+gold 516 156
+gold 588 204
+gold 708 276
+gold 708 372
+gold 396 516
+gold 228 516
+waypoints 228,516;132,516;132,372;60,276;204,204;276,156;396,132|516,156;588,204;708,276;708,372;588,516;396,516;732,516
+route R.R.R.R.R.R.R.RjR.L.L.L._.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.L.L.L.R.L.L.L.L.L.L.L.L.L.L.L.L.RjLjL.RjRjR.R.R.R.R.R.R.R.R.L._jLjLjRjRjRjRjLjRjR.R.RjRjRjRjRjRjR.R.R.R.R.R.R.R.R.R.R.R.R.L.L.L.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L._._.R._._.R.R.R.R.R.R.R.RjRjRjR.R.RjRjR.R.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.

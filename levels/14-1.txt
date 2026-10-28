@@ -1,0 +1,52 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+###############  ########  ######
+#                               #
+#              ##               #
+#             #               K #
+#####  ###############  #########
+#                               #
+#    ##                         #
+#   #                           #
+###############  ##########  ####
+#                               #
+#                          ##   #
+#                         #     #
+####  ######################  ###
+#                               #
+#   ##                          #
+#  #                            #
+# S                           X #
+#################################
+#################################
+#################################
+
+name valves
+oneway 108 420 3
+oneway 132 420 3
+oneway 684 420 1
+oneway 708 420 1
+oneway 660 324 3
+oneway 684 324 3
+oneway 372 324 1
+oneway 396 324 1
+oneway 132 228 3
+oneway 156 228 3
+oneway 540 228 1
+oneway 564 228 1
+oneway 372 132 3
+oneway 396 132 3
+oneway 612 132 1
+oneway 636 132 1
+gold 396 396
+gold 396 300
+gold 300 204
+gold 204 108
+gold 588 108
+gold 492 300
+gold 492 516
+waypoints 84,516;84,468;108,444;132,396;396,396;636,372;660,348;684,300;492,300;396,300;156,300;108,276;132,252;156,204;300,204;348,180;372,156;396,108;204,108;396,108;588,108;612,108;612,204;732,204|564,204;540,300;396,300;396,396;684,396;684,516;492,516;732,516
+route R.R.R.L.L.L.L.L.RjRjRjRjR.R.R.R.R.Rj_.R.R.R.R.RjRjRjLjL.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjRjR.R.R.R.R.L._.L.L.L._j_jR.R.R.R.RjRjL._jRjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjL.RjR._j_.LjL.L.RjLjLjL.L.L.LjL.L.LjL.R.R.R.R.RjRjRjRjR.Rj_.R.L._jLjRjRjRjR.R.R.R.R.R.R.R.R.R.R.Rj_j_.RjR.Rj_.R.RjRjLjLjL.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.R.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R._.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.R.R._.L._._._._.R.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.L.L.L.L.R.R.R.R.R.R.R.R.R.R.RjLjRjR.L.R.R.R.LjL.L.L.L._.LjL._.R._.L._.L.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.

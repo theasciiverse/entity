@@ -1,0 +1,57 @@
+#################################
+#                               #
+#           #                   #
+#           #                   #
+#           #                   #
+#           #                   #
+#           #                   #
+# X  K                          #
+#############################  ##
+#                   #           #
+#                   #           #
+#                   #           #
+#                   #           #
+#                   #           #
+#                               #
+##  #############################
+#           #                   #
+#           #                   #
+#           #                   #
+#           #                   #
+#           #                   #
+#                             S #
+#################################
+#################################
+#################################
+
+name lockdown
+door 228 516 0 1 11 21 0 0 0
+door 564 348 0 1 19 14 0 0 0
+door 228 180 0 1 11 7 0 0 0
+hominglauncher 708 444
+hominglauncher 108 276
+hominglauncher 708 108
+oneway 60 492 3
+oneway 84 492 3
+oneway 60 444 3
+oneway 84 444 3
+oneway 60 396 3
+oneway 84 396 3
+oneway 708 324 3
+oneway 732 324 3
+oneway 708 276 3
+oneway 732 276 3
+oneway 708 228 3
+oneway 732 228 3
+mine 588 524
+mine 204 524
+mine 588 188
+mine 444 188
+gold 492 516
+gold 156 516
+gold 204 348
+gold 588 348
+gold 540 180
+gold 348 180
+waypoints 492,516;156,516;84,492;84,396;204,348;588,348;708,324;708,228;540,180;348,180;132,180|60,180
+route L.L.L.L.L.L.L.L.L.L.LjL.R.R.R.R.R._.R.R.L.L.L.L.L.L.L.L.L.L.R._j_.LjLjLjLjLjL.L.L.LjL.L.L.L.L._jL.L.L._.RjRjRj_jRj_jRjR.L.L.L.L.L.L._.L.L.RjRjRjLj_.R._.L._.L.LjRjRjRjRjRj_jR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R.R.RjRjR.R.L.L.R._.R.L.LjLjLjR._.R.RjRjLj_jRjRjRjRjL.L._.R.R.R._.Rj_jRj_jL.LjLjLjL.L.L.L.L.L.L.L.L.L.L.L.LjL.L._.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.

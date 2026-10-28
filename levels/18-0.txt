@@ -1,0 +1,60 @@
+#################################
+#              ###              #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#       ##         ##           #
+#       ##         ##           #
+#                               #
+#                               #
+# X                             #
+############################    #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# S                           K #
+#################################
+#################################
+#################################
+
+name minefield run
+mine 132 524
+mine 156 524
+mine 228 524
+mine 252 524
+mine 324 524
+mine 348 524
+mine 420 524
+mine 444 524
+mine 516 524
+mine 540 524
+mine 612 524
+mine 636 524
+drone 204 396 2 0 0 0
+drone 492 396 2 0 0 2
+oneway 684 468 3
+oneway 708 468 3
+oneway 732 468 3
+oneway 756 468 3
+oneway 684 420 3
+oneway 708 420 3
+oneway 732 420 3
+oneway 756 420 3
+turret 396 60
+gold 180 492
+gold 276 492
+gold 372 492
+gold 468 492
+gold 564 492
+gold 588 348
+gold 348 348
+gold 156 348
+waypoints 84,516;180,492;204,516;276,492;300,516;372,492;396,516;468,492;492,516;564,492;588,516;732,516|708,444;708,396;636,348;588,348;348,348;156,348;60,348
+route R.R.R.RjR.R.R.R.R.R._.R.R.RjRjR.R.L.L.L.L._.L.L.L.L.L.L.LjL.L.L.L.R._.R.R.R.R.R.R.RjR.R.R.R.R.R.R.L.L.RjRjR.R.R.R.R._.L.L.L.L.L.L.L.L.LjL.L.L.L._._.R.R.R.R.R.R.RjR.R.R.R.R.R.R.R.L.LjR.R._.R.R.R.R._.R.L.LjLjLjLjR._jL.L.L.L.L.R.R.RjRjRjRjRjRjRjR.R.RjRjR.R.L._jLjL.L.L.L.L.L.L.L.L.LjR.R._.R.R.R.R._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.

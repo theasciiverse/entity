@@ -1,0 +1,84 @@
+#################################
+#                          #    #
+#                          #    #
+#                          #    #
+#                          #    #
+#                          #    #
+#       X                     K #
+#    ############################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+############################    #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# S                             #
+#################################
+#################################
+#################################
+
+name switchyard
+oneway 228 372 0
+oneway 228 396 0
+oneway 228 420 0
+oneway 228 444 0
+oneway 228 468 0
+oneway 228 492 0
+oneway 228 516 0
+oneway 468 372 0
+oneway 468 396 0
+oneway 468 420 0
+oneway 468 444 0
+oneway 468 468 0
+oneway 468 492 0
+oneway 468 516 0
+oneway 492 204 2
+oneway 492 228 2
+oneway 492 252 2
+oneway 492 276 2
+oneway 492 300 2
+oneway 492 324 2
+oneway 252 204 2
+oneway 252 228 2
+oneway 252 252 2
+oneway 252 276 2
+oneway 252 300 2
+oneway 252 324 2
+oneway 708 468 3
+oneway 732 468 3
+oneway 756 468 3
+oneway 708 420 3
+oneway 732 420 3
+oneway 756 420 3
+oneway 708 372 3
+oneway 732 372 3
+oneway 756 372 3
+oneway 60 300 3
+oneway 84 300 3
+oneway 108 300 3
+oneway 60 252 3
+oneway 84 252 3
+oneway 108 252 3
+oneway 60 204 3
+oneway 84 204 3
+oneway 108 204 3
+door 612 516 0 0 26 6 1 0 0
+gold 156 516
+gold 348 516
+gold 540 516
+gold 732 396
+gold 588 324
+gold 372 324
+gold 156 324
+gold 84 228
+gold 348 156
+gold 540 156
+waypoints 156,516;348,516;540,516;612,516;708,492;732,396;660,324;588,324;372,324;156,324;84,300;84,228;132,156;348,156;540,156;732,156|540,156;348,156;204,156
+route R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.RjR.R.R.R.R.R.R.LjRjRj_jRjRjRjRjR._jLjRjRj_jRjRj_j_jL.L.L.L.L.R._.RjRjRjR._.L.L.LjLjLj_jRjLjLjLjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.LjL.L._.L.L._.R.RjRjRjL._.L.L.LjLjLjLjR.R.R.R._._jRjRj_jLjRj_jR.R.R.R.R.R.R.R.R.R.R.R.R.R.R._.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R._.R.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.

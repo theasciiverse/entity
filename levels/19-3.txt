@@ -1,0 +1,54 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#          ##       ##          #
+# X        ##       ##          #
+####  #####################     #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#   ####  ####  ####  ####      #
+#                               #
+#                               #
+# S                           K #
+#################################
+#################################
+#################################
+
+name siege
+mine 228 524
+mine 372 524
+mine 516 524
+mine 660 524
+turret 204 36
+turret 588 36
+hominglauncher 60 204
+hominglauncher 732 204
+oneway 684 468 3
+oneway 708 468 3
+oneway 684 420 3
+oneway 708 420 3
+oneway 684 372 3
+oneway 708 372 3
+oneway 684 324 3
+oneway 708 324 3
+oneway 684 276 3
+oneway 708 276 3
+gold 156 516
+gold 300 516
+gold 444 516
+gold 588 516
+gold 588 252
+gold 396 252
+gold 204 252
+waypoints 156,516;300,516;444,516;588,516;732,516|684,492;684,348;684,252;588,252;396,252;204,252;108,228;60,252
+route R.R.R.R.R.R.R.R.R.R.RjR.L.L.L.L.L._.L.L.R.R.R.R.RjR._.L.L.L.L.L.L.L.R.R.R.R.R.RjR.R.L.L._.L.L.L.L.RjR.R.R.R.R.R.R.R.R.R.R._.L.L.LjL.L.L.L.L.L.L._._.R.R.RjRjRjRjRjRjRjRjR.R.L.L.LjLjLjL._.R.R.LjLjRjLjL._.R.R.L._jLj_jRjRj_jLjR.RjRj_.R.R._.R.R.RjL.L.L.L.L.L.L.L.L.L.L.L.L._.R.LjRjLjL.L.L.L.L.L.L.L.L.L.L._.R.R._j_j_j_jLjL.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.L.L.LjL.L.L.L.L.L.L.L.L.L.LjL._.R.L.L.R.R.R.Rj

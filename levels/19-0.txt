@@ -1,0 +1,61 @@
+#################################
+#              ###              #
+#                               #
+#       ##            ##        #
+#       ##      X     ##      K #
+##  #############################
+#                               #
+#                               #
+#                               #
+#############################  ##
+#                               #
+#                               #
+#                               #
+##  #############################
+#                               #
+#                               #
+#                               #
+#############################  ##
+#                               #
+#                               #
+#                               #
+# S                             #
+#################################
+#################################
+#################################
+
+name ascent
+oneway 708 468 3
+oneway 732 468 3
+oneway 60 372 3
+oneway 84 372 3
+oneway 708 276 3
+oneway 732 276 3
+oneway 60 180 3
+oneway 84 180 3
+mine 180 524
+mine 204 524
+mine 300 524
+mine 324 524
+mine 420 524
+mine 444 524
+mine 540 524
+mine 564 524
+floorguard 396 522 1
+thwomp 252 348 1
+thwomp 492 348 1
+drone 396 276 2 0 0 0
+hominglauncher 732 156
+turret 396 60
+gold 228 492
+gold 588 492
+gold 588 396
+gold 204 396
+gold 204 300
+gold 588 300
+gold 588 204
+gold 204 204
+gold 300 108
+gold 636 108
+waypoints 228,492;588,492;708,468;708,396;588,396;372,396;204,396;84,372;84,300;204,300;588,300;708,276;708,204;588,204;204,204;84,180;84,108;300,108;492,108;636,108;732,108|492,108;396,108
+route R.R.R.R.RjRjR.R.R.R.R.R.R.R.R.R.RjRjR.R.R.R.R.R.R.R.R.R.RjRjR.R.R.L._.L._.L.L.L.LjLjLjL.L.L.L.R._._._._.R._j_j_j_j_j_j_j_j_.R.L.LjRjRjLjLjL.L.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.L.L.L.LjL.L.L.L._.R.L.L.L.LjLjL.L.L.L.R.L._.RjRjR._._j_._jRjR.R.R.R.R.R._.R.R.R.R.R.R.R._.R.Lj_jR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R._.RjR.R.R.R.R.L.R.R._jLj_jRjRjLjL._._.RjRjLjLjLjL.L.L.L.L.L.L.L.L.L.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.LjL.L.L.L.L.R.L._._jRjRj_jLjLj_.L.R.LjLjRjRjRjR.R.R.R.R.R.RjRjRjRjR.R.R._._.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.Rj_j_jR.R.R.R.R.R.R.R.R.L._.L.L.L.R.R.R.R.R.R.LjL.L.L.L.L.L.L.L.L.L.L.LjLjLjL.L.L.L._._._._._.R.R.R.L.L.L.L.L.L.L.

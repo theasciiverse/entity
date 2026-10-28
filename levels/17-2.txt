@@ -1,0 +1,67 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#    X      #####               #
+#   #####           ######      #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#S                            K #
+####                       ######
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#################################
+#################################
+#################################
+
+name sky bridge
+mine 108 524
+mine 132 524
+mine 156 524
+mine 180 524
+mine 204 524
+mine 228 524
+mine 252 524
+mine 276 524
+mine 300 524
+mine 324 524
+mine 348 524
+mine 372 524
+mine 396 524
+mine 420 524
+mine 444 524
+mine 468 524
+mine 492 524
+mine 516 524
+mine 540 524
+mine 564 524
+mine 588 524
+mine 612 524
+mine 636 524
+launchpad 84 384 0.7071 -0.7071
+bounceblock 276 372
+bounceblock 372 348
+bounceblock 468 372
+bounceblock 564 348
+launchpad 684 384 0 -1
+turret 396 36
+gold 180 300
+gold 324 300
+gold 420 300
+gold 516 300
+gold 612 324
+gold 540 156
+gold 348 132
+gold 252 108
+waypoints 84,372;180,300;276,348;324,300;372,324;420,300;468,348;516,300;564,324;612,324;732,372|684,372;660,228;540,156;444,132;348,132;252,108;132,156
+route R.R.R.R._.R.R.R._.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.L._._._._.L.RjL.L.L._._.L.R.L._.LjR.R.RjRjRj_jLjLjLjLjL.L.L.L._.RjRjRjRjRjRjRjRjR.R.R.R._._jRjRjR.RjRjRjRjRjRjRjR.R.R.R.R.R._.R._._jR.R.R.R.RjRjR.R.R.R.R.R.R.R.R.L.L.RjLjRjL.LjLjLjRjRjRjR.R.R.R.R.R.R.R.R.R.Rj_._.L.L._.L.L.L.R.R.R.L._.R.RjRjRjRjRjRjRjRjR.R.R.R.R._.L.L.L.L.L.L.L.L._._.L.L.L.L.L._._.R.R.R.R.R.R._.L.L._._._._._.R.L.L.L.L._.R._jLjL.L.L.L.LjL._jR._j_jRjRjRjLjLjLjL.L.L.L.L.LjLjLjLjLjLjL.L.L.L.L.L.R.LjL.L.L.L.L.L.L.L.L.L.LjL.L.L.R.L.L.L.L.L.R.R.

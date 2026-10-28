@@ -1,0 +1,61 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# S X                        K  #
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#####                      ######
+#################################
+#################################
+#################################
+
+name clockwork heads
+mine 132 524
+mine 156 524
+mine 180 524
+mine 204 524
+mine 228 524
+mine 252 524
+mine 276 524
+mine 300 524
+mine 324 524
+mine 348 524
+mine 372 524
+mine 396 524
+mine 420 524
+mine 444 524
+mine 468 524
+mine 492 524
+mine 516 524
+mine 540 524
+mine 564 524
+mine 588 524
+mine 612 524
+mine 636 524
+thwomp 204 252 1
+thwomp 324 252 1
+thwomp 444 252 1
+thwomp 564 252 1
+drone 156 156 2 0 0 0
+gold 204 204
+gold 324 204
+gold 444 204
+gold 564 204
+gold 708 132
+waypoints 204,228;204,204;324,228;324,204;444,228;444,204;564,228;564,204;708,252|708,132;564,228;444,228;324,228;204,228;108,252
+route R.R.R.RjRjR.R.R.R.R.R.R.R.L.L.LjLjL.L.L.L.L.L.L.R.R.R.R.R.R.R.R.RjR.R.R.R.R.R.R._.R.R._.LjLjLjLjLjLjLjL.LjRjRjRjRjR.R.R.R.R.R.R.R.R.R.R.R.R.R.Rj_._.L._.L._.L.L.L.L.L.L.L.L.L.RjRjRjRjRjRjRjLjL.R._.LjLjLjLjLjLjL.L._.R.R.R.R._.R.R.R.R.R.R.R.RjLjLjLjLjLjLjRjRjR.RjRjRjRjRj_jLjL.R.L.Rj_jLjRjLj_jRjL.R.L.RjLjR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.LjLjLjLj_jRj_.RjLjLjLjLjLjLjL.L.L.L.L.L.L._.R.R.R.L.LjL.L.L.R.R.R.R.R._.R.R.R.R.R.R.R.LjLjLjLjLj_jRjRjR._._.L.L.LjLjLj_jLjLjLjLjL._jRjRjRjR.R.R.R.R.R.R.R._.R.R.L.L.L.LjLjLjLjLjL._.L.L.L.LjLjLjLjL.L.L.L.L.L.L.L.L.L.L.LjLjLjLjLjLjLjLjL.

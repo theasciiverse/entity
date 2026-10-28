@@ -1,0 +1,65 @@
+#################################
+#                               #
+# S                          X  #
+######   #############   ########
+#    #   #           #   #      #
+#    #   #           #   #      #
+#    #   #           #   #      #
+#    #   #           #   #      #
+#    #   #   #####   #   #      #
+#    #   #   #####   #   #      #
+#    #       #####   #   #      #
+#    #       #####   #   #      #
+#    #   #   #####       #      #
+#    #   #               #      #
+#    #   #           #   #      #
+#    #   #           #   #      #
+#    #   #           #   #      #
+#    #   #           #   #      #
+#                               #
+#                               #
+#                               #
+#               K               #
+#################################
+#################################
+#################################
+
+name the well
+drone 300 180 0 0 1 0
+mine 156 204
+mine 204 300
+mine 156 372
+oneway 540 468 3
+oneway 564 468 3
+oneway 588 468 3
+oneway 540 420 3
+oneway 564 420 3
+oneway 588 420 3
+oneway 540 372 3
+oneway 564 372 3
+oneway 588 372 3
+oneway 540 324 3
+oneway 564 324 3
+oneway 588 324 3
+oneway 540 276 3
+oneway 564 276 3
+oneway 588 276 3
+oneway 540 228 3
+oneway 564 228 3
+oneway 588 228 3
+oneway 540 180 3
+oneway 564 180 3
+oneway 588 180 3
+oneway 540 132 3
+oneway 564 132 3
+oneway 588 132 3
+gold 180 132
+gold 180 252
+gold 180 444
+gold 300 516
+gold 492 516
+gold 564 396
+gold 564 252
+gold 564 156
+waypoints 180,60;180,132;180,252;180,444;300,516;396,516|492,516;564,492;564,396;564,252;564,156;564,108;636,60;708,60
+route R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L._.R.R.R.R.R.R._.R.R.L.R.R.LjL.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R._.R.R.R.R.R.R.R.R.R.R.RjRjR.L.L.L.L.L.L.L.L.L.LjLjLjLjLjLjLjLjL.L.L.Rj_j_.RjR.R.R._._.LjRj_jR.L.R.RjRjLjRjRjRjRjRjR.LjLjLj_j_jL._jRj_j_jLjLjLjLjL.L._._.RjRjRj_jRjRjRjRj_.RjRjR.RjR.R.R.R.R.R.R.R.R._.

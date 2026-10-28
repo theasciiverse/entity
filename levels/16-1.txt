@@ -1,0 +1,50 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+# K             X               #
+#############################  ##
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+##  #############################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#             S                 #
+#################################
+#################################
+#################################
+
+name pendulum
+thwomp 636 516 2
+thwomp 156 348 0
+thwomp 636 180 2
+oneway 60 492 3
+oneway 84 492 3
+oneway 60 444 3
+oneway 84 444 3
+oneway 60 396 3
+oneway 84 396 3
+oneway 708 324 3
+oneway 732 324 3
+oneway 708 276 3
+oneway 732 276 3
+oneway 708 228 3
+oneway 732 228 3
+gold 156 516
+gold 492 516
+gold 252 348
+gold 540 348
+gold 204 180
+gold 540 180
+waypoints 492,516;156,516;84,492;84,396;252,348;540,348;708,324;708,228;540,180;204,180;60,180|204,180;396,180
+route R.R.R.R.R.RjR.R.R._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjLjL.L._.L.RjR.R.R._.L._jLjLjLjLjLjLjLjR.R.R._.L.L.L.Lj_jLjL.RjRjRjR.R.R.R.R.R.R.R.R.R.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjRjR.R.R.R.R.R.L.L.LjLjLjLjRjRjRjR.LjLjL.L.L.L.R.R.R.R.RjRjRjR.LjLjL.L.L.L.L.L.L.L.L.L._.R._.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.L.L.L.L.L.L.L.L.R.L._._.R.R._.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.

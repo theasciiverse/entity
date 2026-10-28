@@ -1,0 +1,49 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#   X                           #
+############################    #
+#       #               #       #
+#       #               #       #
+#       #               #       #
+#       #               #       #
+#   ##  #               #       #
+#       #               #       #
+# ##    #               #       #
+#       #               #       #
+#               S          K    #
+#################################
+#################################
+#################################
+
+name wrong order
+door 516 516 0 1 7 21 0 0 0
+door 84 444 0 0 24 21 1 0 0
+oneway 708 468 3
+oneway 732 468 3
+oneway 756 468 3
+oneway 708 420 3
+oneway 732 420 3
+oneway 756 420 3
+oneway 708 372 3
+oneway 732 372 3
+oneway 756 372 3
+oneway 708 324 3
+oneway 732 324 3
+oneway 756 324 3
+gold 276 516
+gold 132 396
+gold 468 516
+gold 708 396
+gold 564 276
+gold 228 276
+waypoints 276,516;156,516;84,444;132,396;84,444;156,516;276,516;468,516;612,516;660,516|708,444;708,396;708,300;564,276;396,276;228,276;108,276
+route L.L.L.L.L.L.L.L.L.L.L.L.L.LjL.L.RjRjRjLjL.LjLjLjLjLjL.L.RjRjRjRjR.R.R.R.R.R.R.L.L.L.L.L.L.L.L._._.R._.R.R.R.R.R.R.R.R.R.R.R.L._.L.L.L.L.R.R.R.R.R.R.R.RjR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R.RjRj_jRjL._jL.L.L.L.L.L.L._.L.L.L._jRjRjRjRjRjRj_jL.L.LjLjLjLjL.L.L.R.R._jRjLj_j_.R.L.R.LjRjLj_jRjLjLjLjLjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.

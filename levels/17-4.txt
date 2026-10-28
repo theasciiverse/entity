@@ -1,0 +1,56 @@
+#################################
+#    #                          #
+#    #                          #
+#    #                          #
+#    #                          #
+#    #                          #
+#    #        ###               #
+#    #        ###               #
+#    #                          #
+#    #                          #
+#    #                          #
+#    #                          #
+#    #                          #
+# K      X                      #
+############################    #
+#               #               #
+#               #               #
+#               #               #
+#               #               #
+#               #               #
+#     ###       #               #
+# S                             #
+#################################
+#################################
+#################################
+
+name stronghold
+mine 132 524
+mine 228 524
+door 180 468 0 0 15 21 1 0 0
+thwomp 516 372 1
+oneway 684 468 3
+oneway 708 468 3
+oneway 732 468 3
+oneway 756 468 3
+oneway 684 420 3
+oneway 708 420 3
+oneway 732 420 3
+oneway 756 420 3
+oneway 684 372 3
+oneway 708 372 3
+oneway 732 372 3
+oneway 756 372 3
+drone 324 132 0 0 1 0
+hominglauncher 732 60
+door 636 516 0 0 4 13 1 0 0
+gold 180 420
+gold 300 516
+gold 468 516
+gold 588 516
+gold 708 396
+gold 588 324
+gold 444 324
+gold 300 324
+waypoints 108,516;180,468;180,420;300,516;468,516;588,516;636,516;708,492;708,396;636,324;588,324;444,324;300,324;228,324;60,324|228,324
+route R.R.R.R.R.R.RjRj_jR.R.R.R.R.R.R.L.LjLjLjLjLjR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R.R.R.R.R.R.R.R.R.RjRjR.R._.R.LjLjLj_jRjR.R.L._jRjRjRjRjL.L.L.L.L._.RjRjRjLjLjLjLjL.L.L.L.L.L.L.L._.L.L.L.L.L.L.L.L.L.L.L.L.L.L._.L.L.L._.L.L.L.L.LjL.L.L._.L.L.R.R.R.R.R.R.R.R.RjR.R.R.R._.

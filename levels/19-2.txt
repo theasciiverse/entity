@@ -1,0 +1,50 @@
+#################################
+#               #               #
+#               #               #
+#               #               #
+#     ###       #               #
+#     ###       #     ###       #
+#               #     ###       #
+#               #               #
+#               #               #
+#               #               #
+#       K                       #
+##  #########################  ##
+#               #               #
+#               #               #
+#               #               #
+###             #               #
+#               #               #
+#   ###         #      ###      #
+#               #               #
+#       ##      #   ##          #
+#          ##   # ##            #
+#        S    X                 #
+#################################
+#################################
+#################################
+
+name labyrinth
+door 36 348 0 0 15 21 1 0 0
+door 588 396 0 0 15 10 1 0 0
+oneway 708 468 3
+oneway 732 468 3
+oneway 708 420 3
+oneway 732 420 3
+oneway 708 372 3
+oneway 732 372 3
+oneway 708 324 3
+oneway 732 324 3
+drone 516 108 0 0 1 0
+drone 132 84 1 0 2 0
+gold 204 444
+gold 132 396
+gold 492 516
+gold 588 516
+gold 708 396
+gold 636 252
+gold 492 252
+gold 300 252
+gold 84 228
+waypoints 300,468;204,444;132,396;36,348;348,516;492,516;468,468;492,444;588,396;588,516;708,492;708,396;708,300;708,252;636,252;492,252;300,252;204,252|108,252;84,228;60,252;60,348;156,516;348,516
+route R.RjR._.R._jRjRjR.R.R.R.R.L.L.L.L.LjLjLjL.L.L.L.L.L.L.L.L.LjLjLjL.L.L.L.L.L.L.LjLj_j_jLjL.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R.L.L._.LjLjLjLjLjLjLjLjLjL.L.L._.R.R.R.R.RjR.R.R.R.R.R.RjRjRj_.R.R.R.R.R.R.R._._._.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.RjRjR.R.R.R.R.R.R.R.L.L.LjLjLjLjLjLjLjLjL.L._.RjRjRjRjR.R.R.R.L._.Lj_jRjR.L.L.L.LjLjRjRjRjRjLjL.LjLjLjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.L.L.L.L.L.L.R.LjRjL.L.L.R.R.R.R.R.R.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.L.L._.L.L.L.L.L.L.L.L.RjR.R.R.R.R.R.R.R.R.R.R.R.R.R.R.RjR.RjR.
