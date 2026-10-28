@@ -1,0 +1,39 @@
+#################################
+#                               #
+#               K               #
+#        #             #        #
+#        #             #        #
+#        #         #####        #
+#        #             #        #
+#        #####         #        #
+#                               #
+#                  ####         #
+#        #             #        #
+#        #####         #        #
+#  ####  #             #  ####  #
+#  ####  #         #####  ####  #
+#        #             #        #
+#         ####                  #
+#                               #
+#        #         #####        #
+#        #             #        #
+#        #####         #        #
+#        #             #        #
+#        #    X S      #        #
+#################################
+#################################
+#################################
+
+name crossbeams
+drone 60 276 0 0 1 0
+drone 732 348 0 0 1 0
+gold 276 444
+gold 516 396
+gold 276 348
+gold 516 300
+gold 276 252
+gold 516 204
+gold 276 156
+gold 516 108
+waypoints 276,444;516,396;276,348;516,300;276,252;516,204;276,156;516,108;396,60|396,156;396,348;348,516
+route LjLjLjLjLjLjLjLjL.L.L.L._.R.R.R.R.R.R.R.R.R.R.R._jRjRjRj_.R.R.L._.RjRjRjLjRjRj_.R._._.L.L.L.LjLjLjLjLjLjLjLjL.L.L.L.L.L.L.LjLjLjLjLjL.L.L.L.L.L.L.L.RjRjR.RjR.R.R.R._.L._.RjRjRjRjRjR.R.R.R.R._.LjLjL.LjL.L.L.L.R.R.R.LjLjLjLjLjL.L.L.L.L.L._.L.R.R.R.R.R.RjRjRjRjRjR.R.R.R.R.R.R.R.R.LjLjL.LjL.L.L.L._.R._.LjLjLjLjLjL.L.L.L.L._.RjR.RjR.R.R.R.R.R.R.R.R.R.R.R.L.RjRjRjRjRjR.R.R.R.R.R.LjL.L.LjL.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.L._.RjRjRjR.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.

@@ -1,0 +1,47 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#X                              #
+###                             #
+#                               #
+#                               #
+#                               #
+#                               #
+#   ####  ####  ####  ####      #
+#                               #
+#                               #
+#                               #
+# S                           K #
+#################################
+#################################
+#################################
+
+name shelter
+mine 204 524
+mine 228 524
+mine 348 524
+mine 372 524
+mine 492 524
+mine 516 524
+mine 636 524
+mine 660 524
+drone 396 60 2 0 1 0
+oneway 84 468 3
+oneway 84 420 3
+oneway 84 372 3
+oneway 84 324 3
+gold 156 492
+gold 300 492
+gold 444 492
+gold 588 492
+gold 84 396
+waypoints 156,492;300,492;444,492;588,492;732,516|588,492;444,492;300,492;156,492;84,492;84,396;84,300;36,276
+route R.R.RjR.R.R.R.R.R.R.R.R.RjRjR.R.R.L._.R.R.R.R.RjRjRj_.R.R.R.R.R.L.L.L._.RjR.R.R.L.L.L.L.L.L.L.L.L.L.L.LjLjL.L.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.L.LjLjL.L.L.L.L.L.L.L.L.LjRjRjRjRjRjR.RjRjRjRjLjL.R._.L.R.R.L._._j_jLjR.R.L._._j_j_j_jLjLjLjL.L.L.L.L.

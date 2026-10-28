@@ -1,0 +1,35 @@
+#################################
+#                               #
+#                               #
+#                               #
+#    #                    #     #
+#  X #                    # K   #
+# ####                    ####  #
+#                               #
+#            #######            #
+#            #######            #
+#            #######            #
+#            #######            #
+#    #       #######     #      #
+#    #                   #      #
+# ####                   ####   #
+#                               #
+#                               #
+#                               #
+#                               #
+#    #     #         #     #    #
+#    #     #         #     #    #
+#    #     #    S    #     #    #
+#################################
+#################################
+#################################
+
+name searchlight
+drone 300 180 0 0 1 0
+gold 204 516
+gold 588 516
+gold 84 324
+gold 684 324
+gold 396 180
+waypoints 588,516;684,324;684,132|396,180;204,516;84,324;84,132
+route R.R.RjRjRjRjRjRjRjR.R.R.R.R.R.L._._.L.L.L.L.L.L.L.L.RjRjRjRj_jRjR.RjRjRjRjRjRjRjRjR.R._.R.R.R.LjLjLjLjL.LjLjLjLjLjLjL.L.L.LjLjLjL.RjRjRjRjRjRjRjRjR._.LjLjLjLjLjLjL.L.L.L.L.R.RjRj_jL.L.L.L.R._.R._._.R.R.R.R.L.LjLjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.LjLjLjLjLjLjLjL.L.L.LjLjLjLjLjLjLjLjR._jLjR.Lj_.R.R.R.R.R.Lj_j_._jLjLj_jLjLjLjRjR.LjLjLjR.LjR.R.R.R.R.R.R.
