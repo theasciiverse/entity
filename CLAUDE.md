@@ -3,9 +3,17 @@
 Asciiverse platformer. Rust + Ratatui + Drawille. N++-inspired.
 
 Repo: private, github.com/theasciiverse/entity (branch `master`; commits as David, matching the sibling
-Asciiverse repos). Not yet decided: a licence file, and whether N's extracted level data and ninja animation
-(`data/n-levels.json`, `data/n-ninja.json`, Metanet's content) may stay in the repo; their terms have not
-been checked.
+Asciiverse repos). Licence: MIT (2026-10-28).
+
+**THE NINJA ANIMATION STAYS AS IS (David, 2026-10-28, final).** The ninja is N's own figure and its 104
+frames (`data/n-ninja.json`), drawn by the original's rules. It ships with Entity. Never propose
+replacing, redrawing or "building our own" ninja, for licensing or any other reason, and never list it
+as something to remove before shipping.
+
+N's 150 levels (`data/n-levels.json`) are what our own 100 replace. Checked 2026-10-28: the Internet
+Archive copy of N v1.2 (`references/nRef/nv-12.zip`) carries no licence or readme, only "freeware" in
+its metadata, and no published terms from Metanet were found; whether and when to drop the N levels is
+David's call.
 
 ## Premise
 
@@ -15,7 +23,7 @@ A port/homage to N++ — minimalist precision platforming, momentum-based moveme
 
 Entity gets 100 levels of its own design (20 episodes of 5), and they replace N's levels. Every level
 element stays: tiles of all shapes, mines, drones, turrets, doors, gold, switch and exit, and all of the
-physics; the ninja and its animation stay exactly as they are. N's level data stays loadable until all
+physics; the ninja and its animation stay exactly as they are (see the rule at the top). N's level data stays loadable until all
 100 exist. The tools are the level editor (`entity --edit`) and the route bot (`entity --prove`), which
 proves each level finishable and stores the route in the level file.
 
