@@ -1,0 +1,61 @@
+#################################
+#                               #
+#                               #
+#                               #
+#  S           ###              #
+############################# ###
+#                               #
+#                               #
+#                      ###      #
+#               K               #
+## ##############################
+#                               #
+#                               #
+#                               #
+#              ###              #
+############################# ###
+#                               #
+#                               #
+#                          ######
+#                               #
+#                               #
+#    X                          #
+#################################
+#################################
+#################################
+
+name airlock
+door 396 84 1 0 29 4 1 0 0
+door 588 180 1 0 2 9 1 0 0
+door 396 324 1 0 29 14 1 0 0
+mine 300 116
+mine 324 116
+mine 468 116
+mine 492 116
+mine 348 236
+mine 348 148
+mine 444 236
+mine 444 148
+mine 204 356
+mine 228 356
+mine 564 356
+mine 588 356
+mine 252 524
+mine 276 524
+mine 300 524
+mine 324 524
+mine 348 524
+gold 204 84
+gold 588 84
+gold 204 204
+gold 300 324
+gold 492 300
+gold 492 468
+gold 708 180
+gold 60 180
+gold 60 324
+gold 708 324
+gold 612 468
+gold 228 468
+waypoints 204,84;396,84;588,84;708,108;708,180;588,180;396,228|204,204;60,180;60,228;60,324;300,324;396,324;492,300;708,324;708,420;612,468;492,468;228,468;132,516
+route R.R.RjRjR.R.R.R.R.R.R.R.R.R.RjRjR.R.R.R.R.R.R.R.R.R.R.R.RjRj_.L.R.R.R.R.R.L.L._.R.L.L.L.L.L.L.R.R.R._.L.L._.R.L.L.L.LjLjLjLjL.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.LjLjL.L.L.L.L.L._._.L.L.LjLjLjLjLjR.R.R.R.R.R.R.L.L.L.L.L.L.R.R.L.L._.R._.R.R.R.R.RjRjR.R.R.R.R.R.R.R.R.R.RjRjR.R.R.L.L.L.R.RjRjR.R.R.R.R.R.R.R.R.R.R.RjRj_.R.L.L.L.L.L.L.L.L._.R.R.R.L._._._.L.L.L.L.L.L.L.R.R.R._.R.R.L.L.L.LjLjLjLjLjL.L.L.L.L._.R.L.R.L.LjLjLjLjLjL.R.L.L._.R.R.R.L.R.

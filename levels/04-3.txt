@@ -1,0 +1,100 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                             X #
+#  #######  ######  #####  ######
+#  ##############################
+#  ##############################
+#  ##############################
+#                               #
+#                               #
+#                               #
+#                               #
+########  #####  #####  ######  #
+##############################  #
+##############################  #
+#                               #
+#                               #
+#                               #
+# S                         K   #
+######  ####  ####  ####  #######
+#################################
+#################################
+#################################
+
+name low ceiling
+mine 156 524
+mine 180 524
+mine 300 524
+mine 324 524
+mine 444 524
+mine 468 524
+mine 588 524
+mine 612 524
+mine 204 356
+mine 228 356
+mine 372 356
+mine 396 356
+mine 540 356
+mine 564 356
+mine 252 164
+mine 276 164
+mine 444 164
+mine 468 164
+mine 612 164
+mine 636 164
+mine 108 412
+mine 132 244
+mine 156 52
+mine 180 412
+mine 204 244
+mine 228 52
+mine 252 412
+mine 276 244
+mine 300 52
+mine 324 412
+mine 348 244
+mine 372 52
+mine 396 412
+mine 420 244
+mine 444 52
+mine 468 412
+mine 492 244
+mine 516 52
+mine 540 412
+mine 564 244
+mine 588 52
+mine 612 412
+mine 636 244
+mine 660 52
+mine 684 412
+mine 708 244
+mine 732 52
+oneway 36 300 3
+oneway 60 300 3
+oneway 36 252 3
+oneway 60 252 3
+oneway 36 204 3
+oneway 60 204 3
+oneway 36 156 3
+oneway 60 156 3
+oneway 732 468 3
+oneway 756 468 3
+oneway 732 420 3
+oneway 756 420 3
+oneway 732 372 3
+oneway 756 372 3
+oneway 732 324 3
+oneway 756 324 3
+gold 228 468
+gold 372 468
+gold 516 468
+gold 300 300
+gold 468 300
+gold 636 300
+gold 348 108
+gold 540 108
+waypoints 228,468;372,468;516,468;684,492|732,444;756,300;636,324;468,300;300,300;108,324;60,276;36,132;348,108;540,108;732,132
+route R.R.R.RjR.R.R.R.R.R.R.R.R.RjLjR.R.R.R.R.R.R.R.R.RjRjR.R.R.R.R.R.R.R.R.R.R.L.RjRjRjLjRj_jL._jRjRjRjRj_jLjL.RjRjRjLjLjL.L.L.L.L.L.L.L.L.L.L.LjLjL.L.L.L.L.L.L.L.L.L.LjL.L.L.R.R.L.R.R._.R.LjL.L.L.L.L.L.LjL.R._.RjR.R.L.L.L.L.LjLjLjLjLjLjLj_j_.RjRj_.LjLjLjLjRjLjRjRjR.R.R.RjRjR.R.R.R.R.R.R.R.R.RjRjR.R.R.R.R.R.R.R._._jRjRjR.R._.R.R.R.R.R.R.R.R.R.

@@ -1,0 +1,43 @@
+#################################
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#   X   #       #       #       #
+######  #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #  ###  #  ###  #  ###  #
+###     #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#       #       #       #       #
+#  S                          K #
+#################################
+#################################
+#################################
+
+name knock knock
+door 12 12 0 0 7 21 0 0 0
+door 12 12 0 0 15 21 0 0 0
+door 12 12 0 0 23 21 0 0 0
+drone 300 444 2 0 0 0
+drone 492 300 3 0 0 0
+drone 684 444 2 0 0 0
+gold 300 324
+gold 492 324
+gold 684 324
+gold 252 492
+gold 444 492
+gold 636 492
+gold 156 468
+gold 60 348
+waypoints 252,492;300,324;444,492;492,324;636,492;684,324;732,516|564,516;372,516;156,468;60,348;108,252
+route R.R.R.R.R.R.R.R.R.RjR.RjLjRj_jRj_j_j_._jLjRj_jRjRjRj_jL.LjLjLjL.L.LjLjLjLjL.R.R._.L._._.L.R.R.R.R.R.L._.L.R.RjRjR.R.R.R.R.R.R.R.RjR.Rj_.LjLjRjRj_jRj_jRjR._jRjRj_jRjRjRjRjR.LjLjLjLjLjLjL.LjL.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R._._._._._._._.L.R.RjRjR.R.R.RjR.RjLjRjRjRjRjRjRj_.RjRjRjRjR._jLjRj_jRjR.LjLjLjLjLjLjLjLjL.L._.L.L._._.R.R.R.R.L.R.R.R.R.R.R.R.R.R.R.R.R._.L.L.L.L.L.L.L.L.L.L.L.L.LjL.L.L.L.L.L.L.L.L._jR.LjR._._.R._.L.L.L.L.LjL.R.R.RjRjRjRjRjRjRj_jR.R.R.R.LjLjLjLjLjLjLjLjL.LjLjLj_jLjLjL.LjLjLjR.R.R.R.R._.L.R.RjRjRjRjRjRjRjR._jLjLjLjLjLjLjL.L.L.L.L.

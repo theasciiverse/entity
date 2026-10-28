@@ -44,7 +44,7 @@ Open question: does the ninja itself render at Braille resolution (for precision
 ## Status
 
 Playable prototype on all 150 N levels (2026-10-02). Confirmed as next-up after Bob-sleigh, 2026-06-30.
-Since 2026-10-27 a new game starts with the campaign of our own levels (20 of the 100 so far, see
+Since 2026-10-27 a new game starts with the campaign of our own levels (30 of the 100 so far, see
 "The campaign" below); the practice course and N's levels follow it in the level list.
 
 **Display design (decided with David):** like the original, the whole level is always on ONE
@@ -232,6 +232,25 @@ as N's do. Each episode teaches one thing at a time, then mixes:
 | 3:2 | chaingun | a chaingun drone circling a central block |
 | 3:3 | crossfire | a one-way ladder between two zap drones under a turret, then a descent |
 | 3:4 | the last door | everything: ramp, floor guard, bounce blocks, two pads, key, drone, thwomp, shaft |
+| 4:0 | long jump | running jumps over widening pits of mines |
+| 4:1 | slow descent | a climb, then a 17 tile drop that only a wall slide survives |
+| 4:2 | ski jump | down a long 45 degree slope, up a ramp, over a pit to a high landing |
+| 4:3 | low ceiling | three corridors with mines overhead and pits below: short hops only |
+| 4:4 | obstacle course | slope, pit, low ceiling, chimney and back over the top |
+| 5:0 | knock knock | rooms joined by trek doors, a drone kept in each until you open it |
+| 5:1 | keyring | the switch behind three locked doors, the keys up a climb and on ledges |
+| 5:2 | trapped | the crawlspace to the switch holds the exit's trap trigger; go over the top |
+| 5:3 | airlock | three floors with locked hatches, each key on the floor above |
+| 5:4 | vault | the key past a drone's room and up a climb, the switch in a locked vault |
+
+Planned episodes (a proposal, not yet settled with David): 6 mines, harder; 7 launch pads and
+bounce blocks; 8 zap drones and chasers; 9 thwomps and floor guards; 10 lasers; 11 gauss turrets;
+12 homing rockets; 13 chainguns; 14 one-way platforms and doors as route puzzles; 15 to 18 mixes of
+rising difficulty; 19 the finale.
+
+Episodes 4 on are written as short Python scripts, `tools/campaign/epNN.py`, on `tools/mklevel.py`
+(tile coordinates in, the text format out). Re-running a script keeps a level's stored route when the
+level is unchanged; a changed level loses it and needs `entity --prove` again.
 
 The text format (`Level::parse`, written back by `Level::to_text`): the 33x25 tile grid (`#` full,
 `2`..`Q` tile codes as `chr(48 + code)` except 27, written `k` because `K` is the switch; `S` spawn,
@@ -261,7 +280,7 @@ save and load unchanged (tests).
 - Proof: `every_campaign_level_is_finished_by_its_route` replays every stored route in the real game and
   requires the level complete, no deaths and all gold collected, and an episode to use under 45 s of its
   clock net of gold at the bot's pace (`cargo test --release campaign -- --nocapture` prints the table).
-  At the bot's pace the episodes use 38, 28, 36 and 18 s net. A route proves a level from a fresh start:
+  At the bot's pace the episodes use 38, 28, 36, 18, 18 and 22 s net. A route proves a level from a fresh start:
   the chaingun's spread and the turret's timing read the game's tick, which in play carries on from
   earlier levels, so in play those hazards fire with other timings than in the proof.
 

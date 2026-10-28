@@ -1,0 +1,45 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#                               #
+#    ###                        #
+#                          #    #
+####                       #    #
+#                          #    #
+#    ###                   #  X #
+#        ##########    ##########
+####     #        #    #        #
+#        #        #    #        #
+#    ### #        #    #        #
+#        #        #    #        #
+####     #        #    #        #
+#        #        #    #        #
+#                   S         K #
+#################################
+#################################
+#################################
+
+name vault
+door 12 12 0 0 8 21 0 0 0
+door 12 12 0 0 18 21 0 0 0
+drone 324 444 2 0 0 0
+door 156 204 0 0 23 21 1 0 0
+gold 276 492
+gold 396 492
+gold 60 444
+gold 156 396
+gold 60 348
+gold 156 300
+gold 60 252
+gold 516 420
+gold 516 300
+gold 612 324
+gold 636 516
+gold 684 516
+waypoints 396,492;276,492;156,492;60,444;156,396;60,348;156,300;60,252;156,204;60,444;204,516;324,516;468,516;636,516;684,516;732,516|516,492;516,420;516,300;612,324;660,228;732,324
+route L.L.L.L.L.LjL.LjLjL.L.L.L.L.L.R.L.L.L.L.L.L.L.LjL.L._jRjLjLjLjLjLjL.L.L.L.L.L.Lj_.R.L.L.R.RjR.R.R.R.R.R.R.R.R.R.R.L.L.L.L.LjLjLjL.L.L.L.L.L.L.L.L.L.L.R.LjR.RjR.R.R.R.R.R.R.R.R.R.R.L.L.L.L.LjLjLjL.L.L.L.L.L.L.L.L.RjR._.RjR.R.R.R.R.R.R.R.R.R.L._._.L.L._.L._.L.L.L.L.L.L.L.L.R.L.R._._.R.R.R.R._._.L.L._.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.L.R.R.R.R.Rj_._._j_.R.R.R.R.R.L.R.R.R.R.R.R.RjR.R.R.R.R.RjR.R.R.R.R.R.R.R.L.R.L.L.L.LjLjL.L.L.L.L.L.L.L.L.L.L.Rj_.RjRjRj_jL.RjRjRjRjR.R.R.LjLjLjLjLj_jLjL.RjRjRj_jLjLjLj_jR.R.R.R.R.R.R.R.R.Rj_j_j_j_j_.RjRjR.R.R.R.R.R.R.R.R.R.L.L.L.L.L.L.L.L.

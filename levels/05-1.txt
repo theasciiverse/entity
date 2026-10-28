@@ -1,0 +1,44 @@
+#################################
+#                               #
+#                               #
+#                               #
+#                               #
+#   #                           #
+#   #                           #
+#   #       ###                 #
+#   #                           #
+#   #           ###             #
+#   #                           #
+#   #                ###        #
+#   #                           #
+#   #              ##############
+#   #              #   #   #    #
+#   #              #   #   #    #
+#   #              #   #   #    #
+#   #           ## #   #   #    #
+#   #              #   #   #    #
+#   #              #   #   #    #
+#   #              #   #   #    #
+# S #     X                   K #
+#################################
+#################################
+#################################
+
+name keyring
+door 108 108 0 0 19 21 1 0 0
+door 324 156 0 0 23 21 1 0 0
+door 708 300 0 0 27 21 1 0 0
+gold 60 444
+gold 60 372
+gold 60 300
+gold 60 228
+gold 204 132
+gold 420 108
+gold 540 252
+gold 612 252
+gold 420 396
+gold 516 516
+gold 612 516
+gold 348 516
+waypoints 60,444;60,372;60,300;60,228;108,108;204,132;324,156;420,108;420,204;540,252;612,252;708,300;420,396;444,516;516,516;612,516;732,516|348,516;252,516
+route _j_j_j_j_j_j_jLj_.L.L.L.L.RjRjRj_jRjR.LjLj_jRjRjRjLjLjLjL.RjRjRjRjR.LjLjLjRj_jLjR.RjRjLjLjLjRjRjRjR.RjRjRjRjR._jRjRjRjRjRjRjRjR.R.R.R.R.R.R.R.R._.L.R.R.R._.L.R._._._.R.L.RjL.LjLjRjR.R.R.RjLjLjRjRjLjLjLjL.L.L.LjLjLjLjLjLjLjLjLjL.L.R.R.R.R.R.R.RjRjRjRjRjRjR.R.R.R.R.R.R.L.L.L.L.L._.R.R.LjLjLjLjRjLjL.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R._._._.L.R.R.R.L.R.R.R.R.R.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.L.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.R.L.L.R._._.R.L.L.R.R.R.R.R.R.R.R.R.R.R.RjR.R.R.R.RjR.R.R.L._.L.L.L.L.L.L.L.L.L.LjL.L.L.LjL.L.L.L.LjL.L.L.L.L.L.L.L.L.L.R.
