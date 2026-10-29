@@ -492,9 +492,9 @@ pub fn paint(buf: &mut Buffer, origin: (u16, u16), g: &Game, keys_note: Option<&
     } else if g.game_over {
         Some(["  Out of time!  ", if pad { "  Start or r = try the episode again  " } else { "  r = try the episode again  " }])
     } else if g.complete && g.episode_done {
-        Some([&episode_msg, if pad { "  Start = next episode   Y = play again  " } else { "  n = next episode   r = play again  " }])
+        Some([&episode_msg, if pad { "  A, B or Start = next episode   Y = play again  " } else { "  n = next episode   r = play again  " }])
     } else if g.complete {
-        Some(["  Level complete!  ", if pad { "  Start = next level   Y = play again  " } else { "  n = next level   r = play again  " }])
+        Some(["  Level complete!  ", if pad { "  A, B or Start = next level   Y = play again  " } else { "  n = next level   r = play again  " }])
     } else {
         None
     };

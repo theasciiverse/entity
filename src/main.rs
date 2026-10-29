@@ -168,6 +168,10 @@ fn run(terminal: &mut DefaultTerminal, levels: Vec<Level>, start: usize, kitty: 
                     game.restart();
                 }
             }
+            // A and B jump in play; a fresh press on a finished level moves on
+            if std::mem::take(&mut input.pad_continue) && game.complete {
+                game.step_level(1);
+            }
             if input.level_step != 0 {
                 game.step_level(std::mem::take(&mut input.level_step));
             }

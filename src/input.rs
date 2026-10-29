@@ -34,6 +34,8 @@ pub enum PadCmd {
     NextLevel,
     /// Next level after finishing one, the episode again after running out of time.
     Start,
+    /// A or B: next level after finishing one (otherwise they jump).
+    Continue,
 }
 
 #[derive(Clone, Copy, PartialEq, Debug)]
@@ -140,6 +142,8 @@ pub struct Input {
     pub level_step: i32,
     /// The pad's Start button, which main resolves against the game's state.
     pub pad_start: bool,
+    /// A or B pressed, which main takes as "next level" only on a finished level.
+    pub pad_continue: bool,
 }
 
 impl Input {
@@ -181,6 +185,7 @@ impl Input {
             ninja_steps: 0,
             level_step: 0,
             pad_start: false,
+            pad_continue: false,
         }
     }
 
@@ -271,6 +276,7 @@ impl Input {
             Some(PadCmd::PrevLevel) => self.level_step -= 1,
             Some(PadCmd::NextLevel) => self.level_step += 1,
             Some(PadCmd::Start) => self.pad_start = true,
+            Some(PadCmd::Continue) => self.pad_continue = true,
             None => {}
         }
     }

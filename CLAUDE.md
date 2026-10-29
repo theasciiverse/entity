@@ -190,7 +190,7 @@ practice course; a new game starts with campaign level 0:0. Tools: `--edit`,
 stop, r restart the attempt (after game over: the episode), n/p next/previous level (after finishing a
 level, n continues with the clock carried over), f toggles fill versus square tiles, [ and ] shrink or grow the DRAWN ninja (quarter steps from 1.0 to 2.5 times the hitbox; start with `ENTITY_NINJA_SCALE`, default 1.0). Gamepad: d-pad or left stick
 run, A, B or d-pad up jump (hold for height), Y or Back restart the attempt, LB/RB previous/next level,
-Start continues after a finished level (after game over: the episode again); any pad button answers the
+A, B or Start continue after a finished level (after game over: the episode again); any pad button answers the
 quit question with "keep playing". Esc asks "Quit Entity?" and only y quits (a
 bare q quit was removed: it sits next to the steering keys); Ctrl-C quits immediately.
 

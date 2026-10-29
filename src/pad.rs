@@ -9,6 +9,7 @@
 //! - Restart the attempt: Y or Back.
 //! - Previous / next level: LB / RB.
 //! - Start: next level after finishing one, the episode again after running out of time.
+//! - A or B: also the next level after finishing one.
 //!
 //! Only SDL-mapped devices count as pads (gilrs also lists drawing-tablet key pads and
 //! 3D mice); `ENTITY_ANY_PAD=1` accepts everything.
@@ -80,6 +81,7 @@ impl Pad {
                             Button::LeftTrigger => Some(PadCmd::PrevLevel),
                             Button::RightTrigger => Some(PadCmd::NextLevel),
                             Button::Start => Some(PadCmd::Start),
+                            Button::South | Button::East => Some(PadCmd::Continue),
                             _ => None,
                         };
                         presses.push(cmd);
