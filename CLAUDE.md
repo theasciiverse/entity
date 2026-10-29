@@ -4,6 +4,9 @@ Asciiverse platformer. Rust + Ratatui + Drawille. N++-inspired.
 
 Repo: private, github.com/theasciiverse/entity (branch `master`; commits as David, matching the sibling
 Asciiverse repos). Licence: MIT (2026-10-28).
+Version 0.9.0 (2026-10-29): everything built, all 100 levels; 1.0.0 after David has played it through.
+Releases: `.github/workflows/release.yml` (Braillestorm's pattern, glibc plus libudev on Linux); while
+Actions billing is blocked, the Linux x86_64 archive is built locally in an Ubuntu 22.04 container.
 
 **THE NINJA ANIMATION STAYS AS IS (David, 2026-10-28, final).** Entity's Braille ninja is Entity's own
 drawing and ships with the game. It is not an open question: never propose replacing, redrawing or
@@ -201,8 +204,7 @@ episode); the score is the time left at the end of an episode. The practice cour
 
 Objects: all 13 object types of the N levels are implemented (gold, exit and switch, mines, launch pads,
 trek/locked/trap doors, one-way platforms, bounce blocks, zap/laser/chaingun drones, gauss turrets, floor
-guards, thwomps, homing launchers); see "Objects" below. Not done yet: the episode timer and score,
-the game over and episode flow. Deaths: landings, mines and every hazard; a death restarts the attempt
+guards, thwomps, homing launchers); see "Objects" below. Deaths: landings, mines and every hazard; a death restarts the attempt
 (gold, switches, doors and hazards reset, as in N).
 
 ## The campaign: our own levels
